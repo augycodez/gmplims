@@ -11,19 +11,19 @@
    LABCORE LIMS — ALL STYLES
 ═══════════════════════════════════════════════════════════ */
 :root {
-  --bg:       #0d1117;
-  --bg2:      #161b22;
-  --bg3:      #21262d;
-  --border:   #30363d;
-  --text:     #e6edf3;
-  --muted:    #8b949e;
-  --accent:   #2ea8a0;
-  --accent2:  #1f6b66;
-  --accent-g: #3fb950;
-  --warn:     #d29922;
-  --danger:   #f85149;
-  --info:     #58a6ff;
-  --purple:   #bc8cff;
+  --bg:       #f3f7f8;
+  --bg2:      #ffffff;
+  --bg3:      #edf3f5;
+  --border:   #d5e0e5;
+  --text:     #132129;
+  --muted:    #61727c;
+  --accent:   #0f8b83;
+  --accent2:  #0b6661;
+  --accent-g: #2f9e44;
+  --warn:     #b7791f;
+  --danger:   #d64545;
+  --info:     #2b6de0;
+  --purple:   #7a5af8;
   --radius:   8px;
   --sidebar:  240px;
   --font:     'IBM Plex Sans', sans-serif;
@@ -42,7 +42,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 
 /* ── LOGIN ────────────────────────────────────────────────── */
 .login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--bg); background-image: radial-gradient(ellipse at 20% 50%,rgba(46,168,160,.08) 0%,transparent 60%), radial-gradient(ellipse at 80% 20%,rgba(88,166,255,.06) 0%,transparent 50%); }
-.login-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:48px 40px; width:100%; max-width:400px; box-shadow:0 24px 64px rgba(0,0,0,.5); }
+.login-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:48px 40px; width:100%; max-width:400px; box-shadow:0 24px 64px rgba(16,42,67,.12); }
 .login-logo { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
 .login-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--accent),var(--info)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
 .login-logo h1 { font-size:22px; font-weight:600; letter-spacing:-.3px; }
@@ -147,7 +147,7 @@ thead tr { border-bottom:1px solid var(--border); }
 th { text-align:left; padding:10px 14px; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; white-space:nowrap; }
 tbody tr { border-bottom:1px solid rgba(48,54,61,.6); transition:background .1s; }
 tbody tr:last-child { border-bottom:none; }
-tbody tr:hover { background:rgba(255,255,255,.02); }
+tbody tr:hover { background:rgba(15,139,131,.06); }
 td { padding:11px 14px; vertical-align:middle; }
 .td-mono { font-family:var(--mono); font-size:12px; }
 .td-muted { color:var(--muted); }
@@ -186,7 +186,7 @@ td { padding:11px 14px; vertical-align:middle; }
 /* ── MODAL ────────────────────────────────────────────────── */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(4px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .2s; }
 .modal-overlay.open { opacity:1; pointer-events:all; }
-.modal { background:var(--bg2); border:1px solid var(--border); border-radius:12px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow:0 24px 64px rgba(0,0,0,.6); }
+.modal { background:var(--bg2); border:1px solid var(--border); border-radius:12px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow:0 24px 64px rgba(16,42,67,.18); }
 .modal-overlay.open .modal { transform:translateY(0); }
 .modal-lg { max-width:780px; }
 .modal-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
@@ -214,7 +214,7 @@ td { padding:11px 14px; vertical-align:middle; }
 /* ── FREEZER CARDS ────────────────────────────────────────── */
 .freezer-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
 .freezer-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:20px; cursor:pointer; transition:all .2s; position:relative; overflow:hidden; }
-.freezer-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.3); }
+.freezer-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 8px 24px rgba(16,42,67,.12); }
 .freezer-temp { position:absolute; top:16px; right:16px; font-family:var(--mono); font-size:13px; font-weight:500; }
 .temp-ultralow { color:var(--info); }
 .temp-low { color:var(--purple); }
@@ -325,7 +325,7 @@ td { padding:11px 14px; vertical-align:middle; }
       </div>
       <div class="nav-section">
         <div class="nav-section-label">Modules</div>
-        <div class="nav-item" id="nav-samples" onclick="showPage('samples')"><span class="icon">🧪</span> Sample Registration</div>
+        <div class="nav-item" id="nav-samples" onclick="showPage('samples')"><span class="icon">🧪</span> Product Registration</div>
         <div class="nav-item" id="nav-freezer" onclick="showPage('freezer')"><span class="icon">🧊</span> Freezer Inventory</div>
         <div class="nav-item" id="nav-reagents" onclick="showPage('reagents')"><span class="icon">🔬</span> Reagents &amp; Plasticware</div>
         <div class="nav-item" id="nav-experiments" onclick="showPage('experiments')"><span class="icon">📋</span> Experiments</div>
@@ -365,7 +365,7 @@ td { padding:11px 14px; vertical-align:middle; }
       <div id="panel-dashboard" class="panel">
         <div class="page-header"><div><h1>Laboratory Dashboard</h1><p>Real-time overview of all laboratory operations</p></div></div>
         <div class="stats-grid">
-          <div class="stat-card teal"><div class="stat-label">🧪 Total Samples</div><div class="stat-value" id="ds-samples">25</div><div class="stat-sub"><span class="up" id="ds-active">16</span> active</div></div>
+          <div class="stat-card teal"><div class="stat-label">🧪 Total Products</div><div class="stat-value" id="ds-samples">25</div><div class="stat-sub"><span class="up" id="ds-active">16</span> active</div></div>
           <div class="stat-card blue"><div class="stat-label">🔬 Reagents</div><div class="stat-value" id="ds-reagents">10</div><div class="stat-sub"><span class="down" id="ds-low">1</span> low stock</div></div>
           <div class="stat-card green"><div class="stat-label">📋 Experiments</div><div class="stat-value" id="ds-exps">5</div><div class="stat-sub"><span class="up" id="ds-inprog">2</span> in progress</div></div>
           <div class="stat-card warn"><div class="stat-label">🧊 Freezers</div><div class="stat-value">4</div><div class="stat-sub">storage units</div></div>
@@ -373,11 +373,11 @@ td { padding:11px 14px; vertical-align:middle; }
         <div class="alert alert-warn" style="margin-bottom:20px"><span>⚠️</span> <strong>1 reagent</strong> is below minimum stock. <span style="cursor:pointer;text-decoration:underline" onclick="showPage('reagents')">Review inventory →</span></div>
         <div class="col-65-35" style="margin-bottom:20px">
           <div class="card">
-            <div class="card-header"><h3>🧪 Recent Samples</h3><button class="btn btn-secondary btn-sm" onclick="showPage('samples')">View All →</button></div>
-            <div class="table-wrap"><table><thead><tr><th>Sample ID</th><th>Name</th><th>Type</th><th>Date</th></tr></thead><tbody id="ds-sampleRows"></tbody></table></div>
+            <div class="card-header"><h3>🧪 Recent Products</h3><button class="btn btn-secondary btn-sm" onclick="showPage('samples')">View All →</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Product ID</th><th>Name</th><th>Type</th><th>Date</th></tr></thead><tbody id="ds-sampleRows"></tbody></table></div>
           </div>
           <div class="card">
-            <div class="card-header"><h3>📊 Sample Types</h3></div>
+            <div class="card-header"><h3>📊 Product Types</h3></div>
             <div class="card-body">
               <svg width="160" height="160" viewBox="0 0 160 160" id="donutSvg" style="display:block;margin:0 auto"><circle cx="80" cy="80" r="60" fill="none" stroke="#21262d" stroke-width="22"/></svg>
               <div class="legend" id="donutLegend" style="margin-top:16px"></div>
@@ -398,14 +398,14 @@ td { padding:11px 14px; vertical-align:middle; }
 
       <!-- ─── SAMPLES ────────────────────────────────────── -->
       <div id="panel-samples" class="panel" style="display:none">
-        <div class="page-header"><div><h1>Sample Registration</h1><p>Register, track and manage laboratory samples</p></div><button class="btn btn-primary" onclick="openNewSample()">＋ New Sample</button></div>
+        <div class="page-header"><div><h1>Product Registration</h1><p>Register, track and manage laboratory products</p></div><button class="btn btn-primary" onclick="openNewSample()">＋ New Product</button></div>
         <div class="toolbar">
           <div class="search-box"><span class="sicon">🔍</span><input type="text" id="sSearch" placeholder="Search by ID, name, type…" oninput="renderSamples()"></div>
           <select class="filter-select" id="sStatusF" onchange="renderSamples()"><option value="">All Statuses</option><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select>
           <div style="margin-left:auto;color:var(--muted);font-size:12px;font-family:var(--mono)" id="sCount"></div>
         </div>
         <div class="card"><div class="table-wrap"><table>
-          <thead><tr><th>Sample ID</th><th>Name</th><th>Type</th><th>Source</th><th>Collection Date</th><th>Storage Location</th><th>Qty</th><th>Status</th><th>Registered By</th><th></th></tr></thead>
+          <thead><tr><th>Product ID</th><th>Name</th><th>Type</th><th>Source</th><th>Collection Date</th><th>Storage Location</th><th>Qty</th><th>Status</th><th>Registered By</th><th></th></tr></thead>
           <tbody id="sampleTable"></tbody>
         </table></div></div>
       </div>
@@ -471,7 +471,7 @@ td { padding:11px 14px; vertical-align:middle; }
         </div>
         <div class="two-col">
           <div class="card"><div class="card-header"><h3>🔑 Administrator</h3></div><div class="card-body"><ul style="color:var(--muted);font-size:13px;line-height:2.2;list-style:none"><li>✅ Full access to all modules</li><li>✅ User management &amp; password reset</li><li>✅ Create, edit, delete all records</li><li>✅ System configuration</li></ul></div></div>
-          <div class="card"><div class="card-header"><h3>👤 Operator</h3></div><div class="card-body"><ul style="color:var(--muted);font-size:13px;line-height:2.2;list-style:none"><li>✅ View all modules &amp; records</li><li>✅ Register and update samples</li><li>✅ Log experiment records</li><li>✅ Update reagent inventory</li><li>❌ Cannot manage users</li></ul></div></div>
+          <div class="card"><div class="card-header"><h3>👤 Operator</h3></div><div class="card-body"><ul style="color:var(--muted);font-size:13px;line-height:2.2;list-style:none"><li>✅ View all modules &amp; records</li><li>✅ Register and update products</li><li>✅ Log experiment records</li><li>✅ Update reagent inventory</li><li>❌ Cannot manage users</li></ul></div></div>
         </div>
       </div>
 
@@ -485,15 +485,15 @@ td { padding:11px 14px; vertical-align:middle; }
 
 <!-- Sample Modal -->
 <div class="modal-overlay" id="mSample">
-  <div class="modal"><div class="modal-header"><h3 id="mSampleTitle">🧪 Register New Sample</h3><button class="modal-close" onclick="closeModal('mSample')">×</button></div>
+  <div class="modal"><div class="modal-header"><h3 id="mSampleTitle">🧪 Register New Product</h3><button class="modal-close" onclick="closeModal('mSample')">×</button></div>
   <div class="modal-body"><input type="hidden" id="sEditId">
-    <div class="form-row"><div class="form-field"><label>Sample Name *</label><input type="text" id="sName" placeholder="e.g. Blood Sample A"></div><div class="form-field"><label>Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div></div>
+    <div class="form-row"><div class="form-field"><label>Product Name *</label><input type="text" id="sName" placeholder="e.g. Diagnostic Kit A"></div><div class="form-field"><label>Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div></div>
     <div class="form-row"><div class="form-field"><label>Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div><div class="form-field"><label>Collection Date</label><input type="date" id="sDate"></div></div>
     <div class="form-row"><div class="form-field"><label>Quantity</label><input type="number" id="sQty" placeholder="0.00" step="0.01"></div><div class="form-field"><label>Unit</label><select id="sUnit"><option value="">Select…</option><option>mL</option><option>µL</option><option>µg</option><option>mg</option><option>g</option><option>vials</option><option>tubes</option></select></div></div>
     <div class="form-row"><div class="form-field"><label>Storage Location</label><input type="text" id="sLoc" placeholder="e.g. Freezer A / Rack 1 / Box 2"></div><div class="form-field"><label>Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div></div>
     <div class="form-field"><label>Notes</label><textarea id="sNotes" placeholder="Additional notes…"></textarea></div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mSample')">Cancel</button><button class="btn btn-primary" onclick="saveSample()">Save Sample</button></div></div>
+  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mSample')">Cancel</button><button class="btn btn-primary" onclick="saveSample()">Save Product</button></div></div>
 </div>
 
 <!-- Freezer Modal -->
@@ -626,7 +626,7 @@ function doLogout() {
 }
 
 /* ── NAVIGATION ──────────────────────────────────────────── */
-const PAGE_TITLES = { dashboard:['Dashboard','Overview'], samples:['Sample Registration','Samples'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents & Plasticware','Reagents & Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
+const PAGE_TITLES = { dashboard:['Dashboard','Overview'], samples:['Product Registration','Products'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents & Plasticware','Reagents & Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
 let currentPage = 'dashboard';
 
 function showPage(name) {
@@ -793,7 +793,7 @@ function renderSamples() {
   const data=SAMPLES.filter(s=>(!search||(s.sample_id+s.name+(s.type||'')+(s.source||'')).toLowerCase().includes(search))&&(!status||s.status===status));
   document.getElementById('sCount').textContent=data.length+' record(s)';
   const tb=document.getElementById('sampleTable');
-  if(!data.length){tb.innerHTML=`<tr><td colspan="10"><div class="empty-state"><div class="eicon">🧪</div><h3>No samples found</h3><p>Register your first sample</p></div></td></tr>`;return;}
+  if(!data.length){tb.innerHTML=`<tr><td colspan="10"><div class="empty-state"><div class="eicon">🧪</div><h3>No products found</h3><p>Register your first product</p></div></td></tr>`;return;}
   tb.innerHTML=data.map(s=>`<tr>
     <td class="td-mono" style="color:var(--accent)">${s.sample_id}</td>
     <td><strong>${s.name}</strong></td><td>${s.type||'—'}</td><td class="td-muted">${s.source||'—'}</td>
@@ -809,24 +809,24 @@ function renderSamples() {
 }
 
 function clearSampleForm(){['sName','sSource','sQty','sNotes'].forEach(i=>document.getElementById(i).value='');['sType','sUnit'].forEach(i=>document.getElementById(i).value='');document.getElementById('sLoc').value='';document.getElementById('sStat').value='active';document.getElementById('sDate').value=new Date().toISOString().slice(0,10);document.getElementById('sEditId').value='';}
-function openNewSample(){clearSampleForm();document.getElementById('mSampleTitle').textContent='🧪 Register New Sample';openModal('mSample');}
-function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document.getElementById('sEditId').value=s.id;document.getElementById('mSampleTitle').textContent='✏️ Edit Sample';document.getElementById('sName').value=s.name||'';document.getElementById('sType').value=s.type||'';document.getElementById('sSource').value=s.source||'';document.getElementById('sDate').value=s.collection_date||'';document.getElementById('sQty').value=s.quantity||'';document.getElementById('sUnit').value=s.unit||'';document.getElementById('sLoc').value=s.storage_location||'';document.getElementById('sStat').value=s.status||'active';document.getElementById('sNotes').value=s.notes||'';openModal('mSample');}
+function openNewSample(){clearSampleForm();document.getElementById('mSampleTitle').textContent='🧪 Register New Product';openModal('mSample');}
+function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document.getElementById('sEditId').value=s.id;document.getElementById('mSampleTitle').textContent='✏️ Edit Product';document.getElementById('sName').value=s.name||'';document.getElementById('sType').value=s.type||'';document.getElementById('sSource').value=s.source||'';document.getElementById('sDate').value=s.collection_date||'';document.getElementById('sQty').value=s.quantity||'';document.getElementById('sUnit').value=s.unit||'';document.getElementById('sLoc').value=s.storage_location||'';document.getElementById('sStat').value=s.status||'active';document.getElementById('sNotes').value=s.notes||'';openModal('mSample');}
 function viewSample(id){
   const s=SAMPLES.find(x=>x.id===id);if(!s)return;
   document.getElementById('mDetailTitle').textContent=`🧪 ${s.sample_id} — ${s.name}`;
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col" style="gap:12px;margin-bottom:16px">${df('Sample ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',s.collection_date)}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col" style="gap:12px;margin-bottom:16px">${df('Product ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',s.collection_date)}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}`;
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editSample(${s.id})">✏️ Edit</button>`;
   openModal('mDetail');
 }
 function saveSample(){
   const eid=document.getElementById('sEditId').value;
   const data={name:document.getElementById('sName').value.trim(),type:document.getElementById('sType').value,source:document.getElementById('sSource').value.trim(),collection_date:document.getElementById('sDate').value,quantity:parseFloat(document.getElementById('sQty').value)||null,unit:document.getElementById('sUnit').value,storage_location:document.getElementById('sLoc').value.trim(),status:document.getElementById('sStat').value,notes:document.getElementById('sNotes').value.trim()};
-  if(!data.name){toast('Sample name is required','error');return;}
-  if(eid){const i=SAMPLES.findIndex(s=>s.id==eid);SAMPLES[i]={...SAMPLES[i],...data};toast('Sample updated');}
-  else{const sid=`SMP-${2025000+sNextId}`;SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered: '+sid);}
+  if(!data.name){toast('Product name is required','error');return;}
+  if(eid){const i=SAMPLES.findIndex(s=>s.id==eid);SAMPLES[i]={...SAMPLES[i],...data};toast('Product updated');}
+  else{const sid=`SMP-${2025000+sNextId}`;SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered product: '+sid);}
   closeModal('mSample');renderSamples();
 }
-function deleteSample(id,name){if(!confirm(`Delete "${name}"?`))return;SAMPLES=SAMPLES.filter(s=>s.id!==id);toast('Sample deleted');renderSamples();}
+function deleteSample(id,name){if(!confirm(`Delete "${name}"?`))return;SAMPLES=SAMPLES.filter(s=>s.id!==id);toast('Product deleted');renderSamples();}
 
 /* ══════════════════════════════════════════════════════════
    FREEZER MODULE
@@ -990,3 +990,4 @@ function deleteUser(id,username){if(username==='admin'){toast('Cannot delete adm
 </script>
 </body>
 </html>
+
