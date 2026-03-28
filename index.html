@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabCore LIMS</title>
+<title>Vaulta LIMS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -56,11 +56,12 @@ body {
 .is-hidden { display:none; }
 
 /* ── LOGIN ────────────────────────────────────────────────── */
-.login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:transparent; background-image: radial-gradient(ellipse at 20% 50%,rgba(77,226,210,.16) 0%,transparent 60%), radial-gradient(ellipse at 80% 20%,rgba(124,185,255,.14) 0%,transparent 50%), radial-gradient(circle at 50% 100%, rgba(170,139,255,.12), transparent 42%); }
+.login-wrap { min-height:100vh; min-height:100dvh; width:100%; display:flex; align-items:center; justify-content:center; padding:24px; background:transparent; background-image: radial-gradient(ellipse at 20% 50%,rgba(77,226,210,.16) 0%,transparent 60%), radial-gradient(ellipse at 80% 20%,rgba(124,185,255,.14) 0%,transparent 50%), radial-gradient(circle at 50% 100%, rgba(170,139,255,.12), transparent 42%); }
 .login-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:20px; padding:48px 40px; width:100%; max-width:400px; box-shadow:var(--glass-shadow), var(--glass-glow); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); position:relative; overflow:hidden; }
-.login-card::before { content:''; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; background:linear-gradient(135deg, rgba(255,255,255,.14), transparent 28%, transparent 72%, rgba(77,226,210,.12)); mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); padding:1px; -webkit-mask-composite:xor; mask-composite:exclude; }
+.login-card::before { content:''; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; background:linear-gradient(135deg, rgba(255,255,255,.14), transparent 28%, transparent 72%, rgba(77,226,210,.12)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); padding:1px; -webkit-mask-composite:xor; mask-composite:exclude; }
 .login-logo { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
-.login-logo .logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--accent),var(--info)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.login-logo .logo-icon { width:64px; height:64px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.login-logo .logo-icon img { width:100%; height:100%; object-fit:contain; }
 .login-logo h1 { font-size:22px; font-weight:600; letter-spacing:-.3px; }
 .login-logo p { font-size:11px; color:var(--muted); font-family:var(--mono); text-transform:uppercase; letter-spacing:1px; }
 .login-card h2 { font-size:18px; font-weight:500; margin-bottom:6px; }
@@ -86,7 +87,8 @@ body {
 /* ── SIDEBAR ──────────────────────────────────────────────── */
 .sidebar { width:var(--sidebar); background:rgba(8, 20, 35, 0.7); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; -webkit-backdrop-filter:blur(22px) saturate(140%); backdrop-filter:blur(22px) saturate(140%); box-shadow:inset -1px 0 0 rgba(255,255,255,.04), 18px 0 40px rgba(0,0,0,.22); }
 .sidebar-header { padding:20px 18px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
-.sidebar-logo { width:32px; height:32px; background:linear-gradient(135deg,var(--accent),var(--info)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.sidebar-logo { width:52px; height:52px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sidebar-logo img { width:100%; height:100%; object-fit:contain; }
 .sidebar-title { font-size:15px; font-weight:600; }
 .sidebar-sub { font-size:10px; color:var(--muted); font-family:var(--mono); text-transform:uppercase; letter-spacing:.8px; }
 .sidebar-nav { flex:1; padding:12px 10px; overflow-y:auto; }
@@ -169,6 +171,11 @@ body {
 table { width:100%; border-collapse:collapse; font-size:13px; }
 thead tr { border-bottom:1px solid var(--border); }
 th { text-align:left; padding:10px 14px; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; white-space:nowrap; }
+.th-sort { display:inline-flex; align-items:center; gap:6px; }
+.sort-controls { display:inline-flex; gap:4px; }
+.sort-btn { width:20px; height:20px; border-radius:4px; border:1px solid var(--border); background:rgba(13, 27, 45, 0.78); color:var(--muted); font-size:11px; line-height:1; cursor:pointer; transition:border-color .15s, color .15s, background .15s; }
+.sort-btn:hover { border-color:rgba(125, 223, 255, 0.3); color:var(--text); background:rgba(18, 35, 58, 0.9); }
+.sort-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(77,226,210,.08); }
 tbody tr { border-bottom:1px solid rgba(48,54,61,.6); transition:background .1s; }
 tbody tr:last-child { border-bottom:none; }
 tbody tr:hover { background:rgba(77,226,210,.08); }
@@ -219,6 +226,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .modal { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow:var(--glass-shadow), 0 0 52px rgba(77,226,210,.14); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); }
 .modal-overlay.open .modal { transform:translateY(0); }
 .modal-lg { max-width:780px; }
+.modal-xl { max-width:1180px; }
 .modal-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 .modal-header h3 { font-size:16px; font-weight:600; }
 .modal-close { background:none; border:none; color:var(--muted); cursor:pointer; font-size:20px; padding:2px 6px; border-radius:4px; transition:color .15s; line-height:1; }
@@ -228,12 +236,15 @@ td { padding:11px 14px; vertical-align:middle; }
 
 /* ── FORM ─────────────────────────────────────────────────── */
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-row-4 { grid-template-columns:repeat(4, minmax(0,1fr)); }
 .form-field { margin-bottom:16px; }
 .form-field label { display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
 .form-field input,.form-field select,.form-field textarea { width:100%; background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:9px 13px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:border-color .2s, box-shadow .2s, background .2s; }
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(77,226,210,.1), 0 0 24px rgba(77,226,210,.1); background:rgba(18, 35, 58, 0.9); }
+.form-field input[type="file"] { padding:7px 10px; cursor:pointer; }
 .form-field textarea { resize:vertical; min-height:80px; }
 .form-field select option { background:var(--bg3); }
+.file-meta { margin-top:6px; font-size:12px; color:var(--muted); }
 .textarea-md { min-height:60px; }
 .textarea-sm { min-height:50px; }
 
@@ -437,7 +448,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .progress-99 { width:99%; }
 .progress-100 { width:100%; }
 
-@media(max-width:900px){.two-col,.col-65-35{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}}
+@media(max-width:900px){.two-col,.col-65-35{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}.form-row,.form-row-4{grid-template-columns:1fr}}
 @media(max-width:600px){.content{padding:16px}.topbar{padding:0 16px}.stats-grid{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr}}
 </style>
 </head>
@@ -450,8 +461,8 @@ td { padding:11px 14px; vertical-align:middle; }
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-logo">
-        <div class="logo-icon">🧬</div>
-        <div><h1>LabCore LIMS</h1><p>Laboratory Information System</p></div>
+        <div class="logo-icon"><img src="images/Logo 2.png" alt="Vaulta logo"></div>
+        <div><h1>Vaulta LIMS</h1><p>Laboratory Information System</p></div>
       </div>
       <h2>Welcome back</h2>
       <p class="sub">Sign in to access your laboratory dashboard</p>
@@ -483,8 +494,8 @@ td { padding:11px 14px; vertical-align:middle; }
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-logo">🧬</div>
-      <div><div class="sidebar-title">LabCore</div><div class="sidebar-sub">LIMS v2.5</div></div>
+      <div class="sidebar-logo"><img src="images/Logo 2.png" alt="Vaulta logo"></div>
+      <div><div class="sidebar-title">Vaulta</div><div class="sidebar-sub">LIMS v0.0</div></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-section">
@@ -520,7 +531,7 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="topbar">
       <div>
         <div class="topbar-title" id="topbarTitle">Dashboard</div>
-        <div class="topbar-breadcrumb" id="topbarCrumb">LabCore / Overview</div>
+        <div class="topbar-breadcrumb" id="topbarCrumb">Vaulta / Overview</div>
       </div>
       <div class="topbar-spacer"></div>
       <div class="topbar-time" id="clock"></div>
@@ -535,8 +546,9 @@ td { padding:11px 14px; vertical-align:middle; }
         <div class="stats-grid">
           <div class="stat-card teal"><div class="stat-label">🧪 Total Products</div><div class="stat-value" id="ds-samples">25</div><div class="stat-sub"><span class="up" id="ds-active">16</span> active</div></div>
           <div class="stat-card blue"><div class="stat-label">🔬 Reagents</div><div class="stat-value" id="ds-reagents">10</div><div class="stat-sub"><span class="down" id="ds-low">1</span> low stock</div></div>
+          <div class="stat-card purple"><div class="stat-label">🧴 Plasticware</div><div class="stat-value" id="ds-plasticware">6</div><div class="stat-sub"><span class="down" id="ds-pwlow">0</span> low stock</div></div>
           <div class="stat-card green"><div class="stat-label">📋 Experiments</div><div class="stat-value" id="ds-exps">5</div><div class="stat-sub"><span class="up" id="ds-inprog">2</span> in progress</div></div>
-          <div class="stat-card warn"><div class="stat-label">🧊 Freezers</div><div class="stat-value">4</div><div class="stat-sub">storage units</div></div>
+          <div class="stat-card warn"><div class="stat-label">🧊 Freezers</div><div class="stat-value" id="ds-freezers">4</div><div class="stat-sub">storage units</div></div>
         </div>
         <div class="alert alert-warn alert-spaced"><span>⚠️</span> <strong>1 reagent</strong> is below minimum stock. <span class="alert-link" onclick="showPage('reagents')">Review inventory →</span></div>
         <div class="col-65-35 section-spaced">
@@ -601,11 +613,11 @@ td { padding:11px 14px; vertical-align:middle; }
         <div class="tabs"><div class="tab active" id="rtab-r" onclick="switchRTab('r')">🔬 Reagents</div><div class="tab" id="rtab-p" onclick="switchRTab('p')">🧴 Plasticware</div></div>
         <div id="rpanel-r">
           <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="rSearch" placeholder="Search reagents…" aria-label="Search reagents" oninput="renderReagents()"></div><select class="filter-select" id="rCatF" aria-label="Filter reagents by category" onchange="renderReagents()"><option value="">All Categories</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option></select></div>
-          <div class="card"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Catalog #</th><th>Supplier</th><th>Category</th><th>Stock</th><th>Location</th><th>Lot #</th><th>Expiry</th><th>Status</th><th></th></tr></thead><tbody id="reagentTable"></tbody></table></div></div>
+          <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="rSortNameAsc" onclick="setReagentSort('name','asc')">↑</button><button type="button" class="sort-btn" id="rSortNameDesc" onclick="setReagentSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="reagentTable"></tbody></table></div></div>
         </div>
         <div id="rpanel-p" class="is-hidden">
           <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="pwSearch" placeholder="Search plasticware…" aria-label="Search plasticware" oninput="renderPW()"></div></div>
-          <div class="card"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Catalog #</th><th>Supplier</th><th>Quantity</th><th>Location</th><th>Notes</th><th></th></tr></thead><tbody id="pwTable"></tbody></table></div></div>
+          <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="pwSortNameAsc" onclick="setPWSort('name','asc')">↑</button><button type="button" class="sort-btn" id="pwSortNameDesc" onclick="setPWSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="pwTable"></tbody></table></div></div>
         </div>
       </div>
 
@@ -658,7 +670,7 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row"><div class="form-field"><label for="sName">Product Name *</label><input type="text" id="sName" placeholder="e.g. Diagnostic Kit A"></div><div class="form-field"><label for="sType">Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div></div>
     <div class="form-row"><div class="form-field"><label for="sSource">Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div><div class="form-field"><label for="sDate">Collection Date</label><input type="date" id="sDate"></div></div>
     <div class="form-row"><div class="form-field"><label for="sQty">Quantity</label><input type="number" id="sQty" placeholder="0.00" step="0.01"></div><div class="form-field"><label for="sUnit">Unit</label><select id="sUnit"><option value="">Select…</option><option>mL</option><option>µL</option><option>µg</option><option>mg</option><option>g</option><option>vials</option><option>tubes</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="sLoc">Storage Location</label><input type="text" id="sLoc" placeholder="e.g. Freezer A / Rack 1 / Box 2"></div><div class="form-field"><label for="sStat">Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div></div>
+    <div class="form-row"><div class="form-field"><label for="sLoc">Storage Location</label><input type="text" id="sLoc" placeholder="e.g. LN2 Freezer A / Rack 1 / Box 2"></div><div class="form-field"><label for="sStat">Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div></div>
     <div class="form-field"><label for="sNotes">Notes</label><textarea id="sNotes" placeholder="Additional notes…"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mSample')">Cancel</button><button class="btn btn-primary" onclick="saveSample()">Save Product</button></div></div>
@@ -677,13 +689,15 @@ td { padding:11px 14px; vertical-align:middle; }
 
 <!-- Reagent Modal -->
 <div class="modal-overlay" id="mReagent">
-  <div class="modal modal-lg"><div class="modal-header"><h3 id="mReagentTitle">🔬 Add Reagent</h3><button class="modal-close" onclick="closeModal('mReagent')">×</button></div>
+  <div class="modal modal-xl"><div class="modal-header"><h3 id="mReagentTitle">🔬 Add Reagent</h3><button class="modal-close" onclick="closeModal('mReagent')">×</button></div>
   <div class="modal-body"><input type="hidden" id="rEditId">
-    <div class="form-row"><div class="form-field"><label for="rName">Name *</label><input type="text" id="rName" placeholder="e.g. Tris-HCl Buffer"></div><div class="form-field"><label for="rCat">Catalog Number</label><input type="text" id="rCat" placeholder="e.g. T1503"></div></div>
-    <div class="form-row"><div class="form-field"><label for="rSupplier">Supplier</label><input type="text" id="rSupplier" placeholder="e.g. Sigma-Aldrich"></div><div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rLoc">Location</label><input type="text" id="rLoc" placeholder="e.g. Shelf B1"></div></div>
-    <div class="form-row"><div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="date" id="rExp"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rName">Item Name *</label><input type="text" id="rName" placeholder="e.g. Tris-HCl Buffer"></div><div class="form-field"><label for="rCat">Catalogue Number</label><input type="text" id="rCat" placeholder="e.g. T1503"></div><div class="form-field"><label for="rManufacturer">Manufacturer</label><input type="text" id="rManufacturer" placeholder="e.g. Sigma-Aldrich"></div><div class="form-field"><label for="rSupplier">Supplier</label><input type="text" id="rSupplier" placeholder="e.g. Fisher Scientific"></div></div>
+    <div class="form-field"><label for="rDesc">Item Description</label><textarea id="rDesc" class="textarea-sm" placeholder="Short description of the reagent"></textarea></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rGrade">Grade</label><input type="text" id="rGrade" placeholder="e.g. Molecular Biology Grade"></div><div class="form-field"><label for="rProject">Project Name</label><input type="text" id="rProject" placeholder="e.g. Genomics Study"></div><div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div><div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rPrDate">PR Date</label><input type="date" id="rPrDate"></div><div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div><div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div><div class="form-field"><label for="rDateReceived">Date Received</label><input type="date" id="rDateReceived"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="date" id="rExp"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rLoc">Location</label><input type="text" id="rLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="rNotes">Notes</label><textarea id="rNotes" class="textarea-md" placeholder="Storage conditions, hazards…"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mReagent')">Cancel</button><button class="btn btn-primary" onclick="saveReagent()">Save Reagent</button></div></div>
@@ -691,11 +705,14 @@ td { padding:11px 14px; vertical-align:middle; }
 
 <!-- Plasticware Modal -->
 <div class="modal-overlay" id="mPW">
-  <div class="modal"><div class="modal-header"><h3 id="mPWTitle">🧴 Add Plasticware</h3><button class="modal-close" onclick="closeModal('mPW')">×</button></div>
+  <div class="modal modal-xl"><div class="modal-header"><h3 id="mPWTitle">🧴 Add Plasticware</h3><button class="modal-close" onclick="closeModal('mPW')">×</button></div>
   <div class="modal-body"><input type="hidden" id="pwEditId">
-    <div class="form-row"><div class="form-field"><label for="pwName">Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div><div class="form-field"><label for="pwCat">Catalog Number</label><input type="text" id="pwCat"></div></div>
-    <div class="form-row"><div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
-    <div class="form-row"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwLoc">Location</label><input type="text" id="pwLoc" placeholder="e.g. Cabinet D1"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwName">Item Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div><div class="form-field"><label for="pwCat">Catalogue Number</label><input type="text" id="pwCat"></div><div class="form-field"><label for="pwManufacturer">Manufacturer</label><input type="text" id="pwManufacturer"></div><div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div></div>
+    <div class="form-field"><label for="pwDesc">Item Description</label><textarea id="pwDesc" class="textarea-sm" placeholder="Short description of the plasticware"></textarea></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="date" id="pwExp"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="date" id="pwPrDate"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">Date Received</label><input type="date" id="pwDateReceived"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwLoc">Location</label><input type="text" id="pwLoc" placeholder="e.g. Cabinet D1"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mPW')">Cancel</button><button class="btn btn-primary" onclick="savePW()">Save</button></div></div>
@@ -806,7 +823,7 @@ function showPage(name) {
   if (nav) nav.classList.add('active');
   const [title, crumb] = PAGE_TITLES[name] || [name, name];
   document.getElementById('topbarTitle').textContent = title;
-  document.getElementById('topbarCrumb').textContent = 'LabCore / ' + crumb;
+  document.getElementById('topbarCrumb').textContent = 'Vaulta / ' + crumb;
   currentPage = name;
   if (name === 'dashboard') refreshDashboard();
   if (name === 'samples') renderSamples();
@@ -849,45 +866,47 @@ function blk(label, val) {
    DATA STORES
 ══════════════════════════════════════════════════════════ */
 let SAMPLES = [
-  {id:1,sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',  source:'Patient-001',collection_date:'2025-01-10',storage_location:'Freezer A / R1-B2',status:'active',  quantity:5.0, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
-  {id:2,sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',    source:'Patient-002',collection_date:'2025-01-15',storage_location:'Freezer B / R2-B1',status:'active',  quantity:50,  unit:'µg', created_by_name:'Dr. Sarah Chen',notes:'Extracted from blood'},
-  {id:3,sample_id:'SMP-2025003',name:'Sample 03',type:'RNA',    source:'Cell Culture',collection_date:'2025-01-20',storage_location:'Freezer A / R1-B3',status:'in_use',  quantity:10,  unit:'µg', created_by_name:'James Kowalski',notes:''},
+  {id:1,sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',  source:'Patient-001',collection_date:'2025-01-10',storage_location:'LN2 Freezer A / R1-B2',status:'active',  quantity:5.0, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
+  {id:2,sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',    source:'Patient-002',collection_date:'2025-01-15',storage_location:'LN2 Freezer B / R2-B1',status:'active',  quantity:50,  unit:'µg', created_by_name:'Dr. Sarah Chen',notes:'Extracted from blood'},
+  {id:3,sample_id:'SMP-2025003',name:'Sample 03',type:'RNA',    source:'Cell Culture',collection_date:'2025-01-20',storage_location:'LN2 Freezer A / R1-B3',status:'in_use',  quantity:10,  unit:'µg', created_by_name:'James Kowalski',notes:''},
   {id:4,sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue', source:'Biopsy',      collection_date:'2025-02-01',storage_location:'Freezer C / R1-B1',status:'active',  quantity:2,   unit:'mg', created_by_name:'Dr. Sarah Chen',notes:'OCT compound'},
   {id:5,sample_id:'SMP-2025005',name:'Sample 05',type:'Protein',source:'Commercial',  collection_date:'2025-02-10',storage_location:'Fridge 1 / R1-B1', status:'depleted',quantity:0,   unit:'µg', created_by_name:'James Kowalski',notes:'Used in WB'},
-  {id:6,sample_id:'SMP-2025006',name:'Sample 06',type:'Serum',  source:'Patient-001', collection_date:'2025-02-15',storage_location:'Freezer B / R1-B2',status:'active',  quantity:3.5, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
-  {id:7,sample_id:'SMP-2025007',name:'Sample 07',type:'Cell Line',source:'Cell Culture',collection_date:'2025-02-20',storage_location:'Freezer A / R2-B1',status:'active', quantity:10, unit:'vials',created_by_name:'James Kowalski',notes:'HeLa p12'},
+  {id:6,sample_id:'SMP-2025006',name:'Sample 06',type:'Serum',  source:'Patient-001', collection_date:'2025-02-15',storage_location:'LN2 Freezer B / R1-B2',status:'active',  quantity:3.5, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
+  {id:7,sample_id:'SMP-2025007',name:'Sample 07',type:'Cell Line',source:'Cell Culture',collection_date:'2025-02-20',storage_location:'LN2 Freezer A / R2-B1',status:'active', quantity:10, unit:'vials',created_by_name:'James Kowalski',notes:'HeLa p12'},
   {id:8,sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',  source:'Patient-002', collection_date:'2025-03-01',storage_location:'Fridge 1 / R1-B2', status:'active',  quantity:20,  unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
 ];
 let sNextId = 9;
 
 let FREEZERS = [
-  {id:1,name:'Freezer A',location:'Lab Room 101',temperature:'-80°C',capacity:200,used:18,notes:'Ultra-low temp'},
-  {id:2,name:'Freezer B',location:'Lab Room 101',temperature:'-20°C',capacity:150,used:62,notes:'Standard freezer'},
+  {id:1,name:'LN2 Freezer A',location:'Lab Room 101',temperature:'-196°C',capacity:200,used:18,notes:'Liquid nitrogen storage'},
+  {id:2,name:'LN2 Freezer B',location:'Lab Room 101',temperature:'-196°C',capacity:150,used:62,notes:'Liquid nitrogen storage'},
   {id:3,name:'Freezer C',location:'Lab Room 102',temperature:'-80°C',capacity:200,used:145,notes:'Backup storage'},
   {id:4,name:'Fridge 1', location:'Lab Room 102',temperature:'+4°C', capacity:100,used:12,notes:'Short-term'},
 ];
 const FREEZER_SAMPLES = {1:[{sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',rack:'R1',box:'B2',position:'A1',status:'active'},{sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue',rack:'R1',box:'B3',position:'B2',status:'active'}],2:[{sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',rack:'R2',box:'B1',position:'C3',status:'active'}],3:[],4:[{sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',rack:'R1',box:'B2',position:'A1',status:'active'}]};
 
 let REAGENTS = [
-  {id:1,name:'Tris-HCl Buffer',catalog_number:'T1503',supplier:'Sigma-Aldrich',category:'Buffer',  quantity:500, unit:'mL',location:'Shelf B1',expiry_date:'2026-06-01',lot_number:'LOT-A1',minimum_stock:50, notes:''},
-  {id:2,name:'EDTA',           catalog_number:'E6758',supplier:'Sigma-Aldrich',category:'Chemical',quantity:100, unit:'g', location:'Shelf B1',expiry_date:'2027-01-01',lot_number:'LOT-B2',minimum_stock:20, notes:''},
-  {id:3,name:'PBS 10X',        catalog_number:'P5493',supplier:'Sigma-Aldrich',category:'Buffer',  quantity:1000,unit:'mL',location:'Shelf B2',expiry_date:'2025-04-20',lot_number:'LOT-C3',minimum_stock:100,notes:''},
-  {id:4,name:'Ethanol 100%',   catalog_number:'E7023',supplier:'Merck',        category:'Solvent', quantity:2500,unit:'mL',location:'Flammable Cabinet',expiry_date:'2027-12-01',lot_number:'LOT-D4',minimum_stock:500,notes:'Flammable'},
-  {id:5,name:'Formaldehyde 4%',catalog_number:'F8775',supplier:'Merck',        category:'Fixative',quantity:30,  unit:'mL',location:'Fume Hood',expiry_date:'2025-03-28',lot_number:'LOT-E5',minimum_stock:50, notes:'Hazardous'},
-  {id:6,name:'GelRed',         catalog_number:'GR',   supplier:'Biotium',      category:'Dye',     quantity:5,   unit:'mL',location:'Fridge 1',expiry_date:'2025-06-15',lot_number:'LOT-H8',minimum_stock:1,  notes:'Light sensitive'},
-  {id:7,name:'DNA Ladder 1kb', catalog_number:'N3232',supplier:'NEB',          category:'Marker',  quantity:500, unit:'µL',location:'Freezer B',expiry_date:'2026-11-01',lot_number:'LOT-J10',minimum_stock:50,notes:''},
+  {id:1,name:'Tris-HCl Buffer',description:'Molecular biology grade buffer',catalog_number:'T1503',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Molecular Biology Grade',project_name:'Genomics Study',pr_date:'2026-01-05',po_number:'PO-2026-014',gr_number:'GR-2026-014',date_received:'2026-01-12',po_copy_name:'tris_buffer_po.pdf',gr_copy_name:'tris_buffer_gr.pdf',category:'Buffer',quantity:500,unit:'mL',storage_temperature:'4°C',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2026-06-01',lot_number:'LOT-A1',minimum_stock:50,notes:''},
+  {id:2,name:'EDTA',description:'Chelating agent powder',catalog_number:'E6758',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Analytical Grade',project_name:'DNA Prep',pr_date:'2026-02-10',po_number:'PO-2026-019',gr_number:'GR-2026-019',date_received:'2026-02-17',po_copy_name:'edta_po.pdf',gr_copy_name:'edta_gr.pdf',category:'Chemical',quantity:100,unit:'g',storage_temperature:'Room temperature',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2027-01-01',lot_number:'LOT-B2',minimum_stock:20,notes:''},
+  {id:3,name:'PBS 10X',description:'Sterile phosphate-buffered saline',catalog_number:'P5493',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Cell Culture Grade',project_name:'Cell Culture',pr_date:'2025-11-25',po_number:'PO-2025-142',gr_number:'GR-2025-142',date_received:'2025-12-02',po_copy_name:'pbs_po.pdf',gr_copy_name:'pbs_gr.pdf',category:'Buffer',quantity:1000,unit:'mL',storage_temperature:'Room temperature',storage_location:'Shelf B2',location:'Shelf B2',expiry_date:'2025-04-20',lot_number:'LOT-C3',minimum_stock:100,notes:''},
+  {id:4,name:'Ethanol 100%',description:'Absolute ethanol',catalog_number:'E7023',manufacturer:'Merck',supplier:'Merck',grade:'ACS Grade',project_name:'Histology',pr_date:'2026-03-01',po_number:'PO-2026-031',gr_number:'GR-2026-031',date_received:'2026-03-06',po_copy_name:'ethanol_po.pdf',gr_copy_name:'ethanol_gr.pdf',category:'Solvent',quantity:2500,unit:'mL',storage_temperature:'Room temperature',storage_location:'Flammable Cabinet',location:'Flammable Cabinet',expiry_date:'2027-12-01',lot_number:'LOT-D4',minimum_stock:500,notes:'Flammable'},
+  {id:5,name:'Formaldehyde 4%',description:'Fixative solution',catalog_number:'F8775',manufacturer:'Merck',supplier:'Merck',grade:'Histology Grade',project_name:'Histology',pr_date:'2025-03-01',po_number:'PO-2025-033',gr_number:'GR-2025-033',date_received:'2025-03-08',po_copy_name:'formaldehyde_po.pdf',gr_copy_name:'formaldehyde_gr.pdf',category:'Fixative',quantity:30,unit:'mL',storage_temperature:'Room temperature',storage_location:'Fume Hood',location:'Fume Hood',expiry_date:'2025-03-28',lot_number:'LOT-E5',minimum_stock:50,notes:'Hazardous'},
+  {id:6,name:'GelRed',description:'Nucleic acid gel stain',catalog_number:'GR',manufacturer:'Biotium',supplier:'Biotium',grade:'Research Grade',project_name:'PCR Validation',pr_date:'2025-04-15',po_number:'PO-2025-061',gr_number:'GR-2025-061',date_received:'2025-04-19',po_copy_name:'gelred_po.pdf',gr_copy_name:'gelred_gr.pdf',category:'Dye',quantity:5,unit:'mL',storage_temperature:'4°C',storage_location:'Fridge 1',location:'Fridge 1',expiry_date:'2025-06-15',lot_number:'LOT-H8',minimum_stock:1,notes:'Light sensitive'},
+  {id:7,name:'DNA Ladder 1kb',description:'Size marker for agarose gels',catalog_number:'N3232',manufacturer:'NEB',supplier:'NEB',grade:'Molecular Biology Grade',project_name:'PCR Validation',pr_date:'2026-01-20',po_number:'PO-2026-021',gr_number:'GR-2026-021',date_received:'2026-01-25',po_copy_name:'ladder_po.pdf',gr_copy_name:'ladder_gr.pdf',category:'Marker',quantity:500,unit:'µL',storage_temperature:'-196°C',storage_location:'LN2 Freezer B',location:'LN2 Freezer B',expiry_date:'2026-11-01',lot_number:'LOT-J10',minimum_stock:50,notes:''},
 ];
 let rNextId = 8;
+let reagentSort = { field: 'name', direction: 'asc' };
 
 let PLASTICWARE = [
-  {id:1,name:'1.5 mL Eppendorf Tubes',catalog_number:'EP1.5', supplier:'Eppendorf',quantity:500, unit:'pcs',location:'Cabinet D1',notes:''},
-  {id:2,name:'15 mL Falcon Tubes',    catalog_number:'F15',   supplier:'Corning',  quantity:200, unit:'pcs',location:'Cabinet D1',notes:''},
-  {id:3,name:'50 mL Falcon Tubes',    catalog_number:'F50',   supplier:'Corning',  quantity:100, unit:'pcs',location:'Cabinet D1',notes:''},
-  {id:4,name:'96-well Plate',         catalog_number:'P96',   supplier:'Greiner',  quantity:50,  unit:'pcs',location:'Cabinet D2',notes:'Flat bottom'},
-  {id:5,name:'PCR Tubes 0.2 mL',      catalog_number:'PCR02', supplier:'BioRad',   quantity:1000,unit:'pcs',location:'Cabinet D2',notes:''},
-  {id:6,name:'Pipette Tips 200µL',    catalog_number:'PT200', supplier:'Rainin',   quantity:960, unit:'pcs',location:'Cabinet D3',notes:''},
+  {id:1,name:'1.5 mL Eppendorf Tubes',description:'Snap-cap microcentrifuge tubes',catalog_number:'EP1.5',manufacturer:'Eppendorf',supplier:'Eppendorf',grade:'Sterile',expiry_date:'',project_name:'RNA Extraction',pr_date:'2026-01-03',po_number:'PO-2026-010',gr_number:'GR-2026-010',date_received:'2026-01-09',po_copy_name:'eppendorf_tubes_po.pdf',gr_copy_name:'eppendorf_tubes_gr.pdf',quantity:500,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
+  {id:2,name:'15 mL Falcon Tubes',description:'Conical centrifuge tubes',catalog_number:'F15',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-017',gr_number:'GR-2026-017',date_received:'2026-02-08',po_copy_name:'falcon15_po.pdf',gr_copy_name:'falcon15_gr.pdf',quantity:200,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
+  {id:3,name:'50 mL Falcon Tubes',description:'Large conical centrifuge tubes',catalog_number:'F50',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-018',gr_number:'GR-2026-018',date_received:'2026-02-08',po_copy_name:'falcon50_po.pdf',gr_copy_name:'falcon50_gr.pdf',quantity:100,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
+  {id:4,name:'96-well Plate',description:'Flat-bottom assay plate',catalog_number:'P96',manufacturer:'Greiner',supplier:'Greiner',grade:'Tissue Culture Treated',expiry_date:'',project_name:'Drug Screen',pr_date:'2026-03-11',po_number:'PO-2026-036',gr_number:'GR-2026-036',date_received:'2026-03-16',po_copy_name:'plate96_po.pdf',gr_copy_name:'plate96_gr.pdf',quantity:50,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',location:'Cabinet D2',notes:'Flat bottom'},
+  {id:5,name:'PCR Tubes 0.2 mL',description:'Thin-wall PCR reaction tubes',catalog_number:'PCR02',manufacturer:'BioRad',supplier:'BioRad',grade:'PCR Clean',expiry_date:'',project_name:'PCR Validation',pr_date:'2026-01-26',po_number:'PO-2026-022',gr_number:'GR-2026-022',date_received:'2026-01-31',po_copy_name:'pcr_tubes_po.pdf',gr_copy_name:'pcr_tubes_gr.pdf',quantity:1000,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',location:'Cabinet D2',notes:''},
+  {id:6,name:'Pipette Tips 200µL',description:'Filtered universal pipette tips',catalog_number:'PT200',manufacturer:'Rainin',supplier:'Rainin',grade:'RNase/DNase Free',expiry_date:'',project_name:'General Lab Use',pr_date:'2026-03-05',po_number:'PO-2026-032',gr_number:'GR-2026-032',date_received:'2026-03-10',po_copy_name:'tips200_po.pdf',gr_copy_name:'tips200_gr.pdf',quantity:960,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D3',location:'Cabinet D3',notes:''},
 ];
 let pwNextId = 7;
+let pwSort = { field: 'name', direction: 'asc' };
 
 let EXPERIMENTS = [
   {id:1,experiment_id:'EXP-2025-001',title:'PCR Amplification Study', type:'PCR',          status:'completed',  start_date:'2025-01-10',end_date:'2025-01-15',principal:'Dr. Chen',  objective:'Amplify target gene',   protocol:'Standard PCR v1.2',results:'3 bands at expected sizes',notes:''},
@@ -909,13 +928,17 @@ const DCOLORS = ['#2ea8a0','#58a6ff','#3fb950','#d29922','#bc8cff','#f85149'];
 function refreshDashboard() {
   const active = SAMPLES.filter(s=>s.status==='active').length;
   const low = REAGENTS.filter(r=>r.minimum_stock && r.quantity<=r.minimum_stock).length;
+  const pwLow = PLASTICWARE.filter(p=>p.minimum_stock && p.quantity<=p.minimum_stock).length;
   const inprog = EXPERIMENTS.filter(e=>e.status==='in_progress').length;
   document.getElementById('ds-samples').textContent = SAMPLES.length;
   document.getElementById('ds-active').textContent = active;
   document.getElementById('ds-reagents').textContent = REAGENTS.length;
   document.getElementById('ds-low').textContent = low;
+  document.getElementById('ds-plasticware').textContent = PLASTICWARE.length;
+  document.getElementById('ds-pwlow').textContent = pwLow;
   document.getElementById('ds-exps').textContent = EXPERIMENTS.length;
   document.getElementById('ds-inprog').textContent = inprog;
+  document.getElementById('ds-freezers').textContent = FREEZERS.length;
 
   // Recent samples
   document.getElementById('ds-sampleRows').innerHTML = SAMPLES.slice(0,5).map(s=>`<tr><td class="td-mono td-accent">${s.sample_id}</td><td>${s.name}</td><td><span class="badge badge-active">${s.type}</span></td><td class="td-muted">${s.collection_date}</td></tr>`).join('');
@@ -1044,27 +1067,46 @@ function switchRTab(t){
   document.getElementById('btnAddPW').classList.toggle('is-hidden', t!=='p');
   if(t==='p')renderPW();
 }
+function compareText(a,b){
+  return String(a||'').localeCompare(String(b||''), undefined, { sensitivity:'base' });
+}
+function updateSortButtons(prefix, sortState){
+  ['name','supplier'].forEach(field=>{
+    ['asc','desc'].forEach(direction=>{
+      const btn=document.getElementById(`${prefix}${field.charAt(0).toUpperCase()+field.slice(1)}${direction.charAt(0).toUpperCase()+direction.slice(1)}`);
+      if(btn)btn.classList.toggle('active', sortState.field===field && sortState.direction===direction);
+    });
+  });
+}
+function setReagentSort(field,direction){ reagentSort={ field, direction }; renderReagents(); }
+function setPWSort(field,direction){ pwSort={ field, direction }; renderPW(); }
 function renderReagents(){
   const search=(document.getElementById('rSearch').value||'').toLowerCase();
   const cat=document.getElementById('rCatF').value;
   const today=new Date();
-  const data=REAGENTS.filter(r=>(!search||(r.name+(r.catalog_number||'')+(r.supplier||'')).toLowerCase().includes(search))&&(!cat||r.category===cat));
+  const data=REAGENTS
+    .filter(r=>(!search||(r.name+(r.description||'')+(r.catalog_number||'')+(r.manufacturer||'')+(r.supplier||'')+(r.project_name||'')).toLowerCase().includes(search))&&(!cat||r.category===cat))
+    .slice()
+    .sort((a,b)=>{
+      const base=compareText(a[reagentSort.field],b[reagentSort.field]);
+      return reagentSort.direction==='asc' ? base : -base;
+    });
+  updateSortButtons('rSort', reagentSort);
   const tb=document.getElementById('reagentTable');
-  if(!data.length){tb.innerHTML=`<tr><td colspan="10"><div class="empty-state"><div class="eicon">🔬</div><h3>No reagents found</h3></div></td></tr>`;return;}
+  if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🔬</div><h3>No reagents found</h3></div></td></tr>`;return;}
   tb.innerHTML=data.map(r=>{
-    const exp=r.expiry_date?new Date(r.expiry_date):null;
-    const days=exp?Math.ceil((exp-today)/86400000):null;
-    const expB=!exp?'':days<0?`<span class="badge badge-depleted">Expired</span>`:days<30?`<span class="badge badge-depleted">${days}d</span>`:days<90?`<span class="badge badge-expiring">${days}d</span>`:'';
-    const isLow=r.minimum_stock&&r.quantity<=r.minimum_stock;
-    const stB=isLow?`<span class="badge badge-low">Low Stock</span>`:days<0?`<span class="badge badge-depleted">Expired</span>`:days&&days<90?`<span class="badge badge-expiring">Expiring</span>`:`<span class="badge badge-active">OK</span>`;
-    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.supplier||'—'}</td><td>${r.category?`<span class="badge badge-operator">${r.category}</span>`:'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''} ${isLow?'<span class="badge badge-low badge-inline-gap">LOW</span>':''}</td><td class="td-muted">${r.location||'—'}</td><td class="td-mono td-compact">${r.lot_number||'—'}</td><td class="td-muted">${r.expiry_date||'—'} ${expB}</td><td>${stB}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
+    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||r.location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
   }).join('');
 }
-function openReagentModal(){document.getElementById('rEditId').value='';document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';['rName','rCat','rSupplier','rCat2','rQty','rUnit','rMin','rLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});openModal('mReagent');}
-function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rLoc').value=r.location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=r.expiry_date||'';document.getElementById('rNotes').value=r.notes||'';openModal('mReagent');}
+function openReagentModal(){document.getElementById('rEditId').value='';document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPrDate','rPoNumber','rGrNumber','rDateReceived','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');}
+function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=r.pr_date||'';document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=r.date_received||'';document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||r.location||'';document.getElementById('rLoc').value=r.location||r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=r.expiry_date||'';document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');openModal('mReagent');}
 function saveReagent(){
   const eid=document.getElementById('rEditId').value;
-  const data={name:document.getElementById('rName').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,location:document.getElementById('rLoc').value.trim(),lot_number:document.getElementById('rLot').value.trim(),expiry_date:document.getElementById('rExp').value,notes:document.getElementById('rNotes').value.trim()};
+  const storageLocation=document.getElementById('rStorageLoc').value.trim()||document.getElementById('rLoc').value.trim();
+  const existing=eid?REAGENTS.find(r=>r.id==eid):null;
+  const poFile=document.getElementById('rPoFile').files[0];
+  const grFile=document.getElementById('rGrFile').files[0];
+  const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:document.getElementById('rPrDate').value,po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:document.getElementById('rDateReceived').value,po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:storageLocation,location:document.getElementById('rLoc').value.trim()||storageLocation,lot_number:document.getElementById('rLot').value.trim(),expiry_date:document.getElementById('rExp').value,notes:document.getElementById('rNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(eid){const i=REAGENTS.findIndex(r=>r.id==eid);REAGENTS[i]={...REAGENTS[i],...data};toast('Reagent updated');}
   else{REAGENTS.push({id:rNextId++,...data});toast('Reagent added');}
@@ -1074,16 +1116,34 @@ function deleteReagent(id,name){if(!confirm(`Delete "${name}"?`))return;REAGENTS
 
 function renderPW(){
   const search=(document.getElementById('pwSearch').value||'').toLowerCase();
-  const data=PLASTICWARE.filter(p=>!search||p.name.toLowerCase().includes(search));
+  const data=PLASTICWARE
+    .filter(p=>!search||(p.name+(p.description||'')+(p.catalog_number||'')+(p.manufacturer||'')+(p.supplier||'')+(p.project_name||'')).toLowerCase().includes(search))
+    .slice()
+    .sort((a,b)=>{
+      const base=compareText(a[pwSort.field],b[pwSort.field]);
+      return pwSort.direction==='asc' ? base : -base;
+    });
+  updateSortButtons('pwSort', pwSort);
   const tb=document.getElementById('pwTable');
-  if(!data.length){tb.innerHTML=`<tr><td colspan="7"><div class="empty-state"><div class="eicon">🧴</div><h3>No plasticware found</h3></div></td></tr>`;return;}
-  tb.innerHTML=data.map(p=>`<tr><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.supplier||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td class="td-muted">${p.location||'—'}</td><td class="td-muted td-body-sm">${p.notes||'—'}</td><td><div class="actions"><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
+  if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🧴</div><h3>No plasticware found</h3></div></td></tr>`;return;}
+  tb.innerHTML=data.map(p=>`<tr><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.manufacturer||'—'}</td><td class="td-muted">${p.storage_location||p.location||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
 }
-function openPWModal(){document.getElementById('pwEditId').value='';document.getElementById('mPWTitle').textContent='🧴 Add Plasticware';['pwName','pwCat','pwSupplier','pwQty','pwLoc','pwNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('pwUnit').value='pcs';openModal('mPW');}
-function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwLoc').value=p.location||'';document.getElementById('pwNotes').value=p.notes||'';openModal('mPW');}
+function updateFileMeta(inputId,metaId,fallback='No file selected'){
+  const input=document.getElementById(inputId);
+  const meta=document.getElementById(metaId);
+  if(!input||!meta)return;
+  const fileName=input.files&&input.files[0]?input.files[0].name:'';
+  meta.textContent=fileName||fallback;
+}
+function openPWModal(){document.getElementById('pwEditId').value='';document.getElementById('mPWTitle').textContent='🧴 Add Plasticware';['pwName','pwDesc','pwCat','pwManufacturer','pwSupplier','pwGrade','pwProject','pwPrDate','pwPoNumber','pwGrNumber','pwDateReceived','pwExp','pwQty','pwStorageTemp','pwStorageLoc','pwLoc','pwNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta');updateFileMeta('pwGrFile','pwGrFileMeta');document.getElementById('pwUnit').value='pcs';openModal('mPW');}
+function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwDesc').value=p.description||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwManufacturer').value=p.manufacturer||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwGrade').value=p.grade||'';document.getElementById('pwProject').value=p.project_name||'';document.getElementById('pwPrDate').value=p.pr_date||'';document.getElementById('pwPoNumber').value=p.po_number||'';document.getElementById('pwGrNumber').value=p.gr_number||'';document.getElementById('pwDateReceived').value=p.date_received||'';document.getElementById('pwExp').value=p.expiry_date||'';document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwStorageTemp').value=p.storage_temperature||'';document.getElementById('pwStorageLoc').value=p.storage_location||p.location||'';document.getElementById('pwLoc').value=p.location||p.storage_location||'';document.getElementById('pwNotes').value=p.notes||'';document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta',p.po_copy_name||'No file selected');updateFileMeta('pwGrFile','pwGrFileMeta',p.gr_copy_name||'No file selected');openModal('mPW');}
 function savePW(){
   const eid=document.getElementById('pwEditId').value;
-  const data={name:document.getElementById('pwName').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,location:document.getElementById('pwLoc').value.trim(),notes:document.getElementById('pwNotes').value.trim()};
+  const storageLocation=document.getElementById('pwStorageLoc').value.trim()||document.getElementById('pwLoc').value.trim();
+  const existing=eid?PLASTICWARE.find(p=>p.id==eid):null;
+  const poFile=document.getElementById('pwPoFile').files[0];
+  const grFile=document.getElementById('pwGrFile').files[0];
+  const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:document.getElementById('pwPrDate').value,po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:document.getElementById('pwDateReceived').value,po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),expiry_date:document.getElementById('pwExp').value,quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:storageLocation,location:document.getElementById('pwLoc').value.trim()||storageLocation,notes:document.getElementById('pwNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(eid){const i=PLASTICWARE.findIndex(p=>p.id==eid);PLASTICWARE[i]={...PLASTICWARE[i],...data};toast('Updated');}
   else{PLASTICWARE.push({id:pwNextId++,...data});toast('Added');}
