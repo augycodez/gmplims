@@ -351,6 +351,15 @@ td { padding:11px 14px; vertical-align:middle; }
 .legend-color-4 { background:#bc8cff; }
 .legend-color-5 { background:#f85149; }
 
+/* ── GLOBAL SEARCH ────────────────────────────────────────── */
+.topbar-search { position: relative; flex: 1; max-width: 400px; margin-left: 20px; }
+.search-results-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: var(--glass-fill); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; max-height: 400px; overflow-y: auto; z-index: 1000; box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+.search-result-item { padding: 10px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 10px; }
+.search-result-item:hover { background: rgba(77,226,210,.1); }
+.search-result-item:last-child { border-bottom: none; }
+.search-result-type { font-size: 10px; text-transform: uppercase; color: var(--accent); font-family: var(--mono); width: 80px; flex-shrink: 0; font-weight: 600; }
+.search-result-text { font-size: 13px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 @media(max-width:900px){.two-col,.col-65-35{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}.form-row,.form-row-4{grid-template-columns:1fr}}
 @media(max-width:600px){.content{padding:16px}.topbar{padding:0 16px}.stats-grid{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr}}
 </style>
@@ -437,6 +446,14 @@ td { padding:11px 14px; vertical-align:middle; }
         <div class="topbar-title" id="topbarTitle">Dashboard</div>
         <div class="topbar-breadcrumb" id="topbarCrumb">Vaulta / Overview</div>
       </div>
+      <div class="topbar-search">
+        <div class="search-box">
+          <span class="sicon">🔍</span>
+          <input type="text" id="globalSearch" placeholder="Search everything..." oninput="doGlobalSearch()">
+          <button class="search-clear" onclick="clearSearch('globalSearch', doGlobalSearch)" title="Clear search">×</button>
+        </div>
+        <div id="globalSearchResults" class="search-results-dropdown is-hidden"></div>
+      </div>
       <div class="topbar-spacer"></div>
       <div class="topbar-time" id="clock"></div>
     </div>
@@ -454,7 +471,8 @@ td { padding:11px 14px; vertical-align:middle; }
           <div class="stat-card green"><div class="stat-label">📋 Experiments</div><div class="stat-value" id="ds-exps">5</div><div class="stat-sub"><span class="up" id="ds-inprog">2</span> in progress</div></div>
           <div class="stat-card warn"><div class="stat-label">🧊 Freezers</div><div class="stat-value" id="ds-freezers">4</div><div class="stat-sub">storage units</div></div>
         </div>
-        <div class="alert alert-warn alert-spaced"><span>⚠️</span> <strong>1 reagent</strong> is below minimum stock. <span class="alert-link" onclick="showPage('reagents')">Review inventory →</span></div>
+        <div id="ds-alert-low" class="alert alert-warn alert-spaced is-hidden"></div>
+        <div id="ds-alert-expiry" class="alert alert-danger alert-spaced is-hidden"></div>
         <div class="col-65-35 section-spaced">
           <div class="card">
             <div class="card-header"><h3>🧪 Recent Samples</h3><button class="btn btn-secondary btn-sm" onclick="showPage('samples')">View All →</button></div>
@@ -618,7 +636,7 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row form-row-4"><div class="form-field"><label for="pwName">Item Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div><div class="form-field"><label for="pwCat">Catalogue Number</label><input type="text" id="pwCat"></div><div class="form-field"><label for="pwManufacturer">Manufacturer</label><input type="text" id="pwManufacturer"></div><div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div></div>
     <div class="form-field"><label for="pwDesc">Item Description</label><textarea id="pwDesc" class="textarea-sm" placeholder="Short description of the plasticware"></textarea></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="text" id="pwExp" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">GR Date / Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwMin">Min Stock</label><input type="number" id="pwMin"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm"></textarea></div>
@@ -656,9 +674,10 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-field"><label for="uUser">Username *</label><input type="text" id="uUser" placeholder="jsmith"></div>
     <div class="form-field"><label for="uEmail">Email</label><input type="email" id="uEmail" placeholder="jsmith@lab.com"></div>
     <div class="form-field"><label for="uRole">Role</label><select id="uRole"><option value="operator">Operator</option><option value="admin">Administrator</option></select></div>
+    <div class="form-field"><label for="uCreated">Date Created</label><input type="text" id="uCreated" class="fp-date" placeholder="DD-MMM-YYYY"></div>
     <div class="form-field"><label for="uPass">Password *</label><input type="password" id="uPass" placeholder="Min 6 characters"></div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mUser')">Cancel</button><button class="btn btn-primary" onclick="createUser()">Create User</button></div></div>
+  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mUser')">Cancel</button><button class="btn btn-primary" id="btnCreateUser" onclick="createUser()">Create User</button></div></div>
 </div>
 
 <!-- Reset Password Modal -->
@@ -871,6 +890,17 @@ function refreshDashboard() {
   const low = REAGENTS.filter(r=>r.minimum_stock && r.quantity<=r.minimum_stock).length;
   const pwLow = PLASTICWARE.filter(p=>p.minimum_stock && p.quantity<=p.minimum_stock).length;
   const inprog = EXPERIMENTS.filter(e=>e.status==='in_progress').length;
+  
+  // Low stock alerts
+  const alertLow = document.getElementById('ds-alert-low');
+  const totalLow = low + pwLow;
+  if (totalLow > 0) {
+    alertLow.innerHTML = `<span>⚠️</span> <strong>${totalLow} item(s)</strong> are below minimum stock. <span class="alert-link" onclick="showPage('reagents')">Review inventory →</span>`;
+    alertLow.classList.remove('is-hidden');
+  } else {
+    alertLow.classList.add('is-hidden');
+  }
+
   document.getElementById('ds-samples').textContent = SAMPLES.length;
   document.getElementById('ds-active').textContent = active;
   document.getElementById('ds-reagents').textContent = REAGENTS.length;
@@ -889,7 +919,13 @@ function refreshDashboard() {
 
   // Expiring
   const today = new Date(), soon = new Date(today.getTime()+90*86400000);
-  const expiring = REAGENTS.filter(r=>r.expiry_date && new Date(r.expiry_date)<=soon && new Date(r.expiry_date)>=today).sort((a,b)=>a.expiry_date.localeCompare(b.expiry_date));
+  const expiring = [...REAGENTS, ...PLASTICWARE].filter(r=>r.expiry_date && new Date(r.expiry_date)<=soon && new Date(r.expiry_date)>=today).sort((a,b)=>a.expiry_date.localeCompare(b.expiry_date));
+  const alertExp = document.getElementById('ds-alert-expiry');
+  if (expiring.length > 0) {
+    alertExp.innerHTML = `<span>⏳</span> <strong>${expiring.length} item(s)</strong> expiring within 90 days. <span class="alert-link" onclick="showPage('reagents')">Manage inventory →</span>`;
+    alertExp.classList.remove('is-hidden');
+  } else { alertExp.classList.add('is-hidden'); }
+
   document.getElementById('ds-expiryList').innerHTML = expiring.length ? expiring.slice(0,6).map(r=>{const d=Math.ceil((new Date(r.expiry_date)-today)/86400000);return`<div class="expiry-row"><span class="text-body-sm">${r.name}</span><span class="badge ${d<30?'badge-depleted':'badge-expiring'}">${d}d left</span></div>`;}).join('') : `<div class="empty-state empty-state-compact"><div class="eicon">✅</div><p>No reagents expiring soon</p></div>`;
 
   // Donut
@@ -965,8 +1001,16 @@ function deleteSample(id,name){if(!confirm(`Delete "${name}"?`))return;SAMPLES=S
    FREEZER MODULE
 ══════════════════════════════════════════════════════════ */
 function renderFreezers(){
-  const g=document.getElementById('freezerGrid');
-  g.innerHTML=FREEZERS.map(f=>{
+  const search = (document.getElementById('fzSearch')?.value || '').toLowerCase();
+  const g = document.getElementById('freezerGrid');
+  const data = FREEZERS.filter(f => !search || (f.name + (f.location || '') + (f.notes || '')).toLowerCase().includes(search));
+
+  if (!data.length) {
+    g.innerHTML = `<div style="grid-column: 1/-1"><div class="empty-state"><div class="eicon">🧊</div><h3>No matching freezers</h3><p>Try adjusting your search criteria</p></div></div>`;
+    return;
+  }
+
+  g.innerHTML=data.map(f=>{
     const pct=f.capacity?Math.round(f.used/f.capacity*100):0;
     const bc=pct>85?'danger':pct>60?'warn':'';
     const [icon,tc]=f.temperature&&f.temperature.includes('-80')?['🔵','temp-ultralow']:f.temperature&&f.temperature.includes('-20')?['🟣','temp-low']:['🟢','temp-cool'];
@@ -1031,7 +1075,14 @@ function renderReagents(){
     return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
   }).join('');
 }
-function openReagentModal(){document.getElementById('rEditId').value='';document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPrDate','rPoNumber','rGrNumber','rDateReceived','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');}
+function openReagentModal(){
+  document.getElementById('rEditId').value='';
+  document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';
+  ['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPoNumber','rGrNumber','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+  document.getElementById('rPrDate').value = formatDateForDisplay(new Date());
+  document.getElementById('rDateReceived').value = formatDateForDisplay(new Date());
+  document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');
+}
 function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=formatDisplayDate(r.pr_date).replace('—','');document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=formatDisplayDate(r.date_received).replace('—','');document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=formatDisplayDate(r.expiry_date).replace('—','');document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');openModal('mReagent');}
 function saveReagent(){
   const eid=document.getElementById('rEditId').value;
@@ -1040,6 +1091,9 @@ function saveReagent(){
   const grFile=document.getElementById('rGrFile').files[0];
   const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:parseDateInput(document.getElementById('rPrDate').value),po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('rDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:document.getElementById('rStorageLoc').value.trim(),lot_number:document.getElementById('rLot').value.trim(),expiry_date:parseDateInput(document.getElementById('rExp').value),notes:document.getElementById('rNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
+  if(data.pr_date && data.date_received && data.date_received < data.pr_date){toast('Date Received cannot be earlier than PR Date','error');return;}
+  const today = new Date().toISOString().slice(0, 10);
+  if(data.expiry_date && data.expiry_date <= today){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=REAGENTS.findIndex(r=>r.id==eid);REAGENTS[i]={...REAGENTS[i],...data};toast('Reagent updated');}
   else{REAGENTS.push({id:rNextId++,...data});toast('Reagent added');}
   closeModal('mReagent');renderReagents();
@@ -1088,6 +1142,9 @@ function savePW(){
   const grFile=document.getElementById('pwGrFile').files[0];
   const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:parseDateInput(document.getElementById('pwPrDate').value),po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('pwDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),expiry_date:parseDateInput(document.getElementById('pwExp').value),quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,minimum_stock:parseInt(document.getElementById('pwMin').value)||0,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:document.getElementById('pwStorageLoc').value.trim(),notes:document.getElementById('pwNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
+  if(data.pr_date && data.date_received && data.date_received < data.pr_date){toast('Date Received cannot be earlier than PR Date','error');return;}
+  const todayPW = new Date().toISOString().slice(0, 10);
+  if(data.expiry_date && data.expiry_date <= todayPW){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=PLASTICWARE.findIndex(p=>p.id==eid);PLASTICWARE[i]={...PLASTICWARE[i],...data};toast('Updated');}
   else{PLASTICWARE.push({id:pwNextId++,...data});toast('Added');}
   closeModal('mPW');renderPW();
@@ -1137,6 +1194,7 @@ function saveExp(){
   const eid=document.getElementById('eEditId').value;
   const data={title:document.getElementById('eTitle').value.trim(),type:document.getElementById('eType').value,principal:document.getElementById('ePrincipal').value.trim(),status:document.getElementById('eStatus').value,start_date:parseDateInput(document.getElementById('eStart').value),end_date:parseDateInput(document.getElementById('eEnd').value),objective:document.getElementById('eObj').value.trim(),protocol:document.getElementById('eProto').value.trim(),results:document.getElementById('eResults').value.trim(),notes:document.getElementById('eNotes').value.trim()};
   if(!data.title){toast('Title required','error');return;}
+  if(data.start_date && data.end_date && data.end_date < data.start_date){toast('End Date cannot be earlier than Start Date','error');return;}
   if(eid){const i=EXPERIMENTS.findIndex(e=>e.id==eid);EXPERIMENTS[i]={...EXPERIMENTS[i],...data};toast('Updated');}
   else{const eid2=`EXP-${new Date().getFullYear()}-${String(eNextId).padStart(3,'0')}`;EXPERIMENTS.unshift({id:eNextId++,experiment_id:eid2,...data});toast('Created: '+eid2);}
   closeModal('mExp');renderExpList();if(expView==='kanban')renderExpKanban();
@@ -1146,12 +1204,18 @@ function deleteExp(id,title){if(!confirm(`Delete "${title}"?`))return;EXPERIMENT
 /* ══════════════════════════════════════════════════════════
    USERS MODULE
 ══════════════════════════════════════════════════════════ */
+function openUserModal() {
+  ['uName','uUser','uEmail','uPass'].forEach(i => document.getElementById(i).value = '');
+  document.getElementById('uRole').value = 'operator';
+  document.getElementById('uCreated').value = formatDateForDisplay(new Date());
+  openModal('mUser');
+}
 function renderUsers(){
   document.getElementById('userCount').textContent=USER_LIST.length+' users';
   document.getElementById('userTable').innerHTML=USER_LIST.map(u=>`<tr><td class="td-mono td-accent">${u.username}</td><td><strong>${u.full_name||'—'}</strong></td><td class="td-muted">${u.email||'—'}</td><td><span class="badge badge-${u.role}">${u.role}</span></td><td class="td-muted">${formatDisplayDate(u.created_at)}</td><td><div class="actions"><button class="btn btn-warn btn-sm" onclick="openReset(${u.id},'${u.username}')">🔐 Reset</button><button class="action-btn del" onclick="deleteUser(${u.id},'${u.username}')">🗑</button></div></td></tr>`).join('');
 }
 function createUser(){
-  const data={id:uNextId++,full_name:document.getElementById('uName').value.trim(),username:document.getElementById('uUser').value.trim(),email:document.getElementById('uEmail').value.trim(),role:document.getElementById('uRole').value,password:document.getElementById('uPass').value,created_at:new Date().toISOString().slice(0,10)};
+  const data={id:uNextId++,full_name:document.getElementById('uName').value.trim(),username:document.getElementById('uUser').value.trim(),email:document.getElementById('uEmail').value.trim(),role:document.getElementById('uRole').value,password:document.getElementById('uPass').value,created_at:parseDateInput(document.getElementById('uCreated').value) || new Date().toISOString().slice(0,10)};
   if(!data.username){toast('Username required','error');return;}
   if(USER_LIST.find(u=>u.username===data.username)){toast('Username exists','error');return;}
   if(!data.password||data.password.length<6){toast('Password min 6 chars','error');return;}
@@ -1167,6 +1231,45 @@ function doReset(){
   toast('Password reset');closeModal('mReset');
 }
 function deleteUser(id,username){if(username==='admin'){toast('Cannot delete admin','error');return;}if(!confirm(`Delete "${username}"?`))return;USER_LIST=USER_LIST.filter(u=>u.id!==id);toast('Deleted');renderUsers();}
+
+/* ── GLOBAL SEARCH LOGIC ─────────────────────────────────── */
+function doGlobalSearch() {
+  const q = document.getElementById('globalSearch').value.toLowerCase().trim();
+  const res = document.getElementById('globalSearchResults');
+  if (!q || q.length < 2) { res.classList.add('is-hidden'); return; }
+
+  const results = [];
+  // Search in all stores
+  SAMPLES.filter(s => s.name.toLowerCase().includes(q) || s.sample_id.toLowerCase().includes(q)).forEach(s => results.push({ type: 'samples', text: s.name, sub: s.sample_id, id: s.id }));
+  REAGENTS.filter(r => r.name.toLowerCase().includes(q) || (r.catalog_number || '').toLowerCase().includes(q)).forEach(r => results.push({ type: 'reagents', text: r.name, sub: r.catalog_number, id: r.id }));
+  PLASTICWARE.filter(p => p.name.toLowerCase().includes(q) || (p.catalog_number || '').toLowerCase().includes(q)).forEach(p => results.push({ type: 'plasticware', text: p.name, sub: p.catalog_number, id: p.id }));
+  EXPERIMENTS.filter(e => e.title.toLowerCase().includes(q) || e.experiment_id.toLowerCase().includes(q)).forEach(e => results.push({ type: 'experiments', text: e.title, sub: e.experiment_id, id: e.id }));
+  FREEZERS.filter(f => f.name.toLowerCase().includes(q)).forEach(f => results.push({ type: 'freezer', text: f.name, sub: f.location, id: f.id }));
+
+  if (!results.length) {
+    res.innerHTML = '<div class="search-result-item td-muted">No results found</div>';
+  } else {
+    res.innerHTML = results.slice(0, 10).map(r => `
+      <div class="search-result-item" onclick="goToSearchResult('${r.type}', ${r.id})">
+        <div class="search-result-type">${r.type}</div>
+        <div class="search-result-text"><strong>${r.text}</strong> <span class="td-muted td-compact">(${r.sub || '—'})</span></div>
+      </div>`).join('');
+  }
+  res.classList.remove('is-hidden');
+}
+function goToSearchResult(type, id) {
+  document.getElementById('globalSearchResults').classList.add('is-hidden');
+  document.getElementById('globalSearch').value = '';
+  showPage(type);
+  if (type === 'samples') viewSample(id);
+  else if (type === 'reagents') editReagent(id);
+  else if (type === 'plasticware') editPW(id);
+  else if (type === 'experiments') viewExp(id);
+  else if (type === 'freezer') showFreezerSamples(id);
+}
+window.addEventListener('click', (e) => {
+  if (!e.target.closest('.topbar-search')) document.getElementById('globalSearchResults').classList.add('is-hidden');
+});
 </script>
 </body>
 </html>
