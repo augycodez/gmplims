@@ -461,7 +461,7 @@ td { padding:11px 14px; vertical-align:middle; }
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-logo">
-        <div class="logo-icon"><img src="images/Logo 2.png" alt="Vaulta logo"></div>
+        <div class="logo-icon"><img src="images/Vaulta 2.png" alt="Vaulta logo"></div>
         <div><h1>Vaulta LIMS</h1><p>Laboratory Information System</p></div>
       </div>
       <h2>Welcome back</h2>
@@ -494,7 +494,7 @@ td { padding:11px 14px; vertical-align:middle; }
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-logo"><img src="images/Logo 2.png" alt="Vaulta logo"></div>
+      <div class="sidebar-logo"><img src="images/Vaulta 2.png" alt="Vaulta logo"></div>
       <div><div class="sidebar-title">Vaulta</div><div class="sidebar-sub">LIMS v0.0</div></div>
     </div>
     <nav class="sidebar-nav">
@@ -883,6 +883,13 @@ let FREEZERS = [
   {id:3,name:'Freezer C',location:'Lab Room 102',temperature:'-80°C',capacity:200,used:145,notes:'Backup storage'},
   {id:4,name:'Fridge 1', location:'Lab Room 102',temperature:'+4°C', capacity:100,used:12,notes:'Short-term'},
 ];
+FREEZERS = FREEZERS.map(f => {
+  if (f.name === 'LN2 Freezer A') return { ...f, name: 'LN<sub>2</sub> Freezer A' };
+  if (f.name === 'LN2 Freezer B') return { ...f, name: 'LN<sub>2</sub> Freezer B' };
+  if (f.name === 'Freezer C') return { ...f, name: 'Ultra-Freezer' };
+  if (f.name === 'Fridge 1') return { ...f, name: 'Refrigerator' };
+  return f;
+});
 const FREEZER_SAMPLES = {1:[{sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',rack:'R1',box:'B2',position:'A1',status:'active'},{sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue',rack:'R1',box:'B3',position:'B2',status:'active'}],2:[{sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',rack:'R2',box:'B1',position:'C3',status:'active'}],3:[],4:[{sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',rack:'R1',box:'B2',position:'A1',status:'active'}]};
 
 let REAGENTS = [
@@ -1029,7 +1036,7 @@ function renderFreezers(){
     const pct=f.capacity?Math.round(f.used/f.capacity*100):0;
     const bc=pct>85?'danger':pct>60?'warn':'';
     const [icon,tc]=f.temperature&&f.temperature.includes('-80')?['🔵','temp-ultralow']:f.temperature&&f.temperature.includes('-20')?['🟣','temp-low']:['🟢','temp-cool'];
-    return`<div class="freezer-card" onclick="showFreezerSamples(${f.id},'${f.name}')">
+    return`<div class="freezer-card" onclick="showFreezerSamples(${f.id})">
       <div class="freezer-temp ${tc}">${f.temperature||'N/A'}</div>
       <div class="freezer-icon">${icon}</div>
       <div class="freezer-name">${f.name}</div>
@@ -1041,9 +1048,10 @@ function renderFreezers(){
   }).join('');
 }
 function closeFreezerPanel(){ document.getElementById('freezerPanel').classList.remove('open'); }
-function showFreezerSamples(id,name){
+function showFreezerSamples(id){
   const panel=document.getElementById('freezerPanel');
-  document.getElementById('freezerPanelTitle').textContent=`🧊 ${name} — Contents`;
+  const freezer=FREEZERS.find(f=>f.id===id);
+  document.getElementById('freezerPanelTitle').innerHTML=`🧊 ${freezer ? freezer.name : 'Freezer'} — Contents`;
   panel.classList.add('open'); panel.scrollIntoView({behavior:'smooth'});
   const samples=FREEZER_SAMPLES[id]||[];
   document.getElementById('freezerSampleRows').innerHTML=samples.length?samples.map(s=>`<tr><td class="td-mono td-accent">${s.sample_id}</td><td>${s.name}</td><td>${s.type}</td><td class="td-mono">${s.rack}</td><td class="td-mono">${s.box}</td><td class="td-mono">${s.position}</td><td><span class="badge badge-${s.status}">${s.status}</span></td></tr>`).join(''):`<tr><td colspan="7"><div class="empty-state empty-state-compact"><div class="eicon">📦</div><h3>Empty freezer</h3></div></td></tr>`;
