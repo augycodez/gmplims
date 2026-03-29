@@ -6,6 +6,8 @@
 <title>Vaulta LIMS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 <style>
 /* ═══════════════════════════════════════════════════════════
    LABCORE LIMS — ALL STYLES
@@ -214,9 +216,11 @@ td { padding:11px 14px; vertical-align:middle; }
 .toolbar { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
 .toolbar-meta { margin-left:auto; color:var(--muted); font-size:12px; font-family:var(--mono); }
 .search-box { position:relative; flex:1; min-width:200px; max-width:360px; }
-.search-box input { width:100%; background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:8px 12px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:border-color .2s, box-shadow .2s, background .2s; }
+.search-box input { width:100%; background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:8px 32px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:border-color .2s, box-shadow .2s, background .2s; }
 .search-box input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(77,226,210,.12), 0 0 24px rgba(77,226,210,.12); background:rgba(18, 35, 58, 0.9); }
 .search-box .sicon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:14px; pointer-events:none; }
+.search-clear { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; line-height:1; opacity:0; pointer-events:none; transition:opacity .15s; }
+.search-box input:not(:placeholder-shown) ~ .search-clear { opacity:1; pointer-events:all; }
 .filter-select { background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:var(--radius); font-family:var(--font); font-size:13px; cursor:pointer; }
 .filter-select:focus { outline:none; border-color:var(--accent); }
 
@@ -346,107 +350,6 @@ td { padding:11px 14px; vertical-align:middle; }
 .legend-color-3 { background:#d29922; }
 .legend-color-4 { background:#bc8cff; }
 .legend-color-5 { background:#f85149; }
-.progress-0 { width:0%; }
-.progress-1 { width:1%; }
-.progress-2 { width:2%; }
-.progress-3 { width:3%; }
-.progress-4 { width:4%; }
-.progress-5 { width:5%; }
-.progress-6 { width:6%; }
-.progress-7 { width:7%; }
-.progress-8 { width:8%; }
-.progress-9 { width:9%; }
-.progress-10 { width:10%; }
-.progress-11 { width:11%; }
-.progress-12 { width:12%; }
-.progress-13 { width:13%; }
-.progress-14 { width:14%; }
-.progress-15 { width:15%; }
-.progress-16 { width:16%; }
-.progress-17 { width:17%; }
-.progress-18 { width:18%; }
-.progress-19 { width:19%; }
-.progress-20 { width:20%; }
-.progress-21 { width:21%; }
-.progress-22 { width:22%; }
-.progress-23 { width:23%; }
-.progress-24 { width:24%; }
-.progress-25 { width:25%; }
-.progress-26 { width:26%; }
-.progress-27 { width:27%; }
-.progress-28 { width:28%; }
-.progress-29 { width:29%; }
-.progress-30 { width:30%; }
-.progress-31 { width:31%; }
-.progress-32 { width:32%; }
-.progress-33 { width:33%; }
-.progress-34 { width:34%; }
-.progress-35 { width:35%; }
-.progress-36 { width:36%; }
-.progress-37 { width:37%; }
-.progress-38 { width:38%; }
-.progress-39 { width:39%; }
-.progress-40 { width:40%; }
-.progress-41 { width:41%; }
-.progress-42 { width:42%; }
-.progress-43 { width:43%; }
-.progress-44 { width:44%; }
-.progress-45 { width:45%; }
-.progress-46 { width:46%; }
-.progress-47 { width:47%; }
-.progress-48 { width:48%; }
-.progress-49 { width:49%; }
-.progress-50 { width:50%; }
-.progress-51 { width:51%; }
-.progress-52 { width:52%; }
-.progress-53 { width:53%; }
-.progress-54 { width:54%; }
-.progress-55 { width:55%; }
-.progress-56 { width:56%; }
-.progress-57 { width:57%; }
-.progress-58 { width:58%; }
-.progress-59 { width:59%; }
-.progress-60 { width:60%; }
-.progress-61 { width:61%; }
-.progress-62 { width:62%; }
-.progress-63 { width:63%; }
-.progress-64 { width:64%; }
-.progress-65 { width:65%; }
-.progress-66 { width:66%; }
-.progress-67 { width:67%; }
-.progress-68 { width:68%; }
-.progress-69 { width:69%; }
-.progress-70 { width:70%; }
-.progress-71 { width:71%; }
-.progress-72 { width:72%; }
-.progress-73 { width:73%; }
-.progress-74 { width:74%; }
-.progress-75 { width:75%; }
-.progress-76 { width:76%; }
-.progress-77 { width:77%; }
-.progress-78 { width:78%; }
-.progress-79 { width:79%; }
-.progress-80 { width:80%; }
-.progress-81 { width:81%; }
-.progress-82 { width:82%; }
-.progress-83 { width:83%; }
-.progress-84 { width:84%; }
-.progress-85 { width:85%; }
-.progress-86 { width:86%; }
-.progress-87 { width:87%; }
-.progress-88 { width:88%; }
-.progress-89 { width:89%; }
-.progress-90 { width:90%; }
-.progress-91 { width:91%; }
-.progress-92 { width:92%; }
-.progress-93 { width:93%; }
-.progress-94 { width:94%; }
-.progress-95 { width:95%; }
-.progress-96 { width:96%; }
-.progress-97 { width:97%; }
-.progress-98 { width:98%; }
-.progress-99 { width:99%; }
-.progress-100 { width:100%; }
 
 @media(max-width:900px){.two-col,.col-65-35{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}.form-row,.form-row-4{grid-template-columns:1fr}}
 @media(max-width:600px){.content{padding:16px}.topbar{padding:0 16px}.stats-grid{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr}}
@@ -479,8 +382,8 @@ td { padding:11px 14px; vertical-align:middle; }
       <div class="login-demo">
         <p>Demo credentials (click to fill):</p>
         <div class="demo-creds">
-          <span class="demo-pill" onclick="fillCreds('admin','admin123')">🔑 admin / admin123</span>
-          <span class="demo-pill" onclick="fillCreds('operator1','op123')">👤 operator1 / op123</span>
+          <span class="demo-pill" onclick="fillCreds('admin','')">🔑 admin / (no password)</span>
+          <span class="demo-pill" onclick="fillCreds('operator1','')">👤 operator1 / (no password)</span>
         </div>
       </div>
     </div>
@@ -581,7 +484,7 @@ td { padding:11px 14px; vertical-align:middle; }
       <div id="panel-samples" class="panel is-hidden">
         <div class="page-header"><div><h1>Sample Registration</h1><p>Register, track and manage laboratory samples</p></div><button class="btn btn-primary" onclick="openNewSample()">＋ New Sample</button></div>
         <div class="toolbar">
-          <div class="search-box"><span class="sicon">🔍</span><input type="text" id="sSearch" placeholder="Search by ID, name, type…" aria-label="Search samples" oninput="renderSamples()"></div>
+          <div class="search-box"><span class="sicon">🔍</span><input type="text" id="sSearch" placeholder="Search by ID, name, type…" aria-label="Search samples" oninput="renderSamples()"><button class="search-clear" onclick="clearSearch('sSearch', renderSamples)" title="Clear search">×</button></div>
           <select class="filter-select" id="sStatusF" aria-label="Filter samples by status" onchange="renderSamples()"><option value="">All Statuses</option><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select>
           <div class="toolbar-meta" id="sCount"></div>
         </div>
@@ -594,6 +497,9 @@ td { padding:11px 14px; vertical-align:middle; }
       <!-- ─── FREEZER ────────────────────────────────────── -->
       <div id="panel-freezer" class="panel is-hidden">
         <div class="page-header"><div><h1>Freezer Inventory</h1><p>Monitor storage units and sample locations</p></div><button class="btn btn-primary" onclick="openModal('mFreezer')">＋ Add Freezer</button></div>
+        <div class="toolbar">
+          <div class="search-box"><span class="sicon">🔍</span><input type="text" id="fzSearch" placeholder="Search by name, location or notes..." aria-label="Search freezers" oninput="renderFreezers()"><button class="search-clear" onclick="clearSearch('fzSearch', renderFreezers)" title="Clear search">×</button></div>
+        </div>
         <div class="freezer-grid" id="freezerGrid"></div>
         <div id="freezerPanel" class="panel-detail">
           <div class="card">
@@ -610,7 +516,7 @@ td { padding:11px 14px; vertical-align:middle; }
             <button class="btn btn-primary" id="btnAddR" onclick="openReagentModal()">＋ Add Reagent</button>
           </div>
         </div>
-          <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="rSearch" placeholder="Search reagents…" aria-label="Search reagents" oninput="renderReagents()"></div><select class="filter-select" id="rCatF" aria-label="Filter reagents by category" onchange="renderReagents()"><option value="">All Categories</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option></select></div>
+          <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="rSearch" placeholder="Search reagents…" aria-label="Search reagents" oninput="renderReagents()"><button class="search-clear" onclick="clearSearch('rSearch', renderReagents)" title="Clear search">×</button></div><select class="filter-select" id="rCatF" aria-label="Filter reagents by category" onchange="renderReagents()"><option value="">All Categories</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option></select></div>
           <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="rSortNameAsc" onclick="setReagentSort('name','asc')">↑</button><button type="button" class="sort-btn" id="rSortNameDesc" onclick="setReagentSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="reagentTable"></tbody></table></div></div>
       </div>
 
@@ -620,7 +526,7 @@ td { padding:11px 14px; vertical-align:middle; }
             <button class="btn btn-primary" id="btnAddPW" onclick="openPWModal()">＋ Add Plasticware</button>
           </div>
         </div>
-          <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="pwSearch" placeholder="Search plasticware…" aria-label="Search plasticware" oninput="renderPW()"></div></div>
+          <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="pwSearch" placeholder="Search plasticware…" aria-label="Search plasticware" oninput="renderPW()"><button class="search-clear" onclick="clearSearch('pwSearch', renderPW)" title="Clear search">×</button></div></div>
           <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="pwSortNameAsc" onclick="setPWSort('name','asc')">↑</button><button type="button" class="sort-btn" id="pwSortNameDesc" onclick="setPWSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="pwTable"></tbody></table></div></div>
       </div>
 
@@ -633,7 +539,7 @@ td { padding:11px 14px; vertical-align:middle; }
             <button class="btn btn-primary" onclick="openNewExp()">＋ New Experiment</button>
           </div>
         </div>
-        <div class="toolbar" id="eListToolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="eSearch" placeholder="Search experiments…" aria-label="Search experiments" oninput="renderExpList()"></div><select class="filter-select" id="eStatusF" aria-label="Filter experiments by status" onchange="renderExpList()"><option value="">All Statuses</option><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option></select><div class="toolbar-meta" id="eCount"></div></div>
+        <div class="toolbar" id="eListToolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="eSearch" placeholder="Search experiments…" aria-label="Search experiments" oninput="renderExpList()"><button class="search-clear" onclick="clearSearch('eSearch', renderExpList)" title="Clear search">×</button></div><select class="filter-select" id="eStatusF" aria-label="Filter experiments by status" onchange="renderExpList()"><option value="">All Statuses</option><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option></select><div class="toolbar-meta" id="eCount"></div></div>
         <div id="eListView"><div class="card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Title</th><th>Type</th><th>Principal</th><th>Start</th><th>End</th><th>Status</th><th></th></tr></thead><tbody id="expTable"></tbody></table></div></div></div>
         <div id="eKanbanView" class="is-hidden">
           <div class="kanban">
@@ -671,7 +577,7 @@ td { padding:11px 14px; vertical-align:middle; }
   <div class="modal"><div class="modal-header"><h3 id="mSampleTitle">🧪 Register New Sample</h3><button class="modal-close" onclick="closeModal('mSample')">×</button></div>
   <div class="modal-body"><input type="hidden" id="sEditId">
     <div class="form-row"><div class="form-field"><label for="sName">Sample Name *</label><input type="text" id="sName" placeholder="e.g. Serum Sample A"></div><div class="form-field"><label for="sType">Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="sSource">Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div><div class="form-field"><label for="sDate">Collection Date</label><input type="date" id="sDate"></div></div>
+    <div class="form-row"><div class="form-field"><label for="sSource">Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div><div class="form-field"><label for="sDate">Collection Date</label><input type="text" id="sDate" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
     <div class="form-row"><div class="form-field"><label for="sQty">Quantity</label><input type="number" id="sQty" placeholder="0.00" step="0.01"></div><div class="form-field"><label for="sUnit">Unit</label><select id="sUnit"><option value="">Select…</option><option>mL</option><option>µL</option><option>µg</option><option>mg</option><option>g</option><option>vials</option><option>tubes</option></select></div></div>
     <div class="form-row"><div class="form-field"><label for="sLoc">Storage Location</label><input type="text" id="sLoc" placeholder="e.g. LN2 Freezer A / Rack 1 / Box 2"></div><div class="form-field"><label for="sStat">Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div></div>
     <div class="form-field"><label for="sNotes">Notes</label><textarea id="sNotes" placeholder="Additional notes…"></textarea></div>
@@ -697,10 +603,9 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row form-row-4"><div class="form-field"><label for="rName">Item Name *</label><input type="text" id="rName" placeholder="e.g. Tris-HCl Buffer"></div><div class="form-field"><label for="rCat">Catalogue Number</label><input type="text" id="rCat" placeholder="e.g. T1503"></div><div class="form-field"><label for="rManufacturer">Manufacturer</label><input type="text" id="rManufacturer" placeholder="e.g. Sigma-Aldrich"></div><div class="form-field"><label for="rSupplier">Supplier</label><input type="text" id="rSupplier" placeholder="e.g. Fisher Scientific"></div></div>
     <div class="form-field"><label for="rDesc">Item Description</label><textarea id="rDesc" class="textarea-sm" placeholder="Short description of the reagent"></textarea></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="rGrade">Grade</label><input type="text" id="rGrade" placeholder="e.g. Molecular Biology Grade"></div><div class="form-field"><label for="rProject">Project Name</label><input type="text" id="rProject" placeholder="e.g. Genomics Study"></div><div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div><div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rPrDate">PR Date</label><input type="date" id="rPrDate"></div><div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div><div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div><div class="form-field"><label for="rDateReceived">Date Received</label><input type="date" id="rDateReceived"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="date" id="rExp"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rLoc">Location</label><input type="text" id="rLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rPrDate">PR Date</label><input type="text" id="rPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div><div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div><div class="form-field"><label for="rDateReceived">GR Date / Date Received</label><input type="text" id="rDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="text" id="rExp" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="rNotes">Notes</label><textarea id="rNotes" class="textarea-md" placeholder="Storage conditions, hazards…"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mReagent')">Cancel</button><button class="btn btn-primary" onclick="saveReagent()">Save Reagent</button></div></div>
@@ -712,9 +617,9 @@ td { padding:11px 14px; vertical-align:middle; }
   <div class="modal-body"><input type="hidden" id="pwEditId">
     <div class="form-row form-row-4"><div class="form-field"><label for="pwName">Item Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div><div class="form-field"><label for="pwCat">Catalogue Number</label><input type="text" id="pwCat"></div><div class="form-field"><label for="pwManufacturer">Manufacturer</label><input type="text" id="pwManufacturer"></div><div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div></div>
     <div class="form-field"><label for="pwDesc">Item Description</label><textarea id="pwDesc" class="textarea-sm" placeholder="Short description of the plasticware"></textarea></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="date" id="pwExp"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="date" id="pwPrDate"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">Date Received</label><input type="date" id="pwDateReceived"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwLoc">Location</label><input type="text" id="pwLoc" placeholder="e.g. Cabinet D1"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="text" id="pwExp" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwMin">Min Stock</label><input type="number" id="pwMin"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm"></textarea></div>
   </div>
@@ -727,7 +632,7 @@ td { padding:11px 14px; vertical-align:middle; }
   <div class="modal-body"><input type="hidden" id="eEditId">
     <div class="form-row"><div class="form-field"><label for="eTitle">Title *</label><input type="text" id="eTitle" placeholder="Experiment title"></div><div class="form-field"><label for="eType">Type</label><select id="eType"><option value="">Select…</option><option>PCR</option><option>Western Blot</option><option>ELISA</option><option>Flow Cytometry</option><option>Extraction</option><option>Assay</option><option>Sequencing</option><option>Microscopy</option><option>Cell Culture</option><option>Other</option></select></div></div>
     <div class="form-row"><div class="form-field"><label for="ePrincipal">Principal Investigator</label><input type="text" id="ePrincipal"></div><div class="form-field"><label for="eStatus">Status</label><select id="eStatus"><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="eStart">Start Date</label><input type="date" id="eStart"></div><div class="form-field"><label for="eEnd">End Date</label><input type="date" id="eEnd"></div></div>
+    <div class="form-row"><div class="form-field"><label for="eStart">Start Date</label><input type="text" id="eStart" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="eEnd">End Date</label><input type="text" id="eEnd" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
     <div class="form-field"><label for="eObj">Objective</label><textarea id="eObj" placeholder="Describe the scientific objective…"></textarea></div>
     <div class="form-field"><label for="eProto">Protocol</label><textarea id="eProto" placeholder="Step-by-step protocol or reference…"></textarea></div>
     <div class="form-field"><label for="eResults">Results</label><textarea id="eResults" placeholder="Observations and results…"></textarea></div>
@@ -774,9 +679,9 @@ td { padding:11px 14px; vertical-align:middle; }
 
 /* ── USERS DB ────────────────────────────────────────────── */
 const USERS_DB = [
-  { id:1, username:'admin',     password:'admin123', role:'admin',    full_name:'Lab Administrator', email:'admin@lab.com',     created_at:'2025-01-01' },
-  { id:2, username:'operator1', password:'op123',    role:'operator', full_name:'Dr. Sarah Chen',   email:'schen@lab.com',     created_at:'2025-01-01' },
-  { id:3, username:'operator2', password:'op456',    role:'operator', full_name:'James Kowalski',   email:'jkowalski@lab.com', created_at:'2025-01-01' },
+  { id:1, username:'admin',     password:'', role:'admin',    full_name:'Lab Administrator', email:'admin@example.com',     created_at:'2025-01-01' },
+  { id:2, username:'operator1', password:'',    role:'operator', full_name:'Dr. Sarah Chen',   email:'operator1@example.com',     created_at:'2025-01-01' },
+  { id:3, username:'operator2', password:'',    role:'operator', full_name:'James Kowalski',   email:'operator2@example.com', created_at:'2025-01-01' },
 ];
 
 /* ── SESSION ─────────────────────────────────────────────── */
@@ -786,7 +691,7 @@ function doLogin() {
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
   const err = document.getElementById('loginError');
-  const found = USERS_DB.find(x => x.username === u && x.password === p);
+  const found = USER_LIST.find(x => x.username === u && x.password === p);
   if (!found) { err.textContent = 'Invalid username or password'; err.classList.add('visible'); return; }
   err.classList.remove('visible');
   SESSION = found;
@@ -847,6 +752,7 @@ tick(); setInterval(tick, 1000);
 /* ── MODAL HELPERS ───────────────────────────────────────── */
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function clearSearch(id, fn) { const el = document.getElementById(id); if (el) { el.value = ''; fn(); el.focus(); } }
 
 /* ── TOAST ───────────────────────────────────────────────── */
 function toast(msg, type='success') {
@@ -881,6 +787,21 @@ function formatDisplayDate(value) {
   if (Number.isNaN(date.getTime())) return value;
   return formatDateForDisplay(date);
 }
+function parseDateInput(str) {
+  if (!str || str === '—') return '';
+  const parts = str.split('-');
+  if (parts.length !== 3) return str;
+  const [day, mon, year] = parts;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mIdx = months.findIndex(m => m.toLowerCase() === mon.toLowerCase());
+  if (mIdx === -1) return str;
+  return `${year}-${String(mIdx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+/* ── DATE PICKER INIT ────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  flatpickr(".fp-date", { dateFormat: "d-M-Y" });
+});
 
 /* ══════════════════════════════════════════════════════════
    DATA STORES
@@ -898,18 +819,11 @@ let SAMPLES = [
 let sNextId = 9;
 
 let FREEZERS = [
-  {id:1,name:'LN2 Freezer A',location:'Lab Room 101',temperature:'-196°C',capacity:200,used:18,notes:'Liquid nitrogen storage'},
-  {id:2,name:'LN2 Freezer B',location:'Lab Room 101',temperature:'-196°C',capacity:150,used:62,notes:'Liquid nitrogen storage'},
-  {id:3,name:'Freezer C',location:'Lab Room 102',temperature:'-80°C',capacity:200,used:145,notes:'Backup storage'},
-  {id:4,name:'Fridge 1', location:'Lab Room 102',temperature:'+4°C', capacity:100,used:12,notes:'Short-term'},
+  {id:1,name:'LN<sub>2</sub> Freezer A',location:'Lab Room 101',temperature:'-196°C',capacity:200,used:18,notes:'Liquid nitrogen storage'},
+  {id:2,name:'LN<sub>2</sub> Freezer B',location:'Lab Room 101',temperature:'-196°C',capacity:150,used:62,notes:'Liquid nitrogen storage'},
+  {id:3,name:'Ultra-Freezer',location:'Lab Room 102',temperature:'-80°C',capacity:200,used:145,notes:'Backup storage'},
+  {id:4,name:'Refrigerator', location:'Lab Room 102',temperature:'+4°C', capacity:100,used:12,notes:'Short-term'},
 ];
-FREEZERS = FREEZERS.map(f => {
-  if (f.name === 'LN2 Freezer A') return { ...f, name: 'LN<sub>2</sub> Freezer A' };
-  if (f.name === 'LN2 Freezer B') return { ...f, name: 'LN<sub>2</sub> Freezer B' };
-  if (f.name === 'Freezer C') return { ...f, name: 'Ultra-Freezer' };
-  if (f.name === 'Fridge 1') return { ...f, name: 'Refrigerator' };
-  return f;
-});
 const FREEZER_SAMPLES = {1:[{sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',rack:'R1',box:'B2',position:'A1',status:'active'},{sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue',rack:'R1',box:'B3',position:'B2',status:'active'}],2:[{sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',rack:'R2',box:'B1',position:'C3',status:'active'}],3:[],4:[{sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',rack:'R1',box:'B2',position:'A1',status:'active'}]};
 
 let REAGENTS = [
@@ -925,12 +839,12 @@ let rNextId = 8;
 let reagentSort = { field: 'name', direction: 'asc' };
 
 let PLASTICWARE = [
-  {id:1,name:'1.5 mL Eppendorf Tubes',description:'Snap-cap microcentrifuge tubes',catalog_number:'EP1.5',manufacturer:'Eppendorf',supplier:'Eppendorf',grade:'Sterile',expiry_date:'',project_name:'RNA Extraction',pr_date:'2026-01-03',po_number:'PO-2026-010',gr_number:'GR-2026-010',date_received:'2026-01-09',po_copy_name:'eppendorf_tubes_po.pdf',gr_copy_name:'eppendorf_tubes_gr.pdf',quantity:500,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
-  {id:2,name:'15 mL Falcon Tubes',description:'Conical centrifuge tubes',catalog_number:'F15',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-017',gr_number:'GR-2026-017',date_received:'2026-02-08',po_copy_name:'falcon15_po.pdf',gr_copy_name:'falcon15_gr.pdf',quantity:200,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
-  {id:3,name:'50 mL Falcon Tubes',description:'Large conical centrifuge tubes',catalog_number:'F50',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-018',gr_number:'GR-2026-018',date_received:'2026-02-08',po_copy_name:'falcon50_po.pdf',gr_copy_name:'falcon50_gr.pdf',quantity:100,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',location:'Cabinet D1',notes:''},
-  {id:4,name:'96-well Plate',description:'Flat-bottom assay plate',catalog_number:'P96',manufacturer:'Greiner',supplier:'Greiner',grade:'Tissue Culture Treated',expiry_date:'',project_name:'Drug Screen',pr_date:'2026-03-11',po_number:'PO-2026-036',gr_number:'GR-2026-036',date_received:'2026-03-16',po_copy_name:'plate96_po.pdf',gr_copy_name:'plate96_gr.pdf',quantity:50,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',location:'Cabinet D2',notes:'Flat bottom'},
-  {id:5,name:'PCR Tubes 0.2 mL',description:'Thin-wall PCR reaction tubes',catalog_number:'PCR02',manufacturer:'BioRad',supplier:'BioRad',grade:'PCR Clean',expiry_date:'',project_name:'PCR Validation',pr_date:'2026-01-26',po_number:'PO-2026-022',gr_number:'GR-2026-022',date_received:'2026-01-31',po_copy_name:'pcr_tubes_po.pdf',gr_copy_name:'pcr_tubes_gr.pdf',quantity:1000,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',location:'Cabinet D2',notes:''},
-  {id:6,name:'Pipette Tips 200µL',description:'Filtered universal pipette tips',catalog_number:'PT200',manufacturer:'Rainin',supplier:'Rainin',grade:'RNase/DNase Free',expiry_date:'',project_name:'General Lab Use',pr_date:'2026-03-05',po_number:'PO-2026-032',gr_number:'GR-2026-032',date_received:'2026-03-10',po_copy_name:'tips200_po.pdf',gr_copy_name:'tips200_gr.pdf',quantity:960,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D3',location:'Cabinet D3',notes:''},
+  {id:1,name:'1.5 mL Eppendorf Tubes',description:'Snap-cap microcentrifuge tubes',catalog_number:'EP1.5',manufacturer:'Eppendorf',supplier:'Eppendorf',grade:'Sterile',expiry_date:'',project_name:'RNA Extraction',pr_date:'2026-01-03',po_number:'PO-2026-010',gr_number:'GR-2026-010',date_received:'2026-01-09',po_copy_name:'eppendorf_tubes_po.pdf',gr_copy_name:'eppendorf_tubes_gr.pdf',quantity:500,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:100,notes:''},
+  {id:2,name:'15 mL Falcon Tubes',description:'Conical centrifuge tubes',catalog_number:'F15',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-017',gr_number:'GR-2026-017',date_received:'2026-02-08',po_copy_name:'falcon15_po.pdf',gr_copy_name:'falcon15_gr.pdf',quantity:200,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:50,notes:''},
+  {id:3,name:'50 mL Falcon Tubes',description:'Large conical centrifuge tubes',catalog_number:'F50',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-018',gr_number:'GR-2026-018',date_received:'2026-02-08',po_copy_name:'falcon50_po.pdf',gr_copy_name:'falcon50_gr.pdf',quantity:100,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:20,notes:''},
+  {id:4,name:'96-well Plate',description:'Flat-bottom assay plate',catalog_number:'P96',manufacturer:'Greiner',supplier:'Greiner',grade:'Tissue Culture Treated',expiry_date:'',project_name:'Drug Screen',pr_date:'2026-03-11',po_number:'PO-2026-036',gr_number:'GR-2026-036',date_received:'2026-03-16',po_copy_name:'plate96_po.pdf',gr_copy_name:'plate96_gr.pdf',quantity:50,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:10,notes:'Flat bottom'},
+  {id:5,name:'PCR Tubes 0.2 mL',description:'Thin-wall PCR reaction tubes',catalog_number:'PCR02',manufacturer:'BioRad',supplier:'BioRad',grade:'PCR Clean',expiry_date:'',project_name:'PCR Validation',pr_date:'2026-01-26',po_number:'PO-2026-022',gr_number:'GR-2026-022',date_received:'2026-01-31',po_copy_name:'pcr_tubes_po.pdf',gr_copy_name:'pcr_tubes_gr.pdf',quantity:1000,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:200,notes:''},
+  {id:6,name:'Pipette Tips 200µL',description:'Filtered universal pipette tips',catalog_number:'PT200',manufacturer:'Rainin',supplier:'Rainin',grade:'RNase/DNase Free',expiry_date:'',project_name:'General Lab Use',pr_date:'2026-03-05',po_number:'PO-2026-032',gr_number:'GR-2026-032',date_received:'2026-03-10',po_copy_name:'tips200_po.pdf',gr_copy_name:'tips200_gr.pdf',quantity:960,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D3',minimum_stock:200,notes:''},
 ];
 let pwNextId = 7;
 let pwSort = { field: 'name', direction: 'asc' };
@@ -1027,9 +941,9 @@ function renderSamples() {
     </div></td></tr>`).join('');
 }
 
-function clearSampleForm(){['sName','sSource','sQty','sNotes'].forEach(i=>document.getElementById(i).value='');['sType','sUnit'].forEach(i=>document.getElementById(i).value='');document.getElementById('sLoc').value='';document.getElementById('sStat').value='active';document.getElementById('sDate').value=new Date().toISOString().slice(0,10);document.getElementById('sEditId').value='';}
+function clearSampleForm(){['sName','sSource','sQty','sNotes'].forEach(i=>document.getElementById(i).value='');['sType','sUnit'].forEach(i=>document.getElementById(i).value='');document.getElementById('sLoc').value='';document.getElementById('sStat').value='active';document.getElementById('sDate').value=formatDateForDisplay(new Date());document.getElementById('sEditId').value='';}
 function openNewSample(){clearSampleForm();document.getElementById('mSampleTitle').textContent='🧪 Register New Sample';openModal('mSample');}
-function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document.getElementById('sEditId').value=s.id;document.getElementById('mSampleTitle').textContent='✏️ Edit Sample';document.getElementById('sName').value=s.name||'';document.getElementById('sType').value=s.type||'';document.getElementById('sSource').value=s.source||'';document.getElementById('sDate').value=s.collection_date||'';document.getElementById('sQty').value=s.quantity||'';document.getElementById('sUnit').value=s.unit||'';document.getElementById('sLoc').value=s.storage_location||'';document.getElementById('sStat').value=s.status||'active';document.getElementById('sNotes').value=s.notes||'';openModal('mSample');}
+function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document.getElementById('sEditId').value=s.id;document.getElementById('mSampleTitle').textContent='✏️ Edit Sample';document.getElementById('sName').value=s.name||'';document.getElementById('sType').value=s.type||'';document.getElementById('sSource').value=s.source||'';document.getElementById('sDate').value=formatDisplayDate(s.collection_date).replace('—','');document.getElementById('sQty').value=s.quantity||'';document.getElementById('sUnit').value=s.unit||'';document.getElementById('sLoc').value=s.storage_location||'';document.getElementById('sStat').value=s.status||'active';document.getElementById('sNotes').value=s.notes||'';openModal('mSample');}
 function viewSample(id){
   const s=SAMPLES.find(x=>x.id===id);if(!s)return;
   document.getElementById('mDetailTitle').textContent=`🧪 ${s.sample_id} — ${s.name}`;
@@ -1039,7 +953,7 @@ function viewSample(id){
 }
 function saveSample(){
   const eid=document.getElementById('sEditId').value;
-  const data={name:document.getElementById('sName').value.trim(),type:document.getElementById('sType').value,source:document.getElementById('sSource').value.trim(),collection_date:document.getElementById('sDate').value,quantity:parseFloat(document.getElementById('sQty').value)||null,unit:document.getElementById('sUnit').value,storage_location:document.getElementById('sLoc').value.trim(),status:document.getElementById('sStat').value,notes:document.getElementById('sNotes').value.trim()};
+  const data={name:document.getElementById('sName').value.trim(),type:document.getElementById('sType').value,source:document.getElementById('sSource').value.trim(),collection_date:parseDateInput(document.getElementById('sDate').value),quantity:parseFloat(document.getElementById('sQty').value)||null,unit:document.getElementById('sUnit').value,storage_location:document.getElementById('sLoc').value.trim(),status:document.getElementById('sStat').value,notes:document.getElementById('sNotes').value.trim()};
   if(!data.name){toast('Sample name is required','error');return;}
   if(eid){const i=SAMPLES.findIndex(s=>s.id==eid);SAMPLES[i]={...SAMPLES[i],...data};toast('Sample updated');}
   else{const sid=`SMP-${2025000+sNextId}`;SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered sample: '+sid);}
@@ -1061,7 +975,7 @@ function renderFreezers(){
       <div class="freezer-icon">${icon}</div>
       <div class="freezer-name">${f.name}</div>
       <div class="freezer-loc">📍 ${f.location||'—'}</div>
-      <div class="freezer-capacity"><div class="freezer-capacity-head"><span class="text-meta-xs">Capacity used</span><span class="text-mono-xs">${f.used}/${f.capacity}</span></div><div class="progress"><div class="progress-bar progress-${pct} ${bc}"></div></div></div>
+      <div class="freezer-capacity"><div class="freezer-capacity-head"><span class="text-meta-xs">Capacity used</span><span class="text-mono-xs">${f.used}/${f.capacity}</span></div><div class="progress"><div class="progress-bar ${bc}" style="width:${pct}%"></div></div></div>
       <div class="freezer-occupancy">${pct}% occupied</div>
       ${f.notes?`<div class="freezer-notes">${f.notes}</div>`:''}
     </div>`;
@@ -1114,18 +1028,17 @@ function renderReagents(){
   const tb=document.getElementById('reagentTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🔬</div><h3>No reagents found</h3></div></td></tr>`;return;}
   tb.innerHTML=data.map(r=>{
-    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||r.location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
+    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
   }).join('');
 }
-function openReagentModal(){document.getElementById('rEditId').value='';document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPrDate','rPoNumber','rGrNumber','rDateReceived','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');}
-function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=r.pr_date||'';document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=r.date_received||'';document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||r.location||'';document.getElementById('rLoc').value=r.location||r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=r.expiry_date||'';document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');openModal('mReagent');}
+function openReagentModal(){document.getElementById('rEditId').value='';document.getElementById('mReagentTitle').textContent='🔬 Add Reagent';['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPrDate','rPoNumber','rGrNumber','rDateReceived','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');}
+function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=formatDisplayDate(r.pr_date).replace('—','');document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=formatDisplayDate(r.date_received).replace('—','');document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=formatDisplayDate(r.expiry_date).replace('—','');document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');openModal('mReagent');}
 function saveReagent(){
   const eid=document.getElementById('rEditId').value;
-  const storageLocation=document.getElementById('rStorageLoc').value.trim()||document.getElementById('rLoc').value.trim();
   const existing=eid?REAGENTS.find(r=>r.id==eid):null;
   const poFile=document.getElementById('rPoFile').files[0];
   const grFile=document.getElementById('rGrFile').files[0];
-  const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:document.getElementById('rPrDate').value,po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:document.getElementById('rDateReceived').value,po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:storageLocation,location:document.getElementById('rLoc').value.trim()||storageLocation,lot_number:document.getElementById('rLot').value.trim(),expiry_date:document.getElementById('rExp').value,notes:document.getElementById('rNotes').value.trim()};
+  const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:parseDateInput(document.getElementById('rPrDate').value),po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('rDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:document.getElementById('rStorageLoc').value.trim(),lot_number:document.getElementById('rLot').value.trim(),expiry_date:parseDateInput(document.getElementById('rExp').value),notes:document.getElementById('rNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(eid){const i=REAGENTS.findIndex(r=>r.id==eid);REAGENTS[i]={...REAGENTS[i],...data};toast('Reagent updated');}
   else{REAGENTS.push({id:rNextId++,...data});toast('Reagent added');}
@@ -1145,7 +1058,7 @@ function renderPW(){
   updateSortButtons('pwSort', pwSort);
   const tb=document.getElementById('pwTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🧴</div><h3>No plasticware found</h3></div></td></tr>`;return;}
-  tb.innerHTML=data.map(p=>`<tr><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.manufacturer||'—'}</td><td class="td-muted">${p.storage_location||p.location||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
+  tb.innerHTML=data.map(p=>`<tr><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.manufacturer||'—'}</td><td class="td-muted">${p.storage_location||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
 }
 function updateFileMeta(inputId,metaId,fallback='No file selected'){
   const input=document.getElementById(inputId);
@@ -1154,15 +1067,26 @@ function updateFileMeta(inputId,metaId,fallback='No file selected'){
   const fileName=input.files&&input.files[0]?input.files[0].name:'';
   meta.textContent=fileName||fallback;
 }
-function openPWModal(){document.getElementById('pwEditId').value='';document.getElementById('mPWTitle').textContent='🧴 Add Plasticware';['pwName','pwDesc','pwCat','pwManufacturer','pwSupplier','pwGrade','pwProject','pwPrDate','pwPoNumber','pwGrNumber','pwDateReceived','pwExp','pwQty','pwStorageTemp','pwStorageLoc','pwLoc','pwNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta');updateFileMeta('pwGrFile','pwGrFileMeta');document.getElementById('pwUnit').value='pcs';openModal('mPW');}
-function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwDesc').value=p.description||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwManufacturer').value=p.manufacturer||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwGrade').value=p.grade||'';document.getElementById('pwProject').value=p.project_name||'';document.getElementById('pwPrDate').value=p.pr_date||'';document.getElementById('pwPoNumber').value=p.po_number||'';document.getElementById('pwGrNumber').value=p.gr_number||'';document.getElementById('pwDateReceived').value=p.date_received||'';document.getElementById('pwExp').value=p.expiry_date||'';document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwStorageTemp').value=p.storage_temperature||'';document.getElementById('pwStorageLoc').value=p.storage_location||p.location||'';document.getElementById('pwLoc').value=p.location||p.storage_location||'';document.getElementById('pwNotes').value=p.notes||'';document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta',p.po_copy_name||'No file selected');updateFileMeta('pwGrFile','pwGrFileMeta',p.gr_copy_name||'No file selected');openModal('mPW');}
+function openPWModal(){
+  document.getElementById('pwEditId').value='';
+  document.getElementById('mPWTitle').textContent='🧴 Add Plasticware';
+  ['pwName', 'pwDesc', 'pwCat', 'pwManufacturer', 'pwSupplier', 'pwGrade', 'pwProject', 'pwPoNumber', 'pwGrNumber', 'pwExp', 'pwQty', 'pwStorageTemp', 'pwStorageLoc', 'pwMin', 'pwNotes'].forEach(i => {
+    const el = document.getElementById(i);
+    if (el) el.value = '';
+  });
+  document.getElementById('pwPrDate').value = formatDateForDisplay(new Date());
+  document.getElementById('pwDateReceived').value = formatDateForDisplay(new Date());
+  document.getElementById('pwPoFile').value=''; document.getElementById('pwGrFile').value='';
+  updateFileMeta('pwPoFile','pwPoFileMeta'); updateFileMeta('pwGrFile','pwGrFileMeta');
+  document.getElementById('pwUnit').value='pcs'; openModal('mPW');
+}
+function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwDesc').value=p.description||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwManufacturer').value=p.manufacturer||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwGrade').value=p.grade||'';document.getElementById('pwProject').value=p.project_name||'';document.getElementById('pwPrDate').value=formatDisplayDate(p.pr_date).replace('—','');document.getElementById('pwPoNumber').value=p.po_number||'';document.getElementById('pwGrNumber').value=p.gr_number||'';document.getElementById('pwDateReceived').value=formatDisplayDate(p.date_received).replace('—','');document.getElementById('pwExp').value=formatDisplayDate(p.expiry_date).replace('—','');document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwStorageTemp').value=p.storage_temperature||'';document.getElementById('pwStorageLoc').value=p.storage_location||'';document.getElementById('pwMin').value=p.minimum_stock||'';document.getElementById('pwNotes').value=p.notes||'';document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta',p.po_copy_name||'No file selected');updateFileMeta('pwGrFile','pwGrFileMeta',p.gr_copy_name||'No file selected');openModal('mPW');}
 function savePW(){
   const eid=document.getElementById('pwEditId').value;
-  const storageLocation=document.getElementById('pwStorageLoc').value.trim()||document.getElementById('pwLoc').value.trim();
   const existing=eid?PLASTICWARE.find(p=>p.id==eid):null;
   const poFile=document.getElementById('pwPoFile').files[0];
   const grFile=document.getElementById('pwGrFile').files[0];
-  const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:document.getElementById('pwPrDate').value,po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:document.getElementById('pwDateReceived').value,po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),expiry_date:document.getElementById('pwExp').value,quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:storageLocation,location:document.getElementById('pwLoc').value.trim()||storageLocation,notes:document.getElementById('pwNotes').value.trim()};
+  const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:parseDateInput(document.getElementById('pwPrDate').value),po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('pwDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),expiry_date:parseDateInput(document.getElementById('pwExp').value),quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,minimum_stock:parseInt(document.getElementById('pwMin').value)||0,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:document.getElementById('pwStorageLoc').value.trim(),notes:document.getElementById('pwNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(eid){const i=PLASTICWARE.findIndex(p=>p.id==eid);PLASTICWARE[i]={...PLASTICWARE[i],...data};toast('Updated');}
   else{PLASTICWARE.push({id:pwNextId++,...data});toast('Added');}
@@ -1207,11 +1131,11 @@ function viewExp(id){
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editExp(${e.id})">✏️ Edit</button>`;
   openModal('mDetail');
 }
-function openNewExp(){document.getElementById('eEditId').value='';document.getElementById('mExpTitle').textContent='📋 New Experiment';['eTitle','eType','ePrincipal','eStart','eEnd','eObj','eProto','eResults','eNotes'].forEach(i=>document.getElementById(i).value='');document.getElementById('eStatus').value='planned';document.getElementById('eStart').value=new Date().toISOString().slice(0,10);openModal('mExp');}
-function editExp(id){const e=EXPERIMENTS.find(x=>x.id===id);if(!e)return;document.getElementById('eEditId').value=e.id;document.getElementById('mExpTitle').textContent='✏️ Edit Experiment';document.getElementById('eTitle').value=e.title||'';document.getElementById('eType').value=e.type||'';document.getElementById('ePrincipal').value=e.principal||'';document.getElementById('eStatus').value=e.status||'planned';document.getElementById('eStart').value=e.start_date||'';document.getElementById('eEnd').value=e.end_date||'';document.getElementById('eObj').value=e.objective||'';document.getElementById('eProto').value=e.protocol||'';document.getElementById('eResults').value=e.results||'';document.getElementById('eNotes').value=e.notes||'';openModal('mExp');}
+function openNewExp(){document.getElementById('eEditId').value='';document.getElementById('mExpTitle').textContent='📋 New Experiment';['eTitle','eType','ePrincipal','eStart','eEnd','eObj','eProto','eResults','eNotes'].forEach(i=>document.getElementById(i).value='');document.getElementById('eStatus').value='planned';document.getElementById('eStart').value=formatDateForDisplay(new Date());openModal('mExp');}
+function editExp(id){const e=EXPERIMENTS.find(x=>x.id===id);if(!e)return;document.getElementById('eEditId').value=e.id;document.getElementById('mExpTitle').textContent='✏️ Edit Experiment';document.getElementById('eTitle').value=e.title||'';document.getElementById('eType').value=e.type||'';document.getElementById('ePrincipal').value=e.principal||'';document.getElementById('eStatus').value=e.status||'planned';document.getElementById('eStart').value=formatDisplayDate(e.start_date).replace('—','');document.getElementById('eEnd').value=formatDisplayDate(e.end_date).replace('—','');document.getElementById('eObj').value=e.objective||'';document.getElementById('eProto').value=e.protocol||'';document.getElementById('eResults').value=e.results||'';document.getElementById('eNotes').value=e.notes||'';openModal('mExp');}
 function saveExp(){
   const eid=document.getElementById('eEditId').value;
-  const data={title:document.getElementById('eTitle').value.trim(),type:document.getElementById('eType').value,principal:document.getElementById('ePrincipal').value.trim(),status:document.getElementById('eStatus').value,start_date:document.getElementById('eStart').value,end_date:document.getElementById('eEnd').value,objective:document.getElementById('eObj').value.trim(),protocol:document.getElementById('eProto').value.trim(),results:document.getElementById('eResults').value.trim(),notes:document.getElementById('eNotes').value.trim()};
+  const data={title:document.getElementById('eTitle').value.trim(),type:document.getElementById('eType').value,principal:document.getElementById('ePrincipal').value.trim(),status:document.getElementById('eStatus').value,start_date:parseDateInput(document.getElementById('eStart').value),end_date:parseDateInput(document.getElementById('eEnd').value),objective:document.getElementById('eObj').value.trim(),protocol:document.getElementById('eProto').value.trim(),results:document.getElementById('eResults').value.trim(),notes:document.getElementById('eNotes').value.trim()};
   if(!data.title){toast('Title required','error');return;}
   if(eid){const i=EXPERIMENTS.findIndex(e=>e.id==eid);EXPERIMENTS[i]={...EXPERIMENTS[i],...data};toast('Updated');}
   else{const eid2=`EXP-${new Date().getFullYear()}-${String(eNextId).padStart(3,'0')}`;EXPERIMENTS.unshift({id:eNextId++,experiment_id:eid2,...data});toast('Created: '+eid2);}
@@ -1234,9 +1158,15 @@ function createUser(){
   USER_LIST.push(data);toast('User created');closeModal('mUser');renderUsers();
 }
 function openReset(uid,username){document.getElementById('resetUid').value=uid;document.getElementById('resetName').textContent=`Reset password for: ${username}`;document.getElementById('newPass').value='';openModal('mReset');}
-function doReset(){const pw=document.getElementById('newPass').value;if(!pw||pw.length<6){toast('Password min 6 chars','error');return;}toast('Password reset');closeModal('mReset');}
+function doReset(){
+  const pw=document.getElementById('newPass').value;
+  if(!pw||pw.length<6){toast('Password min 6 chars','error');return;}
+  const uid = document.getElementById('resetUid').value;
+  const user = USER_LIST.find(u => u.id == uid);
+  if (user) user.password = pw;
+  toast('Password reset');closeModal('mReset');
+}
 function deleteUser(id,username){if(username==='admin'){toast('Cannot delete admin','error');return;}if(!confirm(`Delete "${username}"?`))return;USER_LIST=USER_LIST.filter(u=>u.id!==id);toast('Deleted');renderUsers();}
 </script>
 </body>
 </html>
-
