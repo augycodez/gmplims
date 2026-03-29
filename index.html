@@ -861,6 +861,15 @@ function blk(label, val) {
   if (!val) return '';
   return `<div class="detail-field"><div class="detail-label detail-label-block">${label}</div><div class="detail-panel">${val}</div></div>`;
 }
+function formatDisplayDate(value) {
+  if (!value) return '—';
+  const isoMatch = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!isoMatch) return value;
+  const [, year, month, day] = isoMatch;
+  const date = new Date(`${year}-${month}-${day}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+}
 
 /* ══════════════════════════════════════════════════════════
    DATA STORES
@@ -948,7 +957,7 @@ function refreshDashboard() {
   document.getElementById('ds-freezers').textContent = FREEZERS.length;
 
   // Recent samples
-  document.getElementById('ds-sampleRows').innerHTML = SAMPLES.slice(0,5).map(s=>`<tr><td class="td-mono td-accent">${s.sample_id}</td><td>${s.name}</td><td><span class="badge badge-active">${s.type}</span></td><td class="td-muted">${s.collection_date}</td></tr>`).join('');
+  document.getElementById('ds-sampleRows').innerHTML = SAMPLES.slice(0,5).map(s=>`<tr><td class="td-mono td-accent">${s.sample_id}</td><td>${s.name}</td><td><span class="badge badge-active">${s.type}</span></td><td class="td-muted">${formatDisplayDate(s.collection_date)}</td></tr>`).join('');
 
   // Recent experiments
   document.getElementById('ds-expRows').innerHTML = EXPERIMENTS.slice(0,4).map(e=>`<tr><td class="td-mono td-compact">${e.experiment_id}</td><td>${e.title}</td><td><span class="badge badge-${e.status}">${e.status.replace('_',' ')}</span></td></tr>`).join('');
@@ -996,7 +1005,7 @@ function renderSamples() {
   tb.innerHTML=data.map(s=>`<tr>
     <td class="td-mono td-accent">${s.sample_id}</td>
     <td><strong>${s.name}</strong></td><td>${s.type||'—'}</td><td class="td-muted">${s.source||'—'}</td>
-    <td class="td-muted">${s.collection_date||'—'}</td><td class="td-body-sm">${s.storage_location||'—'}</td>
+    <td class="td-muted">${formatDisplayDate(s.collection_date)}</td><td class="td-body-sm">${s.storage_location||'—'}</td>
     <td class="td-mono">${s.quantity!=null?s.quantity+' '+(s.unit||''):'—'}</td>
     <td><span class="badge badge-${s.status}">${s.status.replace('_',' ')}</span></td>
     <td class="td-muted">${s.created_by_name||'—'}</td>
@@ -1013,7 +1022,7 @@ function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document
 function viewSample(id){
   const s=SAMPLES.find(x=>x.id===id);if(!s)return;
   document.getElementById('mDetailTitle').textContent=`🧪 ${s.sample_id} — ${s.name}`;
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Product ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',s.collection_date)}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Product ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',formatDisplayDate(s.collection_date))}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}`;
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editSample(${s.id})">✏️ Edit</button>`;
   openModal('mDetail');
 }
@@ -1179,20 +1188,20 @@ function renderExpList(){
   document.getElementById('eCount').textContent=data.length+' record(s)';
   const tb=document.getElementById('expTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="8"><div class="empty-state"><div class="eicon">📋</div><h3>No experiments found</h3></div></td></tr>`;return;}
-  tb.innerHTML=data.map(e=>`<tr><td class="td-mono td-accent td-compact">${e.experiment_id}</td><td><strong class="link-strong" onclick="viewExp(${e.id})">${e.title}</strong></td><td>${e.type?`<span class="badge badge-operator">${e.type}</span>`:'—'}</td><td class="td-muted">${e.principal||'—'}</td><td class="td-muted">${e.start_date||'—'}</td><td class="td-muted">${e.end_date||'—'}</td><td><span class="badge badge-${e.status}">${e.status.replace('_',' ')}</span></td><td><div class="actions"><button class="action-btn" onclick="viewExp(${e.id})">👁</button><button class="action-btn edit" onclick="editExp(${e.id})">✏️</button><button class="action-btn del" onclick="deleteExp(${e.id},'${e.title.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
+  tb.innerHTML=data.map(e=>`<tr><td class="td-mono td-accent td-compact">${e.experiment_id}</td><td><strong class="link-strong" onclick="viewExp(${e.id})">${e.title}</strong></td><td>${e.type?`<span class="badge badge-operator">${e.type}</span>`:'—'}</td><td class="td-muted">${e.principal||'—'}</td><td class="td-muted">${formatDisplayDate(e.start_date)}</td><td class="td-muted">${formatDisplayDate(e.end_date)}</td><td><span class="badge badge-${e.status}">${e.status.replace('_',' ')}</span></td><td><div class="actions"><button class="action-btn" onclick="viewExp(${e.id})">👁</button><button class="action-btn edit" onclick="editExp(${e.id})">✏️</button><button class="action-btn del" onclick="deleteExp(${e.id},'${e.title.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
 }
 function renderExpKanban(){
   const cols={planned:[],in_progress:[],completed:[],archived:[]};
   EXPERIMENTS.forEach(e=>{if(cols[e.status])cols[e.status].push(e);});
   Object.entries(cols).forEach(([s,exps])=>{
     document.getElementById('kc-'+s).textContent=exps.length;
-    document.getElementById('kb-'+s).innerHTML=exps.map(e=>`<div class="kanban-card" onclick="viewExp(${e.id})"><div class="meta kanban-meta-accent">${e.experiment_id}</div><h4>${e.title}</h4><div class="meta kanban-meta-spaced">${e.type||'General'} · ${e.principal||'—'}</div>${e.start_date?`<div class="meta">📅 ${e.start_date}</div>`:''}</div>`).join('')||`<div class="kanban-empty">Empty</div>`;
+    document.getElementById('kb-'+s).innerHTML=exps.map(e=>`<div class="kanban-card" onclick="viewExp(${e.id})"><div class="meta kanban-meta-accent">${e.experiment_id}</div><h4>${e.title}</h4><div class="meta kanban-meta-spaced">${e.type||'General'} · ${e.principal||'—'}</div>${e.start_date?`<div class="meta">📅 ${formatDisplayDate(e.start_date)}</div>`:''}</div>`).join('')||`<div class="kanban-empty">Empty</div>`;
   });
 }
 function viewExp(id){
   const e=EXPERIMENTS.find(x=>x.id===id);if(!e)return;
   document.getElementById('mDetailTitle').textContent=`📋 ${e.experiment_id} — ${e.title}`;
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Experiment ID',e.experiment_id,true)}${df('Title',e.title)}${df('Type',e.type)}${df('Principal',e.principal)}${df('Start Date',e.start_date)}${df('End Date',e.end_date||'—')}${df('Status',`<span class="badge badge-${e.status}">${e.status.replace('_',' ')}</span>`,false,true)}</div>${blk('Objective',e.objective)}${blk('Protocol',e.protocol)}${blk('Results',e.results)}${blk('Notes',e.notes)}`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Experiment ID',e.experiment_id,true)}${df('Title',e.title)}${df('Type',e.type)}${df('Principal',e.principal)}${df('Start Date',formatDisplayDate(e.start_date))}${df('End Date',formatDisplayDate(e.end_date))}${df('Status',`<span class="badge badge-${e.status}">${e.status.replace('_',' ')}</span>`,false,true)}</div>${blk('Objective',e.objective)}${blk('Protocol',e.protocol)}${blk('Results',e.results)}${blk('Notes',e.notes)}`;
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editExp(${e.id})">✏️ Edit</button>`;
   openModal('mDetail');
 }
@@ -1213,7 +1222,7 @@ function deleteExp(id,title){if(!confirm(`Delete "${title}"?`))return;EXPERIMENT
 ══════════════════════════════════════════════════════════ */
 function renderUsers(){
   document.getElementById('userCount').textContent=USER_LIST.length+' users';
-  document.getElementById('userTable').innerHTML=USER_LIST.map(u=>`<tr><td class="td-mono td-accent">${u.username}</td><td><strong>${u.full_name||'—'}</strong></td><td class="td-muted">${u.email||'—'}</td><td><span class="badge badge-${u.role}">${u.role}</span></td><td class="td-muted">${u.created_at||'—'}</td><td><div class="actions"><button class="btn btn-warn btn-sm" onclick="openReset(${u.id},'${u.username}')">🔐 Reset</button><button class="action-btn del" onclick="deleteUser(${u.id},'${u.username}')">🗑</button></div></td></tr>`).join('');
+  document.getElementById('userTable').innerHTML=USER_LIST.map(u=>`<tr><td class="td-mono td-accent">${u.username}</td><td><strong>${u.full_name||'—'}</strong></td><td class="td-muted">${u.email||'—'}</td><td><span class="badge badge-${u.role}">${u.role}</span></td><td class="td-muted">${formatDisplayDate(u.created_at)}</td><td><div class="actions"><button class="btn btn-warn btn-sm" onclick="openReset(${u.id},'${u.username}')">🔐 Reset</button><button class="action-btn del" onclick="deleteUser(${u.id},'${u.username}')">🗑</button></div></td></tr>`).join('');
 }
 function createUser(){
   const data={id:uNextId++,full_name:document.getElementById('uName').value.trim(),username:document.getElementById('uUser').value.trim(),email:document.getElementById('uEmail').value.trim(),role:document.getElementById('uRole').value,password:document.getElementById('uPass').value,created_at:new Date().toISOString().slice(0,10)};
