@@ -14,12 +14,12 @@
    LABCORE LIMS — ALL STYLES
 ═══════════════════════════════════════════════════════════ */
 :root {
-  --bg:       #f0f4f8;
-  --bg2:      rgba(255, 255, 255, 0.7);
-  --bg3:      rgba(240, 244, 248, 0.8);
-  --border:   rgba(255, 255, 255, 0.4);
-  --text:     #1e293b;
-  --muted:    #334155;
+  --bg:       #020617;
+  --bg2:      rgba(15, 23, 42, 0.7);
+  --bg3:      rgba(30, 41, 59, 0.5);
+  --border:   rgba(255, 255, 255, 0.1);
+  --text:     #f1f5f9;
+  --muted:    #94a3b8;
   --accent:   #4de2d2;
   --accent2:  #22b8aa;
   --accent-g: #5be38d;
@@ -27,9 +27,9 @@
   --danger:   #ef4444;
   --info:     #7cb9ff;
   --purple:   #aa8bff;
-  --glass-shadow: 12px 12px 24px rgba(0, 0, 0, 0.05), -12px -12px 24px rgba(255, 255, 255, 0.8);
-  --glass-glow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 15px rgba(77, 226, 210, 0.2), 0 0 30px rgba(124, 185, 255, 0.15);
-  --glass-fill: rgba(255, 255, 255, 0.45);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  --glass-glow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 20px rgba(77, 226, 210, 0.15);
+  --glass-fill: rgba(15, 23, 42, 0.65);
   --radius:   8px;
   --sidebar:  240px;
   --font:     'IBM Plex Sans', sans-serif;
@@ -39,18 +39,20 @@
 body {
   font-family: var(--font);
   background:
-    radial-gradient(circle at top left, rgba(77, 226, 210, 0.15), transparent 40%),
-    radial-gradient(circle at top right, rgba(124, 185, 255, 0.15), transparent 40%),
-    radial-gradient(circle at bottom center, rgba(170, 139, 255, 0.1), transparent 40%),
-    var(--bg);
+    radial-gradient(circle at 10% 20%, rgba(77, 226, 210, 0.25) 0%, transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(124, 185, 255, 0.25) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(170, 139, 255, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(77, 226, 210, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(124, 185, 255, 0.1) 0%, transparent 40%),
+    #020617;
   color: var(--text);
   line-height: 1.5;
   font-size: 14px;
   min-height: 100vh;
 }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.2); border-radius: 3px; }
+::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 3px; }
 
 /* ── PAGE VISIBILITY ──────────────────────────────────────── */
 .page { display: none; }
@@ -71,24 +73,24 @@ body {
 .login-card .sub { color:var(--muted); font-size:13px; margin-bottom:28px; }
 .form-group { margin-bottom:18px; }
 .form-group label { display:block; font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
-.form-group input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:10px 14px; border-radius:var(--radius); font-family:var(--font); font-size:14px; transition:all .2s; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7); }
-.form-group input:focus { outline:none; border-color:var(--accent); box-shadow: inset 1px 1px 2px rgba(0,0,0,0.05), 0 0 0 3px rgba(77, 226, 210, 0.1); }
-.btn-login { width:100%; background: #f8fafc; color:var(--text); border:1px solid var(--border); padding:12px; border-radius:var(--radius); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; transition:all .2s; margin-top:8px; box-shadow: 6px 6px 12px rgba(0,0,0,0.08), -6px -6px 12px rgba(255,255,255,0.9); }
+.form-group input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:10px 14px; border-radius:var(--radius); font-family:var(--font); font-size:14px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+.form-group input:focus { outline:none; border-color:var(--accent); box-shadow: 0 0 0 3px rgba(77, 226, 210, 0.1); background: var(--bg2); }
+.btn-login { width:100%; background: var(--bg2); color:var(--text); border:1px solid var(--border); padding:12px; border-radius:var(--radius); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; transition:all .2s; margin-top:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
 .btn-login:hover { opacity:.9; transform:translateY(-1px); }
-.btn-login:active { box-shadow: inset 4px 4px 8px rgba(0,0,0,0.08), inset -4px -4px 8px rgba(255,255,255,0.9); transform:translateY(0); }
+.btn-login:active { box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4); transform:translateY(0); }
 .login-error { background:rgba(248,81,73,.1); border:1px solid rgba(248,81,73,.3); color:var(--danger); padding:10px 14px; border-radius:var(--radius); font-size:13px; margin-bottom:16px; display:none; }
 .login-error.visible { display:block; }
 .login-demo { margin-top:24px; padding-top:20px; border-top:1px solid var(--border); }
 .login-demo p { font-size:11px; color:var(--muted); margin-bottom:8px; font-family:var(--mono); }
 .demo-creds { display:flex; gap:8px; flex-wrap:wrap; }
-.demo-pill { background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:11px; font-family:var(--mono); color:var(--muted); cursor:pointer; transition:all .2s; box-shadow: 3px 3px 6px rgba(0,0,0,0.05), -3px -3px 6px rgba(255,255,255,0.8); }
+.demo-pill { background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:11px; font-family:var(--mono); color:var(--muted); cursor:pointer; transition:all .2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 .demo-pill:hover { border-color:var(--accent); color:var(--accent); }
 
 /* ── APP SHELL ────────────────────────────────────────────── */
 .app { display:flex; min-height:100vh; width:100%; }
 
 /* ── SIDEBAR ──────────────────────────────────────────────── */
-.sidebar { width:var(--sidebar); background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); box-shadow: 10px 0 30px rgba(0,0,0,0.03); }
+.sidebar { width:var(--sidebar); background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); box-shadow: 10px 0 40px rgba(0,0,0,0.6), 2px 0 20px rgba(77, 226, 210, 0.1); }
 .sidebar-header { padding:20px 18px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
 .sidebar-logo { width:52px; height:52px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .sidebar-logo img { width:100%; height:100%; object-fit:contain; }
@@ -99,8 +101,36 @@ body {
 .nav-section-label { font-size:10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:0 8px; margin-bottom:4px; }
 .nav-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:6px; cursor:pointer; transition:background .15s,color .15s; color:var(--muted); text-decoration:none; font-size:13.5px; margin-bottom:2px; }
 .nav-item:hover { background:rgba(255,255,255,.05); color:var(--text); }
-.nav-item.active { background:var(--bg3); color:var(--text); font-weight:600; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.8); }
+.nav-item.active { position: relative; background:rgba(15, 23, 42, 0.8); color:var(--accent); font-weight:600; overflow: hidden; border: none; box-shadow: 0 0 15px rgba(77, 226, 210, 0.1); text-shadow: 0 0 8px rgba(77, 226, 210, 0.4); z-index: 1; animation: liquid-color-cycle 12s linear infinite; }
+.nav-item.active::before { content: ''; position: absolute; z-index: -2; left: -50%; top: -150%; width: 200%; height: 400%; background-color: transparent; background-image: conic-gradient(transparent, var(--accent), transparent 30%); animation: rotate-liquid 4s linear infinite; }
+.nav-item.active::after { content: ''; position: absolute; z-index: -1; left: 1px; top: 1px; width: calc(100% - 2px); height: calc(100% - 2px); background: var(--bg2); border-radius: 5px; }
 .nav-item .icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+
+@keyframes rotate-liquid {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes liquid-color-cycle {
+  0%, 100% { filter: hue-rotate(-45deg); } /* Emerald Green */
+  50% { filter: hue-rotate(110deg); }   /* Deep Cobalt/Violet */
+}
+
+/* Glass Bubble Specular Highlight */
+.card, .stat-card, .freezer-card, .kanban-card, .login-card { position: relative; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.3s ease; }
+.card::after, .stat-card::after, .freezer-card::after, .kanban-card::after, .login-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 15% 15%, rgba(255,255,255,0.15) 0%, transparent 40%); z-index: 2; }
+
+/* Floating Animation on Hover */
+.card:hover, .stat-card:hover, .freezer-card:hover, .kanban-card:hover, .login-card:hover {
+  animation: bubble-float 3s ease-in-out infinite alternate;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), var(--glass-glow);
+}
+
+@keyframes bubble-float {
+  0% { transform: translateY(-6px); }
+  100% { transform: translateY(-12px); }
+}
+
 .sidebar-footer { padding:14px 10px; border-top:1px solid var(--border); }
 .user-info { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:6px; }
 .user-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; flex-shrink:0; color:#fff; }
@@ -115,7 +145,7 @@ body {
 
 /* ── MAIN CONTENT ─────────────────────────────────────────── */
 .main { margin-left:var(--sidebar); flex:1; display:flex; flex-direction:column; min-height:100vh; width:calc(100% - var(--sidebar)); }
-.topbar { background:rgba(255, 255, 255, 0.4); border-bottom:1px solid var(--border); padding:0 28px; height:56px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:50; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); }
+.topbar { background:rgba(2, 6, 23, 0.4); border-bottom:1px solid var(--border); padding:0 28px; height:56px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:50; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); }
 .topbar-title { font-size:16px; font-weight:600; }
 .topbar-breadcrumb { font-size:12px; color:var(--muted); font-family:var(--mono); }
 .topbar-spacer { flex:1; }
@@ -129,12 +159,12 @@ body {
 .button-row { display:flex; gap:10px; }
 
 /* ── BUTTONS ──────────────────────────────────────────────── */
-.btn { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:var(--radius); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; border:1px solid var(--border); transition:all .2s; white-space:nowrap; background: var(--bg2); color: var(--text); box-shadow: 4px 4px 8px rgba(0,0,0,0.05), -4px -4px 8px rgba(255,255,255,0.8); }
+.btn { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:var(--radius); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; border:1px solid var(--border); transition:all .2s; white-space:nowrap; background: var(--bg2); color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .btn-primary { background: var(--bg3); color: var(--text); font-weight:600; border-color: var(--accent); }
-.btn-primary:hover { box-shadow: 6px 6px 12px rgba(0,0,0,0.08), -6px -6px 12px rgba(255,255,255,0.9); transform: translateY(-1px); }
+.btn-primary:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.4); transform: translateY(-1px); }
 .btn-secondary { color:var(--muted); }
 .btn-secondary:hover { border-color:var(--muted); }
-.btn:active { box-shadow: inset 4px 4px 8px rgba(0,0,0,0.08), inset -4px -4px 8px rgba(255,255,255,0.9); transform: translateY(0); }
+.btn:active { box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4); transform: translateY(0); }
 .btn-sm { padding:5px 11px; font-size:12px; }
 
 /* ── STATS GRID ───────────────────────────────────────────── */
@@ -146,7 +176,7 @@ body {
 .stat-card.green::before { background:linear-gradient(90deg,var(--accent-g),transparent); }
 .stat-card.warn::before { background:linear-gradient(90deg,var(--warn),transparent); }
 .stat-card.purple::before { background:linear-gradient(90deg,var(--purple),transparent); }
-.stat-card:hover { transform:translateY(-4px); box-shadow: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,0.9), var(--glass-glow); }
+.stat-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), var(--glass-glow); }
 .stat-label { font-size:11px; color:var(--text); text-transform:uppercase; letter-spacing:.7px; font-weight:600; }
 .stat-value { font-size:32px; font-weight:600; font-family:var(--mono); line-height:1; color:var(--text); }
 .stat-sub { font-size:12px; color:var(--muted); }
@@ -178,9 +208,9 @@ th { text-align:left; padding:10px 14px; font-size:11px; font-weight:600; color:
 .sort-btn { width:20px; height:20px; border-radius:4px; border:1px solid var(--border); background:var(--bg3); color:var(--muted); font-size:11px; line-height:1; cursor:pointer; transition:all .2s; }
 .sort-btn:hover { border-color:var(--accent); color:var(--text); }
 .sort-btn.active { border-color:var(--accent); color:var(--accent); background:white; }
-.tbody tr { border-bottom:1px solid rgba(0, 0, 0, 0.05); transition:background .1s; }
+.tbody tr { border-bottom:1px solid rgba(255, 255, 255, 0.05); transition:background .1s; }
 tbody tr:last-child { border-bottom:none; }
-tbody tr:hover { background:rgba(255, 255, 255, 0.5); }
+tbody tr:hover { background:rgba(255, 255, 255, 0.03); }
 td { padding:11px 14px; vertical-align:middle; }
 .td-mono { font-family:var(--mono); font-size:12px; }
 .td-accent { color:var(--text); font-weight:500; }
@@ -216,8 +246,8 @@ td { padding:11px 14px; vertical-align:middle; }
 .toolbar { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
 .toolbar-meta { margin-left:auto; color:var(--muted); font-size:12px; font-family:var(--mono); }
 .search-box { position:relative; flex:1; min-width:200px; max-width:360px; }
-.search-box input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 32px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.7); }
-.search-box input:focus { outline:none; border-color:var(--accent); background:white; }
+.search-box input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 32px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+.search-box input:focus { outline:none; border-color:var(--accent); background:var(--bg2); }
 .search-box .sicon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:14px; pointer-events:none; }
 .search-clear { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; line-height:1; opacity:0; pointer-events:none; transition:opacity .15s; }
 .search-box input:not(:placeholder-shown) ~ .search-clear { opacity:1; pointer-events:all; }
@@ -225,9 +255,9 @@ td { padding:11px 14px; vertical-align:middle; }
 .filter-select:focus { outline:none; border-color:var(--accent); }
 
 /* ── MODAL ────────────────────────────────────────────────── */
-.modal-overlay { position:fixed; inset:0; background:rgba(255, 255, 255, 0.2); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .2s; }
+.modal-overlay { position:fixed; inset:0; background:rgba(0, 0, 0, 0.5); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .2s; }
 .modal-overlay.open { opacity:1; pointer-events:all; }
-.modal { background:white; border:1px solid var(--border); border-radius:18px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow: 0 30px 60px rgba(0,0,0,0.1), var(--glass-glow); }
+.modal { background:var(--bg2); border:1px solid var(--border); border-radius:18px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow: 0 30px 60px rgba(0,0,0,0.6), var(--glass-glow); -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); }
 .modal-overlay.open .modal { transform:translateY(0); }
 .modal-lg { max-width:780px; }
 .modal-xl { max-width:1180px; }
@@ -243,8 +273,8 @@ td { padding:11px 14px; vertical-align:middle; }
 .form-row-4 { grid-template-columns:repeat(4, minmax(0,1fr)); }
 .form-field { margin-bottom:16px; }
 .form-field label { display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
-.form-field input,.form-field select,.form-field textarea { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:9px 13px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.04), inset -2px -2px 4px rgba(255,255,255,0.7); }
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:none; border-color:var(--accent); background:white; }
+.form-field input,.form-field select,.form-field textarea { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:9px 13px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:none; border-color:var(--accent); background:var(--bg2); }
 .form-field input[type="file"] { padding:7px 10px; cursor:pointer; }
 .form-field textarea { resize:vertical; min-height:80px; }
 .form-field select option { background:var(--bg3); }
@@ -261,7 +291,7 @@ td { padding:11px 14px; vertical-align:middle; }
 /* ── FREEZER CARDS ────────────────────────────────────────── */
 .freezer-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
 .freezer-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; padding:20px; cursor:pointer; transition:all .2s; position:relative; overflow:hidden; -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%); box-shadow:var(--glass-shadow), var(--glass-glow); }
-.freezer-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 18px 36px rgba(0,0,0,.28), 0 0 36px rgba(77,226,210,.16); }
+.freezer-card:hover { border-color:var(--accent); box-shadow:0 18px 36px rgba(0,0,0,.28), 0 0 36px rgba(77,226,210,.16); }
 .freezer-temp { position:absolute; top:16px; right:16px; font-family:var(--mono); font-size:13px; font-weight:500; }
 .temp-ultralow { color:var(--info); }
 .temp-low { color:var(--purple); }
@@ -284,7 +314,7 @@ td { padding:11px 14px; vertical-align:middle; }
 
 /* ── TOAST ────────────────────────────────────────────────── */
 .toast-container { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:8px; }
-.toast { background:rgba(12, 25, 42, 0.86); border:1px solid var(--border); border-left:3px solid var(--accent); padding:12px 16px; border-radius:var(--radius); font-size:13px; min-width:260px; box-shadow:0 16px 34px rgba(0,0,0,.34), 0 0 28px rgba(77,226,210,.1); animation:slideIn .3s ease; -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); }
+.toast { background:rgba(15, 23, 42, 0.9); border:1px solid var(--border); border-left:3px solid var(--accent); padding:12px 16px; border-radius:var(--radius); font-size:13px; min-width:260px; box-shadow:0 16px 34px rgba(0,0,0,0.6); animation:slideIn .3s ease; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); }
 .toast.error { border-left-color:var(--danger); }
 @keyframes slideIn { from{transform:translateX(20px);opacity:0} to{transform:translateX(0);opacity:1} }
 
@@ -311,7 +341,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .detail-label-block { margin-bottom:6px; }
 .detail-value { font-size:13px; }
 .detail-value-mono { font-family:var(--mono); font-size:12px; }
-.detail-panel { background:rgba(13, 27, 45, 0.72); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; line-height:1.7; white-space:pre-wrap; }
+.detail-panel { background:rgba(30, 41, 59, 0.6); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; line-height:1.7; white-space:pre-wrap; }
 .expiry-row { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); }
 .text-body-sm { font-size:13px; }
 .empty-state-compact { padding:30px; }
@@ -338,7 +368,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .kanban-archived { color:var(--danger); }
 .kanban-count { background:rgba(20, 38, 63, 0.78); padding:1px 7px; border-radius:10px; font-family:var(--mono); }
 .kanban-card { background:rgba(17, 34, 56, 0.76); border:1px solid var(--border); border-radius:14px; padding:12px; margin-bottom:8px; cursor:pointer; transition:border-color .15s,transform .15s, box-shadow .15s; box-shadow:0 10px 24px rgba(0,0,0,.18); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
-.kanban-card:hover { border-color:var(--accent); transform:translateY(-1px); box-shadow:0 14px 30px rgba(0,0,0,.22), 0 0 24px rgba(77,226,210,.14); }
+.kanban-card:hover { border-color:var(--accent); box-shadow:0 14px 30px rgba(0,0,0,.22), 0 0 24px rgba(77,226,210,.14); }
 .kanban-card h4 { font-size:13px; font-weight:500; margin-bottom:4px; }
 .kanban-card .meta { font-size:11px; color:var(--muted); font-family:var(--mono); }
 .kanban-meta-accent { color:var(--text); font-weight:600; margin-bottom:4px; }
@@ -413,6 +443,7 @@ td { padding:11px 14px; vertical-align:middle; }
       <div class="nav-section">
         <div class="nav-section-label">Main</div>
         <div class="nav-item" id="nav-dashboard" onclick="showPage('dashboard')"><span class="icon">📊</span> Dashboard</div>
+        <div class="nav-item" id="nav-transactions" onclick="showPage('transactions')"><span class="icon">📜</span> Stock Log</div>
       </div>
       <div class="nav-section">
         <div class="nav-section-label">Modules</div>
@@ -460,6 +491,17 @@ td { padding:11px 14px; vertical-align:middle; }
 
     <!-- CONTENT PANELS -->
     <div class="content">
+
+      <!-- ─── TRANSACTIONS ────────────────────────────────── -->
+      <div id="panel-transactions" class="panel is-hidden">
+        <div class="page-header"><div><h1>Stock Transaction Log</h1><p>Audit trail of all inventory movements and consumption</p></div></div>
+        <div class="card">
+          <div class="table-wrap"><table>
+            <thead><tr><th>Timestamp</th><th>User</th><th>Item Type</th><th>Item</th><th>Action</th><th>Change</th></tr></thead>
+            <tbody id="transactionTable"></tbody>
+          </table></div>
+        </div>
+      </div>
 
       <!-- ─── DASHBOARD ──────────────────────────────────── -->
       <div id="panel-dashboard" class="panel">
@@ -645,6 +687,8 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row"><div class="form-field"><label for="eTitle">Title *</label><input type="text" id="eTitle" placeholder="Experiment title"></div><div class="form-field"><label for="eType">Type</label><select id="eType"><option value="">Select…</option><option>PCR</option><option>Western Blot</option><option>ELISA</option><option>Flow Cytometry</option><option>Extraction</option><option>Assay</option><option>Sequencing</option><option>Microscopy</option><option>Cell Culture</option><option>Other</option></select></div></div>
     <div class="form-row"><div class="form-field"><label for="ePrincipal">Principal Investigator</label><input type="text" id="ePrincipal"></div><div class="form-field"><label for="eStatus">Status</label><select id="eStatus"><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select></div></div>
     <div class="form-row"><div class="form-field"><label for="eStart">Start Date</label><input type="text" id="eStart" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="eEnd">End Date</label><input type="text" id="eEnd" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
+    <div class="form-row"><div class="form-field"><label for="eSampleConsume">Consume Sample (Optional)</label><select id="eSampleConsume"><option value="">Select Sample...</option></select></div><div class="form-field"><label for="eSampleQty">Qty to Deduct</label><input type="number" id="eSampleQty" placeholder="0.00" step="0.01"></div></div>
+    <div class="form-row"><div class="form-field"><label for="eReagentConsume">Consume Reagent (Optional)</label><select id="eReagentConsume"><option value="">Select Reagent...</option></select></div><div class="form-field"><label for="eReagentQty">Qty to Deduct</label><input type="number" id="eReagentQty" placeholder="0.00" step="0.01"></div></div>
     <div class="form-field"><label for="eObj">Objective</label><textarea id="eObj" placeholder="Describe the scientific objective…"></textarea></div>
     <div class="form-field"><label for="eProto">Protocol</label><textarea id="eProto" placeholder="Step-by-step protocol or reference…"></textarea></div>
     <div class="form-field"><label for="eResults">Results</label><textarea id="eResults" placeholder="Observations and results…"></textarea></div>
@@ -733,7 +777,7 @@ function doLogout() {
 }
 
 /* ── NAVIGATION ──────────────────────────────────────────── */
-const PAGE_TITLES = { dashboard:['Dashboard','Overview'], samples:['Sample Registration','Samples'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents','Reagents'], plasticware:['Plasticware','Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
+const PAGE_TITLES = { dashboard:['Dashboard','Overview'], transactions:['Stock Log','History'], samples:['Sample Registration','Samples'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents','Reagents'], plasticware:['Plasticware','Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
 let currentPage = 'dashboard';
 
 function showPage(name) {
@@ -747,6 +791,7 @@ function showPage(name) {
   document.getElementById('topbarCrumb').textContent = 'Vaulta / ' + crumb;
   currentPage = name;
   if (name === 'dashboard') refreshDashboard();
+  if (name === 'transactions') renderTransactions();
   if (name === 'samples') renderSamples();
   if (name === 'freezer') renderFreezers();
   if (name === 'reagents') renderReagents();
@@ -890,8 +935,26 @@ let EXPERIMENTS = [
 ];
 let eNextId = 6;
 
+let TRANSACTIONS = [];
+let tNextId = 1;
+
 let USER_LIST = JSON.parse(JSON.stringify(USERS_DB));
 let uNextId = 4;
+
+/* ── TRANSACTIONS LOGIC ──────────────────────────────────── */
+function logStock(itemType, itemId, itemName, qty, action) {
+  TRANSACTIONS.unshift({
+    id: tNextId++,
+    timestamp: new Date().toISOString(),
+    user: SESSION ? SESSION.full_name : 'System',
+    itemType, itemId, itemName, qty, action
+  });
+}
+function renderTransactions() {
+  const tb = document.getElementById('transactionTable');
+  if(!TRANSACTIONS.length) { tb.innerHTML = `<tr><td colspan="6" class="empty-state">No transactions recorded yet.</td></tr>`; return; }
+  tb.innerHTML = TRANSACTIONS.map(t => `<tr><td class="td-mono td-compact">${t.timestamp.replace('T',' ').split('.')[0]}</td><td>${t.user}</td><td><span class="badge badge-operator">${t.itemType}</span></td><td><strong>${t.itemName}</strong> <small class="td-muted">(${t.itemId})</small></td><td>${t.action}</td><td class="td-mono">${t.qty > 0 ? '-' : ''}${Math.abs(t.qty)}</td></tr>`).join('');
+}
 
 /* ══════════════════════════════════════════════════════════
    DASHBOARD
@@ -980,7 +1043,12 @@ function saveSample(){
   const data={name:document.getElementById('sName').value.trim(),type:document.getElementById('sType').value,source:document.getElementById('sSource').value.trim(),collection_date:parseDateInput(document.getElementById('sDate').value),quantity:parseFloat(document.getElementById('sQty').value)||null,unit:document.getElementById('sUnit').value,storage_location:document.getElementById('sLoc').value.trim(),status:document.getElementById('sStat').value,notes:document.getElementById('sNotes').value.trim()};
   if(!data.name){toast('Sample name is required','error');return;}
   if(eid){const i=SAMPLES.findIndex(s=>s.id==eid);SAMPLES[i]={...SAMPLES[i],...data};toast('Sample updated');}
-  else{const sid=generateCSCRId('sample', sNextId);SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered sample: '+sid);}
+  else{
+    const sid=generateCSCRId('sample', sNextId);
+    SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});
+    logStock('Sample', sid, data.name, data.quantity, 'Registration');
+    toast('Registered sample: '+sid);
+  }
   closeModal('mSample');renderSamples();
 }
 function deleteSample(id,name){if(!confirm(`Delete "${name}"?`))return;SAMPLES=SAMPLES.filter(s=>s.id!==id);toast('Sample deleted');renderSamples();}
@@ -1067,7 +1135,10 @@ function viewReagent(id){
   const r=REAGENTS.find(x=>x.id===id);if(!r)return;
   document.getElementById('mDetailTitle').textContent=`🔬 Reagent Details`;
   let coaHtml = r.coa_copy_name ? `<a href="#" onclick="toast('Downloading ${r.coa_copy_name}...')">📄 ${r.coa_copy_name}</a>` : '—';
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('ID',r.reagent_id,true)}${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
+  const history = TRANSACTIONS.filter(t => t.itemType === 'Reagent' && t.itemId === r.reagent_id);
+  const historyHtml = history.length ? `<div class="section-spaced"><div class="detail-label detail-label-block">Stock History</div><div class="table-wrap"><table><thead><tr><th>Date</th><th>User</th><th>Action</th><th>Change</th></tr></thead><tbody>${history.map(t=>`<tr><td class="td-mono td-compact">${t.timestamp.split('T')[0]}</td><td class="td-compact">${t.user}</td><td class="td-compact">${t.action}</td><td class="td-mono td-compact">${t.qty}</td></tr>`).join('')}</tbody></table></div></div>` : blk('Stock History', 'No transaction history found.');
+
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('ID',r.reagent_id,true)}${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}${historyHtml}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-secondary" onclick="printBarcode()">🖨️ Print Label</button><button class="btn btn-primary" onclick="closeModal('mDetail');editReagent(${r.id})">✏️ Edit</button>`;
   openModal('mDetail');
   if(r.reagent_id) renderBarcode(r.reagent_id);
@@ -1093,7 +1164,13 @@ function saveReagent(){
   const today = new Date().toISOString().slice(0, 10);
   if(data.expiry_date && data.expiry_date <= today){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=REAGENTS.findIndex(r=>r.id==eid);REAGENTS[i]={...REAGENTS[i],...data};toast('Reagent updated');}
-  else{REAGENTS.push({id:rNextId++,reagent_id:generateCSCRId('reagent', rNextId),...data});toast('Reagent added');}
+  else {
+    const nextId = rNextId++;
+    const rid = generateCSCRId('reagent', nextId);
+    REAGENTS.push({id:nextId, reagent_id:rid, ...data});
+    logStock('Reagent', rid, data.name, data.quantity, 'New Stock');
+    toast('Reagent added');
+  }
   closeModal('mReagent');renderReagents();
 }
 function deleteReagent(id,name){if(!confirm(`Delete "${name}"?`))return;REAGENTS=REAGENTS.filter(r=>r.id!==id);toast('Deleted');renderReagents();}
@@ -1158,7 +1235,13 @@ function savePW(){
   const todayPW = new Date().toISOString().slice(0, 10);
   if(data.expiry_date && data.expiry_date <= todayPW){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=PLASTICWARE.findIndex(p=>p.id==eid);PLASTICWARE[i]={...PLASTICWARE[i],...data};toast('Updated');}
-  else{PLASTICWARE.push({id:pwNextId++,plasticware_id:generateCSCRId('plasticware', pwNextId),...data});toast('Added');}
+  else {
+    const nextId = pwNextId++;
+    const pid = generateCSCRId('plasticware', nextId);
+    PLASTICWARE.push({id:nextId, plasticware_id:pid, ...data});
+    logStock('Plasticware', pid, data.name, data.quantity, 'New Stock');
+    toast('Added');
+  }
   closeModal('mPW');renderPW();
 }
 function deletePW(id,name){if(!confirm(`Delete "${name}"?`))return;PLASTICWARE=PLASTICWARE.filter(p=>p.id!==id);toast('Deleted');renderPW();}
@@ -1200,16 +1283,56 @@ function viewExp(id){
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editExp(${e.id})">✏️ Edit</button>`;
   openModal('mDetail');
 }
-function openNewExp(){document.getElementById('eEditId').value='';document.getElementById('mExpTitle').textContent='📋 New Experiment';['eTitle','eType','ePrincipal','eStart','eEnd','eObj','eProto','eResults','eNotes'].forEach(i=>document.getElementById(i).value='');document.getElementById('eStatus').value='planned';document.getElementById('eStart').value=formatDateForDisplay(new Date());openModal('mExp');}
-function editExp(id){const e=EXPERIMENTS.find(x=>x.id===id);if(!e)return;document.getElementById('eEditId').value=e.id;document.getElementById('mExpTitle').textContent='✏️ Edit Experiment';document.getElementById('eTitle').value=e.title||'';document.getElementById('eType').value=e.type||'';document.getElementById('ePrincipal').value=e.principal||'';document.getElementById('eStatus').value=e.status||'planned';document.getElementById('eStart').value=formatDisplayDate(e.start_date).replace('—','');document.getElementById('eEnd').value=formatDisplayDate(e.end_date).replace('—','');document.getElementById('eObj').value=e.objective||'';document.getElementById('eProto').value=e.protocol||'';document.getElementById('eResults').value=e.results||'';document.getElementById('eNotes').value=e.notes||'';openModal('mExp');}
+function openNewExp(){
+  document.getElementById('eEditId').value='';
+  document.getElementById('mExpTitle').textContent='📋 New Experiment';
+  ['eTitle','eType','ePrincipal','eStart','eEnd','eObj','eProto','eResults','eNotes','eSampleQty','eReagentQty'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('eStatus').value='planned';
+  document.getElementById('eStart').value=formatDateForDisplay(new Date());
+  const sel = document.getElementById('eSampleConsume');
+  sel.innerHTML = '<option value="">Select Sample...</option>' + SAMPLES.filter(s=>s.status!=='depleted').map(s=>`<option value="${s.id}">${s.sample_id} - ${s.name} (${s.quantity||0} ${s.unit||''})</option>`).join('');
+  const rsel = document.getElementById('eReagentConsume');
+  rsel.innerHTML = '<option value="">Select Reagent...</option>' + REAGENTS.map(r=>`<option value="${r.id}">${r.reagent_id} - ${r.name} (${r.quantity||0} ${r.unit||''})</option>`).join('');
+  openModal('mExp');
+}
+function editExp(id){const e=EXPERIMENTS.find(x=>x.id===id);if(!e)return;document.getElementById('eEditId').value=e.id;document.getElementById('mExpTitle').textContent='✏️ Edit Experiment';document.getElementById('eTitle').value=e.title||'';document.getElementById('eType').value=e.type||'';document.getElementById('ePrincipal').value=e.principal||'';document.getElementById('eStatus').value=e.status||'planned';document.getElementById('eStart').value=formatDisplayDate(e.start_date).replace('—','');document.getElementById('eEnd').value=formatDisplayDate(e.end_date).replace('—','');document.getElementById('eObj').value=e.objective||'';document.getElementById('eProto').value=e.protocol||'';document.getElementById('eResults').value=e.results||'';document.getElementById('eNotes').value=e.notes||'';document.getElementById('eSampleConsume').innerHTML='<option value="">N/A (Edit Mode)</option>';document.getElementById('eSampleQty').value='';document.getElementById('eReagentConsume').innerHTML='<option value="">N/A (Edit Mode)</option>';document.getElementById('eReagentQty').value='';openModal('mExp');}
 function saveExp(){
   const eid=document.getElementById('eEditId').value;
   const data={title:document.getElementById('eTitle').value.trim(),type:document.getElementById('eType').value,principal:document.getElementById('ePrincipal').value.trim(),status:document.getElementById('eStatus').value,start_date:parseDateInput(document.getElementById('eStart').value),end_date:parseDateInput(document.getElementById('eEnd').value),objective:document.getElementById('eObj').value.trim(),protocol:document.getElementById('eProto').value.trim(),results:document.getElementById('eResults').value.trim(),notes:document.getElementById('eNotes').value.trim()};
   if(!data.title){toast('Title required','error');return;}
   if(data.start_date && data.end_date && data.end_date < data.start_date){toast('End Date cannot be earlier than Start Date','error');return;}
+
+  // Consume Sample
+  const consumeId = document.getElementById('eSampleConsume').value;
+  const consumeQty = parseFloat(document.getElementById('eSampleQty').value) || 0;
+  if(!eid && consumeId && consumeQty > 0){
+    const s = SAMPLES.find(x => x.id == consumeId);
+    if(s){
+      const current = s.quantity || 0;
+      if(current < consumeQty){ toast(`Insufficient stock for ${s.name}`,'error'); return; }
+      s.quantity = current - consumeQty;
+      if(s.quantity <= 0){ s.quantity=0; s.status='depleted'; }
+      logStock('Sample', s.sample_id, s.name, consumeQty, 'Consumed in Experiment');
+      toast(`Deducted ${consumeQty} ${s.unit||''} from ${s.sample_id}`);
+    }
+  }
+
+  // Consume Reagent
+  const consumeRId = document.getElementById('eReagentConsume').value;
+  const consumeRQty = parseFloat(document.getElementById('eReagentQty').value) || 0;
+  if(!eid && consumeRId && consumeRQty > 0){
+    const r = REAGENTS.find(x => x.id == consumeRId);
+    if(r){
+      if(r.quantity < consumeRQty){ toast(`Insufficient stock for ${r.name}`,'error'); return; }
+      r.quantity -= consumeRQty;
+      logStock('Reagent', r.reagent_id, r.name, consumeRQty, 'Consumed in Experiment');
+      toast(`Deducted ${consumeRQty} ${r.unit||''} from ${r.reagent_id}`);
+    }
+  }
+
   if(eid){const i=EXPERIMENTS.findIndex(e=>e.id==eid);EXPERIMENTS[i]={...EXPERIMENTS[i],...data};toast('Updated');}
   else{const eid2=`EXP-${new Date().getFullYear()}-${String(eNextId).padStart(3,'0')}`;EXPERIMENTS.unshift({id:eNextId++,experiment_id:eid2,...data});toast('Created: '+eid2);}
-  closeModal('mExp');renderExpList();if(expView==='kanban')renderExpKanban();
+  closeModal('mExp');renderExpList();if(expView==='kanban')renderExpKanban();refreshDashboard();
 }
 function deleteExp(id,title){if(!confirm(`Delete "${title}"?`))return;EXPERIMENTS=EXPERIMENTS.filter(e=>e.id!==id);toast('Deleted');renderExpList();if(expView==='kanban')renderExpKanban();}
 
