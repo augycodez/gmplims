@@ -13,22 +13,22 @@
    LABCORE LIMS — ALL STYLES
 ═══════════════════════════════════════════════════════════ */
 :root {
-  --bg:       #06111f;
-  --bg2:      rgba(11, 24, 40, 0.72);
-  --bg3:      rgba(17, 34, 56, 0.84);
-  --border:   rgba(166, 213, 255, 0.16);
-  --text:     #edf7ff;
-  --muted:    #8ea9c1;
+  --bg:       #f0f4f8;
+  --bg2:      rgba(255, 255, 255, 0.7);
+  --bg3:      rgba(240, 244, 248, 0.8);
+  --border:   rgba(255, 255, 255, 0.4);
+  --text:     #1e293b;
+  --muted:    #334155;
   --accent:   #4de2d2;
   --accent2:  #22b8aa;
   --accent-g: #5be38d;
-  --warn:     #ffb86b;
-  --danger:   #ff6f91;
+  --warn:     #f59e0b;
+  --danger:   #ef4444;
   --info:     #7cb9ff;
   --purple:   #aa8bff;
-  --glass-shadow: 0 24px 60px rgba(1, 9, 20, 0.42);
-  --glass-glow: 0 0 0 1px rgba(125, 223, 255, 0.06), 0 0 38px rgba(77, 226, 210, 0.16), 0 0 88px rgba(72, 125, 255, 0.1);
-  --glass-fill: linear-gradient(180deg, rgba(20, 38, 63, 0.82) 0%, rgba(7, 16, 29, 0.7) 100%);
+  --glass-shadow: 12px 12px 24px rgba(0, 0, 0, 0.05), -12px -12px 24px rgba(255, 255, 255, 0.8);
+  --glass-glow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 15px rgba(77, 226, 210, 0.2), 0 0 30px rgba(124, 185, 255, 0.15);
+  --glass-fill: rgba(255, 255, 255, 0.45);
   --radius:   8px;
   --sidebar:  240px;
   --font:     'IBM Plex Sans', sans-serif;
@@ -38,18 +38,18 @@
 body {
   font-family: var(--font);
   background:
-    radial-gradient(circle at top left, rgba(77, 226, 210, 0.2), transparent 32%),
-    radial-gradient(circle at top right, rgba(124, 185, 255, 0.18), transparent 28%),
-    radial-gradient(circle at bottom center, rgba(170, 139, 255, 0.12), transparent 34%),
-    linear-gradient(145deg, #030712 0%, #07111f 45%, #02050d 100%);
+    radial-gradient(circle at top left, rgba(77, 226, 210, 0.15), transparent 40%),
+    radial-gradient(circle at top right, rgba(124, 185, 255, 0.15), transparent 40%),
+    radial-gradient(circle at bottom center, rgba(170, 139, 255, 0.1), transparent 40%),
+    var(--bg);
   color: var(--text);
   line-height: 1.5;
   font-size: 14px;
   min-height: 100vh;
 }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: rgba(7, 15, 28, 0.9); }
-::-webkit-scrollbar-thumb { background: rgba(120, 173, 220, 0.28); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.2); border-radius: 3px; }
 
 /* ── PAGE VISIBILITY ──────────────────────────────────────── */
 .page { display: none; }
@@ -58,8 +58,8 @@ body {
 .is-hidden { display:none; }
 
 /* ── LOGIN ────────────────────────────────────────────────── */
-.login-wrap { min-height:100vh; min-height:100dvh; width:100%; display:flex; align-items:center; justify-content:center; padding:24px; background:transparent; background-image: radial-gradient(ellipse at 20% 50%,rgba(77,226,210,.16) 0%,transparent 60%), radial-gradient(ellipse at 80% 20%,rgba(124,185,255,.14) 0%,transparent 50%), radial-gradient(circle at 50% 100%, rgba(170,139,255,.12), transparent 42%); }
-.login-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:20px; padding:48px 40px; width:100%; max-width:400px; box-shadow:var(--glass-shadow), var(--glass-glow); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); position:relative; overflow:hidden; }
+.login-wrap { min-height:100vh; min-height:100dvh; width:100%; display:flex; align-items:center; justify-content:center; padding:24px; background:transparent; }
+.login-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:20px; padding:48px 40px; width:100%; max-width:400px; box-shadow:var(--glass-shadow), var(--glass-glow); -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); position:relative; overflow:hidden; }
 .login-card::before { content:''; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; background:linear-gradient(135deg, rgba(255,255,255,.14), transparent 28%, transparent 72%, rgba(77,226,210,.12)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); padding:1px; -webkit-mask-composite:xor; mask-composite:exclude; }
 .login-logo { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
 .login-logo .logo-icon { width:64px; height:64px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -70,24 +70,24 @@ body {
 .login-card .sub { color:var(--muted); font-size:13px; margin-bottom:28px; }
 .form-group { margin-bottom:18px; }
 .form-group label { display:block; font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
-.form-group input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:10px 14px; border-radius:var(--radius); font-family:var(--font); font-size:14px; transition:border-color .2s; }
-.form-group input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(46,168,160,.12); }
-.btn-login { width:100%; background:linear-gradient(135deg,var(--accent),#26918a); color:#fff; border:none; padding:12px; border-radius:var(--radius); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s,transform .1s; margin-top:8px; }
+.form-group input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:10px 14px; border-radius:var(--radius); font-family:var(--font); font-size:14px; transition:all .2s; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7); }
+.form-group input:focus { outline:none; border-color:var(--accent); box-shadow: inset 1px 1px 2px rgba(0,0,0,0.05), 0 0 0 3px rgba(77, 226, 210, 0.1); }
+.btn-login { width:100%; background: #f8fafc; color:var(--text); border:1px solid var(--border); padding:12px; border-radius:var(--radius); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; transition:all .2s; margin-top:8px; box-shadow: 6px 6px 12px rgba(0,0,0,0.08), -6px -6px 12px rgba(255,255,255,0.9); }
 .btn-login:hover { opacity:.9; transform:translateY(-1px); }
+.btn-login:active { box-shadow: inset 4px 4px 8px rgba(0,0,0,0.08), inset -4px -4px 8px rgba(255,255,255,0.9); transform:translateY(0); }
 .login-error { background:rgba(248,81,73,.1); border:1px solid rgba(248,81,73,.3); color:var(--danger); padding:10px 14px; border-radius:var(--radius); font-size:13px; margin-bottom:16px; display:none; }
 .login-error.visible { display:block; }
 .login-demo { margin-top:24px; padding-top:20px; border-top:1px solid var(--border); }
 .login-demo p { font-size:11px; color:var(--muted); margin-bottom:8px; font-family:var(--mono); }
 .demo-creds { display:flex; gap:8px; flex-wrap:wrap; }
-.demo-pill { background:rgba(20, 38, 63, 0.65); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:11px; font-family:var(--mono); color:var(--muted); cursor:pointer; transition:border-color .2s,color .2s, box-shadow .2s; }
-.demo-pill:hover { box-shadow:0 0 24px rgba(77,226,210,.14); }
+.demo-pill { background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:11px; font-family:var(--mono); color:var(--muted); cursor:pointer; transition:all .2s; box-shadow: 3px 3px 6px rgba(0,0,0,0.05), -3px -3px 6px rgba(255,255,255,0.8); }
 .demo-pill:hover { border-color:var(--accent); color:var(--accent); }
 
 /* ── APP SHELL ────────────────────────────────────────────── */
 .app { display:flex; min-height:100vh; width:100%; }
 
 /* ── SIDEBAR ──────────────────────────────────────────────── */
-.sidebar { width:var(--sidebar); background:rgba(8, 20, 35, 0.7); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; -webkit-backdrop-filter:blur(22px) saturate(140%); backdrop-filter:blur(22px) saturate(140%); box-shadow:inset -1px 0 0 rgba(255,255,255,.04), 18px 0 40px rgba(0,0,0,.22); }
+.sidebar { width:var(--sidebar); background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); box-shadow: 10px 0 30px rgba(0,0,0,0.03); }
 .sidebar-header { padding:20px 18px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
 .sidebar-logo { width:52px; height:52px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .sidebar-logo img { width:100%; height:100%; object-fit:contain; }
@@ -98,7 +98,7 @@ body {
 .nav-section-label { font-size:10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:0 8px; margin-bottom:4px; }
 .nav-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:6px; cursor:pointer; transition:background .15s,color .15s; color:var(--muted); text-decoration:none; font-size:13.5px; margin-bottom:2px; }
 .nav-item:hover { background:rgba(255,255,255,.05); color:var(--text); }
-.nav-item.active { background:linear-gradient(90deg, rgba(77,226,210,.2), rgba(124,185,255,.08)); color:var(--accent); box-shadow:inset 0 0 0 1px rgba(77,226,210,.12), 0 0 24px rgba(77,226,210,.1); }
+.nav-item.active { background:var(--bg3); color:var(--text); font-weight:600; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.8); }
 .nav-item .icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
 .sidebar-footer { padding:14px 10px; border-top:1px solid var(--border); }
 .user-info { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:6px; }
@@ -108,13 +108,13 @@ body {
 .user-details { flex:1; min-width:0; }
 .user-name { font-size:12.5px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .user-role { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; font-family:var(--mono); }
-.user-role.admin { color:var(--accent); }
+.user-role.admin { color:var(--text); font-weight:600; }
 .btn-logout { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:4px; border-radius:4px; transition:color .15s; }
 .btn-logout:hover { color:var(--danger); }
 
 /* ── MAIN CONTENT ─────────────────────────────────────────── */
 .main { margin-left:var(--sidebar); flex:1; display:flex; flex-direction:column; min-height:100vh; width:calc(100% - var(--sidebar)); }
-.topbar { background:rgba(8, 20, 35, 0.56); border-bottom:1px solid var(--border); padding:0 28px; height:56px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:50; -webkit-backdrop-filter:blur(20px) saturate(145%); backdrop-filter:blur(20px) saturate(145%); }
+.topbar { background:rgba(255, 255, 255, 0.4); border-bottom:1px solid var(--border); padding:0 28px; height:56px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:50; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); }
 .topbar-title { font-size:16px; font-weight:600; }
 .topbar-breadcrumb { font-size:12px; color:var(--muted); font-family:var(--mono); }
 .topbar-spacer { flex:1; }
@@ -128,33 +128,32 @@ body {
 .button-row { display:flex; gap:10px; }
 
 /* ── BUTTONS ──────────────────────────────────────────────── */
-.btn { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:var(--radius); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; border:none; transition:all .15s; white-space:nowrap; }
-.btn-primary { background:linear-gradient(135deg, var(--accent), var(--info)); color:#04101c; box-shadow:0 10px 24px rgba(77,226,210,.22); }
-.btn-primary:hover { background:linear-gradient(135deg, #6df0e1, #9bc9ff); box-shadow:0 14px 28px rgba(77,226,210,.28); }
-.btn-secondary { background:rgba(18, 33, 53, 0.7); color:var(--text); border:1px solid var(--border); box-shadow:inset 0 1px 0 rgba(255,255,255,.04); }
-.btn-secondary:hover { border-color:rgba(125, 223, 255, 0.3); background:rgba(26, 43, 67, 0.76); }
-.btn-danger { background:rgba(248,81,73,.15); color:var(--danger); border:1px solid rgba(248,81,73,.3); }
-.btn-warn { background:rgba(210,153,34,.15); color:var(--warn); border:1px solid rgba(210,153,34,.3); }
+.btn { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:var(--radius); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; border:1px solid var(--border); transition:all .2s; white-space:nowrap; background: var(--bg2); color: var(--text); box-shadow: 4px 4px 8px rgba(0,0,0,0.05), -4px -4px 8px rgba(255,255,255,0.8); }
+.btn-primary { background: var(--bg3); color: var(--text); font-weight:600; border-color: var(--accent); }
+.btn-primary:hover { box-shadow: 6px 6px 12px rgba(0,0,0,0.08), -6px -6px 12px rgba(255,255,255,0.9); transform: translateY(-1px); }
+.btn-secondary { color:var(--muted); }
+.btn-secondary:hover { border-color:var(--muted); }
+.btn:active { box-shadow: inset 4px 4px 8px rgba(0,0,0,0.08), inset -4px -4px 8px rgba(255,255,255,0.9); transform: translateY(0); }
 .btn-sm { padding:5px 11px; font-size:12px; }
 
 /* ── STATS GRID ───────────────────────────────────────────── */
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:28px; }
-.stat-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; padding:20px; display:flex; flex-direction:column; gap:10px; transition:border-color .2s, transform .2s, box-shadow .2s; position:relative; overflow:hidden; -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%); box-shadow:var(--glass-shadow), var(--glass-glow); }
+.stat-card { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; padding:20px; display:flex; flex-direction:column; gap:10px; transition:all .3s ease; position:relative; overflow:hidden; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); box-shadow:var(--glass-shadow), var(--glass-glow); }
 .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
 .stat-card.teal::before { background:linear-gradient(90deg,var(--accent),transparent); }
 .stat-card.blue::before { background:linear-gradient(90deg,var(--info),transparent); }
 .stat-card.green::before { background:linear-gradient(90deg,var(--accent-g),transparent); }
 .stat-card.warn::before { background:linear-gradient(90deg,var(--warn),transparent); }
 .stat-card.purple::before { background:linear-gradient(90deg,var(--purple),transparent); }
-.stat-card:hover { border-color:rgba(125, 223, 255, 0.3); transform:translateY(-2px); box-shadow:0 24px 60px rgba(1,9,20,.48), 0 0 42px rgba(77,226,210,.18); }
-.stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.7px; font-weight:500; }
-.stat-value { font-size:32px; font-weight:600; font-family:var(--mono); line-height:1; }
+.stat-card:hover { transform:translateY(-4px); box-shadow: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,0.9), var(--glass-glow); }
+.stat-label { font-size:11px; color:var(--text); text-transform:uppercase; letter-spacing:.7px; font-weight:600; }
+.stat-value { font-size:32px; font-weight:600; font-family:var(--mono); line-height:1; color:var(--text); }
 .stat-sub { font-size:12px; color:var(--muted); }
 .stat-sub .up { color:var(--accent-g); }
 .stat-sub .down { color:var(--danger); }
 
 /* ── CARDS ────────────────────────────────────────────────── */
-.card { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; overflow:hidden; -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%); box-shadow:var(--glass-shadow), var(--glass-glow); }
+.card { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; overflow:hidden; -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px); box-shadow:var(--glass-shadow), var(--glass-glow); }
 .card-spaced { margin-bottom:20px; }
 .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .card-header h3 { font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px; }
@@ -175,15 +174,15 @@ thead tr { border-bottom:1px solid var(--border); }
 th { text-align:left; padding:10px 14px; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; white-space:nowrap; }
 .th-sort { display:inline-flex; align-items:center; gap:6px; }
 .sort-controls { display:inline-flex; gap:4px; }
-.sort-btn { width:20px; height:20px; border-radius:4px; border:1px solid var(--border); background:rgba(13, 27, 45, 0.78); color:var(--muted); font-size:11px; line-height:1; cursor:pointer; transition:border-color .15s, color .15s, background .15s; }
-.sort-btn:hover { border-color:rgba(125, 223, 255, 0.3); color:var(--text); background:rgba(18, 35, 58, 0.9); }
-.sort-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(77,226,210,.08); }
-tbody tr { border-bottom:1px solid rgba(48,54,61,.6); transition:background .1s; }
+.sort-btn { width:20px; height:20px; border-radius:4px; border:1px solid var(--border); background:var(--bg3); color:var(--muted); font-size:11px; line-height:1; cursor:pointer; transition:all .2s; }
+.sort-btn:hover { border-color:var(--accent); color:var(--text); }
+.sort-btn.active { border-color:var(--accent); color:var(--accent); background:white; }
+.tbody tr { border-bottom:1px solid rgba(0, 0, 0, 0.05); transition:background .1s; }
 tbody tr:last-child { border-bottom:none; }
-tbody tr:hover { background:rgba(77,226,210,.08); }
+tbody tr:hover { background:rgba(255, 255, 255, 0.5); }
 td { padding:11px 14px; vertical-align:middle; }
 .td-mono { font-family:var(--mono); font-size:12px; }
-.td-accent { color:var(--accent); }
+.td-accent { color:var(--text); font-weight:500; }
 .td-compact { font-size:11px; }
 .td-muted { color:var(--muted); }
 .td-body-sm { font-size:12px; }
@@ -216,18 +215,18 @@ td { padding:11px 14px; vertical-align:middle; }
 .toolbar { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
 .toolbar-meta { margin-left:auto; color:var(--muted); font-size:12px; font-family:var(--mono); }
 .search-box { position:relative; flex:1; min-width:200px; max-width:360px; }
-.search-box input { width:100%; background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:8px 32px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:border-color .2s, box-shadow .2s, background .2s; }
-.search-box input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(77,226,210,.12), 0 0 24px rgba(77,226,210,.12); background:rgba(18, 35, 58, 0.9); }
+.search-box input { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 32px 8px 36px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.7); }
+.search-box input:focus { outline:none; border-color:var(--accent); background:white; }
 .search-box .sicon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:14px; pointer-events:none; }
 .search-clear { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; line-height:1; opacity:0; pointer-events:none; transition:opacity .15s; }
 .search-box input:not(:placeholder-shown) ~ .search-clear { opacity:1; pointer-events:all; }
-.filter-select { background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:var(--radius); font-family:var(--font); font-size:13px; cursor:pointer; }
+.filter-select { background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:var(--radius); font-family:var(--font); font-size:13px; cursor:pointer; box-shadow: 4px 4px 8px rgba(0,0,0,0.03); }
 .filter-select:focus { outline:none; border-color:var(--accent); }
 
 /* ── MODAL ────────────────────────────────────────────────── */
-.modal-overlay { position:fixed; inset:0; background:rgba(1, 6, 16, .72); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .2s; }
+.modal-overlay { position:fixed; inset:0; background:rgba(255, 255, 255, 0.2); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .2s; }
 .modal-overlay.open { opacity:1; pointer-events:all; }
-.modal { background:var(--glass-fill); border:1px solid var(--border); border-radius:18px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow:var(--glass-shadow), 0 0 52px rgba(77,226,210,.14); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); }
+.modal { background:white; border:1px solid var(--border); border-radius:18px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; transform:translateY(20px); transition:transform .2s; box-shadow: 0 30px 60px rgba(0,0,0,0.1), var(--glass-glow); }
 .modal-overlay.open .modal { transform:translateY(0); }
 .modal-lg { max-width:780px; }
 .modal-xl { max-width:1180px; }
@@ -243,8 +242,8 @@ td { padding:11px 14px; vertical-align:middle; }
 .form-row-4 { grid-template-columns:repeat(4, minmax(0,1fr)); }
 .form-field { margin-bottom:16px; }
 .form-field label { display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
-.form-field input,.form-field select,.form-field textarea { width:100%; background:rgba(13, 27, 45, 0.78); border:1px solid var(--border); color:var(--text); padding:9px 13px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:border-color .2s, box-shadow .2s, background .2s; }
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(77,226,210,.1), 0 0 24px rgba(77,226,210,.1); background:rgba(18, 35, 58, 0.9); }
+.form-field input,.form-field select,.form-field textarea { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:9px 13px; border-radius:var(--radius); font-family:var(--font); font-size:13px; transition:all .2s; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.04), inset -2px -2px 4px rgba(255,255,255,0.7); }
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:none; border-color:var(--accent); background:white; }
 .form-field input[type="file"] { padding:7px 10px; cursor:pointer; }
 .form-field textarea { resize:vertical; min-height:80px; }
 .form-field select option { background:var(--bg3); }
@@ -326,7 +325,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:20px; }
 .tab { padding:10px 18px; font-size:13px; font-weight:500; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; margin-bottom:-1px; }
 .tab:hover { color:var(--text); }
-.tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab.active { color:var(--text); font-weight:600; border-bottom-color:var(--accent); }
 
 /* ── KANBAN ───────────────────────────────────────────────── */
 .kanban { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
@@ -341,7 +340,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .kanban-card:hover { border-color:var(--accent); transform:translateY(-1px); box-shadow:0 14px 30px rgba(0,0,0,.22), 0 0 24px rgba(77,226,210,.14); }
 .kanban-card h4 { font-size:13px; font-weight:500; margin-bottom:4px; }
 .kanban-card .meta { font-size:11px; color:var(--muted); font-family:var(--mono); }
-.kanban-meta-accent { color:var(--accent); margin-bottom:4px; }
+.kanban-meta-accent { color:var(--text); font-weight:600; margin-bottom:4px; }
 .kanban-meta-spaced { margin-top:6px; }
 .kanban-empty { text-align:center; padding:20px; color:var(--muted); font-size:12px; }
 .legend-color-0 { background:#2ea8a0; }
@@ -357,7 +356,7 @@ td { padding:11px 14px; vertical-align:middle; }
 .search-result-item { padding: 10px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 10px; }
 .search-result-item:hover { background: rgba(77,226,210,.1); }
 .search-result-item:last-child { border-bottom: none; }
-.search-result-type { font-size: 10px; text-transform: uppercase; color: var(--accent); font-family: var(--mono); width: 80px; flex-shrink: 0; font-weight: 600; }
+.search-result-type { font-size: 10px; text-transform: uppercase; color: var(--text); font-family: var(--mono); width: 80px; flex-shrink: 0; font-weight: 700; }
 .search-result-text { font-size: 13px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 @media(max-width:900px){.two-col,.col-65-35{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}.form-row,.form-row-4{grid-template-columns:1fr}}
@@ -473,17 +472,10 @@ td { padding:11px 14px; vertical-align:middle; }
         </div>
         <div id="ds-alert-low" class="alert alert-warn alert-spaced is-hidden"></div>
         <div id="ds-alert-expiry" class="alert alert-danger alert-spaced is-hidden"></div>
-        <div class="col-65-35 section-spaced">
+        <div class="section-spaced">
           <div class="card">
             <div class="card-header"><h3>🧪 Recent Samples</h3><button class="btn btn-secondary btn-sm" onclick="showPage('samples')">View All →</button></div>
             <div class="table-wrap"><table><thead><tr><th>Sample ID</th><th>Name</th><th>Type</th><th>Date</th></tr></thead><tbody id="ds-sampleRows"></tbody></table></div>
-          </div>
-          <div class="card">
-            <div class="card-header"><h3>📊 Sample Types</h3></div>
-            <div class="card-body">
-              <svg width="160" height="160" viewBox="0 0 160 160" id="donutSvg" class="donut-chart"><circle cx="80" cy="80" r="60" fill="none" stroke="#21262d" stroke-width="22"/></svg>
-              <div class="legend legend-spaced" id="donutLegend"></div>
-            </div>
           </div>
         </div>
         <div class="two-col">
@@ -623,7 +615,8 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row form-row-4"><div class="form-field"><label for="rGrade">Grade</label><input type="text" id="rGrade" placeholder="e.g. Molecular Biology Grade"></div><div class="form-field"><label for="rProject">Project Name</label><input type="text" id="rProject" placeholder="e.g. Genomics Study"></div><div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div><div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="rPrDate">PR Date</label><input type="text" id="rPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div><div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div><div class="form-field"><label for="rDateReceived">GR Date / Date Received</label><input type="text" id="rDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="text" id="rExp" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div><div class="form-field"><label for="rCoaFile">Upload CoA Copy</label><input type="file" id="rCoaFile" onchange="updateFileMeta('rCoaFile','rCoaFileMeta')"><div class="file-meta" id="rCoaFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="rNotes">Notes</label><textarea id="rNotes" class="textarea-md" placeholder="Storage conditions, hazards…"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mReagent')">Cancel</button><button class="btn btn-primary" onclick="saveReagent()">Save Reagent</button></div></div>
@@ -638,7 +631,7 @@ td { padding:11px 14px; vertical-align:middle; }
     <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="text" id="pwExp" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">GR Date / Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
     <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwMin">Min Stock</label><input type="number" id="pwMin"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div></div>
+    <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div><div class="form-field"><label for="pwCoaFile">Upload CoA Copy</label><input type="file" id="pwCoaFile" onchange="updateFileMeta('pwCoaFile','pwCoaFileMeta')"><div class="file-meta" id="pwCoaFileMeta">No file selected</div></div></div>
     <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm"></textarea></div>
   </div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mPW')">Cancel</button><button class="btn btn-primary" onclick="savePW()">Save</button></div></div>
@@ -883,8 +876,6 @@ let uNextId = 4;
 /* ══════════════════════════════════════════════════════════
    DASHBOARD
 ══════════════════════════════════════════════════════════ */
-const DCOLORS = ['#2ea8a0','#58a6ff','#3fb950','#d29922','#bc8cff','#f85149'];
-
 function refreshDashboard() {
   const active = SAMPLES.filter(s=>s.status==='active').length;
   const low = REAGENTS.filter(r=>r.minimum_stock && r.quantity<=r.minimum_stock).length;
@@ -927,30 +918,6 @@ function refreshDashboard() {
   } else { alertExp.classList.add('is-hidden'); }
 
   document.getElementById('ds-expiryList').innerHTML = expiring.length ? expiring.slice(0,6).map(r=>{const d=Math.ceil((new Date(r.expiry_date)-today)/86400000);return`<div class="expiry-row"><span class="text-body-sm">${r.name}</span><span class="badge ${d<30?'badge-depleted':'badge-expiring'}">${d}d left</span></div>`;}).join('') : `<div class="empty-state empty-state-compact"><div class="eicon">✅</div><p>No reagents expiring soon</p></div>`;
-
-  // Donut
-  buildDonut();
-}
-
-function buildDonut() {
-  const svg = document.getElementById('donutSvg');
-  // Remove old arcs
-  while (svg.children.length > 1) svg.removeChild(svg.lastChild);
-  const types = {}; SAMPLES.forEach(s=>{ types[s.type]=(types[s.type]||0)+1; });
-  const data = Object.entries(types).sort((a,b)=>b[1]-a[1]).slice(0,6);
-  const total = data.reduce((s,[,c])=>s+c,0);
-  const R=60,cx=80,cy=80,sw=22,circ=2*Math.PI*R;
-  let offset=-circ*.25;
-  const legend = document.getElementById('donutLegend'); legend.innerHTML='';
-  data.forEach(([type,count],i)=>{
-    const dash=circ*(count/total);
-    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',R);c.setAttribute('fill','none');
-    c.setAttribute('stroke',DCOLORS[i%DCOLORS.length]);c.setAttribute('stroke-width',sw);
-    c.setAttribute('stroke-dasharray',`${dash} ${circ-dash}`);c.setAttribute('stroke-dashoffset',-offset);
-    svg.appendChild(c); offset+=dash;
-    legend.innerHTML+=`<div class="legend-item"><div class="legend-dot legend-color-${i % DCOLORS.length}"></div><span class="legend-label">${type}</span><span class="legend-value">${count}</span></div>`;
-  });
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1072,8 +1039,16 @@ function renderReagents(){
   const tb=document.getElementById('reagentTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🔬</div><h3>No reagents found</h3></div></td></tr>`;return;}
   tb.innerHTML=data.map(r=>{
-    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
+    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn" onclick="viewReagent(${r.id})">👁</button><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
   }).join('');
+}
+function viewReagent(id){
+  const r=REAGENTS.find(x=>x.id===id);if(!r)return;
+  document.getElementById('mDetailTitle').textContent=`🔬 Reagent Details`;
+  let coaHtml = r.coa_copy_name ? `<a href="#" onclick="toast('Downloading ${r.coa_copy_name}...')">📄 ${r.coa_copy_name}</a>` : '—';
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}`;
+  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editReagent(${r.id})">✏️ Edit</button>`;
+  openModal('mDetail');
 }
 function openReagentModal(){
   document.getElementById('rEditId').value='';
@@ -1081,15 +1056,16 @@ function openReagentModal(){
   ['rName','rDesc','rCat','rManufacturer','rSupplier','rGrade','rProject','rPoNumber','rGrNumber','rCat2','rQty','rUnit','rMin','rStorageTemp','rStorageLoc','rLot','rExp','rNotes'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
   document.getElementById('rPrDate').value = formatDateForDisplay(new Date());
   document.getElementById('rDateReceived').value = formatDateForDisplay(new Date());
-  document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');openModal('mReagent');
+  document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';document.getElementById('rCoaFile').value='';updateFileMeta('rPoFile','rPoFileMeta');updateFileMeta('rGrFile','rGrFileMeta');updateFileMeta('rCoaFile','rCoaFileMeta');openModal('mReagent');
 }
-function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=formatDisplayDate(r.pr_date).replace('—','');document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=formatDisplayDate(r.date_received).replace('—','');document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=formatDisplayDate(r.expiry_date).replace('—','');document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');openModal('mReagent');}
+function editReagent(id){const r=REAGENTS.find(x=>x.id===id);if(!r)return;document.getElementById('rEditId').value=r.id;document.getElementById('mReagentTitle').textContent='✏️ Edit Reagent';document.getElementById('rName').value=r.name||'';document.getElementById('rDesc').value=r.description||'';document.getElementById('rCat').value=r.catalog_number||'';document.getElementById('rManufacturer').value=r.manufacturer||'';document.getElementById('rSupplier').value=r.supplier||'';document.getElementById('rGrade').value=r.grade||'';document.getElementById('rProject').value=r.project_name||'';document.getElementById('rPrDate').value=formatDisplayDate(r.pr_date).replace('—','');document.getElementById('rPoNumber').value=r.po_number||'';document.getElementById('rGrNumber').value=r.gr_number||'';document.getElementById('rDateReceived').value=formatDisplayDate(r.date_received).replace('—','');document.getElementById('rCat2').value=r.category||'';document.getElementById('rQty').value=r.quantity||'';document.getElementById('rUnit').value=r.unit||'';document.getElementById('rMin').value=r.minimum_stock||'';document.getElementById('rStorageTemp').value=r.storage_temperature||'';document.getElementById('rStorageLoc').value=r.storage_location||'';document.getElementById('rLot').value=r.lot_number||'';document.getElementById('rExp').value=formatDisplayDate(r.expiry_date).replace('—','');document.getElementById('rNotes').value=r.notes||'';document.getElementById('rPoFile').value='';document.getElementById('rGrFile').value='';document.getElementById('rCoaFile').value='';updateFileMeta('rPoFile','rPoFileMeta',r.po_copy_name||'No file selected');updateFileMeta('rGrFile','rGrFileMeta',r.gr_copy_name||'No file selected');updateFileMeta('rCoaFile','rCoaFileMeta',r.coa_copy_name||'No file selected');openModal('mReagent');}
 function saveReagent(){
   const eid=document.getElementById('rEditId').value;
   const existing=eid?REAGENTS.find(r=>r.id==eid):null;
   const poFile=document.getElementById('rPoFile').files[0];
   const grFile=document.getElementById('rGrFile').files[0];
-  const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:parseDateInput(document.getElementById('rPrDate').value),po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('rDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:document.getElementById('rStorageLoc').value.trim(),lot_number:document.getElementById('rLot').value.trim(),expiry_date:parseDateInput(document.getElementById('rExp').value),notes:document.getElementById('rNotes').value.trim()};
+  const coaFile=document.getElementById('rCoaFile').files[0];
+  const data={name:document.getElementById('rName').value.trim(),description:document.getElementById('rDesc').value.trim(),catalog_number:document.getElementById('rCat').value.trim(),manufacturer:document.getElementById('rManufacturer').value.trim(),supplier:document.getElementById('rSupplier').value.trim(),grade:document.getElementById('rGrade').value.trim(),project_name:document.getElementById('rProject').value.trim(),pr_date:parseDateInput(document.getElementById('rPrDate').value),po_number:document.getElementById('rPoNumber').value.trim(),gr_number:document.getElementById('rGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('rDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),coa_copy_name:coaFile?coaFile.name:(existing?.coa_copy_name||''),category:document.getElementById('rCat2').value,quantity:parseFloat(document.getElementById('rQty').value)||0,unit:document.getElementById('rUnit').value,minimum_stock:parseFloat(document.getElementById('rMin').value)||0,storage_temperature:document.getElementById('rStorageTemp').value.trim(),storage_location:document.getElementById('rStorageLoc').value.trim(),lot_number:document.getElementById('rLot').value.trim(),expiry_date:parseDateInput(document.getElementById('rExp').value),notes:document.getElementById('rNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(data.pr_date && data.date_received && data.date_received < data.pr_date){toast('Date Received cannot be earlier than PR Date','error');return;}
   const today = new Date().toISOString().slice(0, 10);
@@ -1118,7 +1094,12 @@ function updateFileMeta(inputId,metaId,fallback='No file selected'){
   const input=document.getElementById(inputId);
   const meta=document.getElementById(metaId);
   if(!input||!meta)return;
-  const fileName=input.files&&input.files[0]?input.files[0].name:'';
+  const file=input.files&&input.files[0];
+  if(file && (inputId==='rCoaFile' || inputId==='pwCoaFile') && file.size > 5*1024*1024){
+    toast('CoA file must be less than 5MB','error');
+    input.value=''; meta.textContent=fallback; return;
+  }
+  const fileName=file?file.name:'';
   meta.textContent=fileName||fallback;
 }
 function openPWModal(){
@@ -1130,17 +1111,18 @@ function openPWModal(){
   });
   document.getElementById('pwPrDate').value = formatDateForDisplay(new Date());
   document.getElementById('pwDateReceived').value = formatDateForDisplay(new Date());
-  document.getElementById('pwPoFile').value=''; document.getElementById('pwGrFile').value='';
-  updateFileMeta('pwPoFile','pwPoFileMeta'); updateFileMeta('pwGrFile','pwGrFileMeta');
+  document.getElementById('pwPoFile').value=''; document.getElementById('pwGrFile').value=''; document.getElementById('pwCoaFile').value='';
+  updateFileMeta('pwPoFile','pwPoFileMeta'); updateFileMeta('pwGrFile','pwGrFileMeta'); updateFileMeta('pwCoaFile','pwCoaFileMeta');
   document.getElementById('pwUnit').value='pcs'; openModal('mPW');
 }
-function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwDesc').value=p.description||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwManufacturer').value=p.manufacturer||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwGrade').value=p.grade||'';document.getElementById('pwProject').value=p.project_name||'';document.getElementById('pwPrDate').value=formatDisplayDate(p.pr_date).replace('—','');document.getElementById('pwPoNumber').value=p.po_number||'';document.getElementById('pwGrNumber').value=p.gr_number||'';document.getElementById('pwDateReceived').value=formatDisplayDate(p.date_received).replace('—','');document.getElementById('pwExp').value=formatDisplayDate(p.expiry_date).replace('—','');document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwStorageTemp').value=p.storage_temperature||'';document.getElementById('pwStorageLoc').value=p.storage_location||'';document.getElementById('pwMin').value=p.minimum_stock||'';document.getElementById('pwNotes').value=p.notes||'';document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta',p.po_copy_name||'No file selected');updateFileMeta('pwGrFile','pwGrFileMeta',p.gr_copy_name||'No file selected');openModal('mPW');}
+function editPW(id){const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;document.getElementById('pwEditId').value=p.id;document.getElementById('mPWTitle').textContent='✏️ Edit Plasticware';document.getElementById('pwName').value=p.name||'';document.getElementById('pwDesc').value=p.description||'';document.getElementById('pwCat').value=p.catalog_number||'';document.getElementById('pwManufacturer').value=p.manufacturer||'';document.getElementById('pwSupplier').value=p.supplier||'';document.getElementById('pwGrade').value=p.grade||'';document.getElementById('pwProject').value=p.project_name||'';document.getElementById('pwPrDate').value=formatDisplayDate(p.pr_date).replace('—','');document.getElementById('pwPoNumber').value=p.po_number||'';document.getElementById('pwGrNumber').value=p.gr_number||'';document.getElementById('pwDateReceived').value=formatDisplayDate(p.date_received).replace('—','');document.getElementById('pwExp').value=formatDisplayDate(p.expiry_date).replace('—','');document.getElementById('pwQty').value=p.quantity||'';document.getElementById('pwUnit').value=p.unit||'pcs';document.getElementById('pwStorageTemp').value=p.storage_temperature||'';document.getElementById('pwStorageLoc').value=p.storage_location||'';document.getElementById('pwMin').value=p.minimum_stock||'';document.getElementById('pwNotes').value=p.notes||'';document.getElementById('pwPoFile').value='';document.getElementById('pwGrFile').value='';document.getElementById('pwCoaFile').value='';updateFileMeta('pwPoFile','pwPoFileMeta',p.po_copy_name||'No file selected');updateFileMeta('pwGrFile','pwGrFileMeta',p.gr_copy_name||'No file selected');updateFileMeta('pwCoaFile','pwCoaFileMeta',p.coa_copy_name||'No file selected');openModal('mPW');}
 function savePW(){
   const eid=document.getElementById('pwEditId').value;
   const existing=eid?PLASTICWARE.find(p=>p.id==eid):null;
   const poFile=document.getElementById('pwPoFile').files[0];
   const grFile=document.getElementById('pwGrFile').files[0];
-  const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:parseDateInput(document.getElementById('pwPrDate').value),po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('pwDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),expiry_date:parseDateInput(document.getElementById('pwExp').value),quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,minimum_stock:parseInt(document.getElementById('pwMin').value)||0,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:document.getElementById('pwStorageLoc').value.trim(),notes:document.getElementById('pwNotes').value.trim()};
+  const coaFile=document.getElementById('pwCoaFile').files[0];
+  const data={name:document.getElementById('pwName').value.trim(),description:document.getElementById('pwDesc').value.trim(),catalog_number:document.getElementById('pwCat').value.trim(),manufacturer:document.getElementById('pwManufacturer').value.trim(),supplier:document.getElementById('pwSupplier').value.trim(),grade:document.getElementById('pwGrade').value.trim(),project_name:document.getElementById('pwProject').value.trim(),pr_date:parseDateInput(document.getElementById('pwPrDate').value),po_number:document.getElementById('pwPoNumber').value.trim(),gr_number:document.getElementById('pwGrNumber').value.trim(),date_received:parseDateInput(document.getElementById('pwDateReceived').value),po_copy_name:poFile?poFile.name:(existing?.po_copy_name||''),gr_copy_name:grFile?grFile.name:(existing?.gr_copy_name||''),coa_copy_name:coaFile?coaFile.name:(existing?.coa_copy_name||''),expiry_date:parseDateInput(document.getElementById('pwExp').value),quantity:parseInt(document.getElementById('pwQty').value)||0,unit:document.getElementById('pwUnit').value,minimum_stock:parseInt(document.getElementById('pwMin').value)||0,storage_temperature:document.getElementById('pwStorageTemp').value.trim(),storage_location:document.getElementById('pwStorageLoc').value.trim(),notes:document.getElementById('pwNotes').value.trim()};
   if(!data.name){toast('Name required','error');return;}
   if(data.pr_date && data.date_received && data.date_received < data.pr_date){toast('Date Received cannot be earlier than PR Date','error');return;}
   const todayPW = new Date().toISOString().slice(0, 10);
