@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════════════
    LABCORE LIMS — ALL STYLES
@@ -499,7 +500,7 @@ td { padding:11px 14px; vertical-align:middle; }
           <div class="toolbar-meta" id="sCount"></div>
         </div>
         <div class="card"><div class="table-wrap"><table>
-          <thead><tr><th>Sample ID</th><th>Name</th><th>Type</th><th>Source</th><th>Collection Date</th><th>Storage Location</th><th>Qty</th><th>Status</th><th>Registered By</th><th></th></tr></thead>
+          <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Source</th><th>Collection Date</th><th>Storage Location</th><th>Qty</th><th>Status</th><th>Registered By</th><th></th></tr></thead>
           <tbody id="sampleTable"></tbody>
         </table></div></div>
       </div>
@@ -527,7 +528,7 @@ td { padding:11px 14px; vertical-align:middle; }
           </div>
         </div>
           <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="rSearch" placeholder="Search reagents…" aria-label="Search reagents" oninput="renderReagents()"><button class="search-clear" onclick="clearSearch('rSearch', renderReagents)" title="Clear search">×</button></div><select class="filter-select" id="rCatF" aria-label="Filter reagents by category" onchange="renderReagents()"><option value="">All Categories</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option></select></div>
-          <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="rSortNameAsc" onclick="setReagentSort('name','asc')">↑</button><button type="button" class="sort-btn" id="rSortNameDesc" onclick="setReagentSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="reagentTable"></tbody></table></div></div>
+          <div class="card"><div class="table-wrap"><table><thead><tr><th>ID</th><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="rSortNameAsc" onclick="setReagentSort('name','asc')">↑</button><button type="button" class="sort-btn" id="rSortNameDesc" onclick="setReagentSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="reagentTable"></tbody></table></div></div>
       </div>
 
       <div id="panel-plasticware" class="panel is-hidden">
@@ -537,7 +538,7 @@ td { padding:11px 14px; vertical-align:middle; }
           </div>
         </div>
           <div class="toolbar"><div class="search-box"><span class="sicon">🔍</span><input type="text" id="pwSearch" placeholder="Search plasticware…" aria-label="Search plasticware" oninput="renderPW()"><button class="search-clear" onclick="clearSearch('pwSearch', renderPW)" title="Clear search">×</button></div></div>
-          <div class="card"><div class="table-wrap"><table><thead><tr><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="pwSortNameAsc" onclick="setPWSort('name','asc')">↑</button><button type="button" class="sort-btn" id="pwSortNameDesc" onclick="setPWSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="pwTable"></tbody></table></div></div>
+          <div class="card"><div class="table-wrap"><table><thead><tr><th>ID</th><th><span class="th-sort">Item Name <span class="sort-controls"><button type="button" class="sort-btn" id="pwSortNameAsc" onclick="setPWSort('name','asc')">↑</button><button type="button" class="sort-btn" id="pwSortNameDesc" onclick="setPWSort('name','desc')">↓</button></span></span></th><th>Catalogue Number</th><th>Manufacturer</th><th>Location</th><th>Available Quantity</th><th></th></tr></thead><tbody id="pwTable"></tbody></table></div></div>
       </div>
 
       <!-- ─── EXPERIMENTS ────────────────────────────────── -->
@@ -809,6 +810,25 @@ function parseDateInput(str) {
   if (mIdx === -1) return str;
   return `${year}-${String(mIdx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 }
+function generateCSCRId(type, count) {
+  const year = '26';
+  let prefix = 'SM';
+  if (type === 'reagent') prefix = 'RG';
+  if (type === 'plasticware') prefix = 'PL';
+  return `CSCR-${prefix}-${year}-${String(count).padStart(3, '0')}`;
+}
+function renderBarcode(id) {
+  setTimeout(() => { if(document.getElementById('barcode-svg')) JsBarcode("#barcode-svg", id, { format: "CODE128", width: 2, height: 50, displayValue: true }); }, 50);
+}
+function printBarcode() {
+  const svg = document.getElementById('barcode-svg');
+  if (!svg) return;
+  const printWindow = window.open('', '_blank', 'width=600,height=400');
+  printWindow.document.write('<html><head><title>Print Barcode</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;}svg{width:80%;height:auto;}</style></head><body>');
+  printWindow.document.write(svg.outerHTML);
+  printWindow.document.write('<script>window.onload=function(){window.print();window.close();};<\/script></body></html>');
+  printWindow.document.close();
+}
 
 /* ── DATE PICKER INIT ────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -819,14 +839,14 @@ document.addEventListener('DOMContentLoaded', () => {
    DATA STORES
 ══════════════════════════════════════════════════════════ */
 let SAMPLES = [
-  {id:1,sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',  source:'Patient-001',collection_date:'2025-01-10',storage_location:'LN2 Freezer A / R1-B2',status:'active',  quantity:5.0, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
-  {id:2,sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',    source:'Patient-002',collection_date:'2025-01-15',storage_location:'LN2 Freezer B / R2-B1',status:'active',  quantity:50,  unit:'µg', created_by_name:'Dr. Sarah Chen',notes:'Extracted from blood'},
-  {id:3,sample_id:'SMP-2025003',name:'Sample 03',type:'RNA',    source:'Cell Culture',collection_date:'2025-01-20',storage_location:'LN2 Freezer A / R1-B3',status:'in_use',  quantity:10,  unit:'µg', created_by_name:'James Kowalski',notes:''},
-  {id:4,sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue', source:'Biopsy',      collection_date:'2025-02-01',storage_location:'Freezer C / R1-B1',status:'active',  quantity:2,   unit:'mg', created_by_name:'Dr. Sarah Chen',notes:'OCT compound'},
-  {id:5,sample_id:'SMP-2025005',name:'Sample 05',type:'Protein',source:'Commercial',  collection_date:'2025-02-10',storage_location:'Fridge 1 / R1-B1', status:'depleted',quantity:0,   unit:'µg', created_by_name:'James Kowalski',notes:'Used in WB'},
-  {id:6,sample_id:'SMP-2025006',name:'Sample 06',type:'Serum',  source:'Patient-001', collection_date:'2025-02-15',storage_location:'LN2 Freezer B / R1-B2',status:'active',  quantity:3.5, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
-  {id:7,sample_id:'SMP-2025007',name:'Sample 07',type:'Cell Line',source:'Cell Culture',collection_date:'2025-02-20',storage_location:'LN2 Freezer A / R2-B1',status:'active', quantity:10, unit:'vials',created_by_name:'James Kowalski',notes:'HeLa p12'},
-  {id:8,sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',  source:'Patient-002', collection_date:'2025-03-01',storage_location:'Fridge 1 / R1-B2', status:'active',  quantity:20,  unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
+  {id:1,sample_id:'CSCR-SM-26-001',name:'Sample 01',type:'Blood',  source:'Patient-001',collection_date:'2025-01-10',storage_location:'LN2 Freezer A / R1-B2',status:'active',  quantity:5.0, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
+  {id:2,sample_id:'CSCR-SM-26-002',name:'Sample 02',type:'DNA',    source:'Patient-002',collection_date:'2025-01-15',storage_location:'LN2 Freezer B / R2-B1',status:'active',  quantity:50,  unit:'µg', created_by_name:'Dr. Sarah Chen',notes:'Extracted from blood'},
+  {id:3,sample_id:'CSCR-SM-26-003',name:'Sample 03',type:'RNA',    source:'Cell Culture',collection_date:'2025-01-20',storage_location:'LN2 Freezer A / R1-B3',status:'in_use',  quantity:10,  unit:'µg', created_by_name:'James Kowalski',notes:''},
+  {id:4,sample_id:'CSCR-SM-26-004',name:'Sample 04',type:'Tissue', source:'Biopsy',      collection_date:'2025-02-01',storage_location:'Freezer C / R1-B1',status:'active',  quantity:2,   unit:'mg', created_by_name:'Dr. Sarah Chen',notes:'OCT compound'},
+  {id:5,sample_id:'CSCR-SM-26-005',name:'Sample 05',type:'Protein',source:'Commercial',  collection_date:'2025-02-10',storage_location:'Fridge 1 / R1-B1', status:'depleted',quantity:0,   unit:'µg', created_by_name:'James Kowalski',notes:'Used in WB'},
+  {id:6,sample_id:'CSCR-SM-26-006',name:'Sample 06',type:'Serum',  source:'Patient-001', collection_date:'2025-02-15',storage_location:'LN2 Freezer B / R1-B2',status:'active',  quantity:3.5, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
+  {id:7,sample_id:'CSCR-SM-26-007',name:'Sample 07',type:'Cell Line',source:'Cell Culture',collection_date:'2025-02-20',storage_location:'LN2 Freezer A / R2-B1',status:'active', quantity:10, unit:'vials',created_by_name:'James Kowalski',notes:'HeLa p12'},
+  {id:8,sample_id:'CSCR-SM-26-008',name:'Sample 08',type:'Urine',  source:'Patient-002', collection_date:'2025-03-01',storage_location:'Fridge 1 / R1-B2', status:'active',  quantity:20,  unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
 ];
 let sNextId = 9;
 
@@ -839,24 +859,24 @@ let FREEZERS = [
 const FREEZER_SAMPLES = {1:[{sample_id:'SMP-2025001',name:'Sample 01',type:'Blood',rack:'R1',box:'B2',position:'A1',status:'active'},{sample_id:'SMP-2025004',name:'Sample 04',type:'Tissue',rack:'R1',box:'B3',position:'B2',status:'active'}],2:[{sample_id:'SMP-2025002',name:'Sample 02',type:'DNA',rack:'R2',box:'B1',position:'C3',status:'active'}],3:[],4:[{sample_id:'SMP-2025008',name:'Sample 08',type:'Urine',rack:'R1',box:'B2',position:'A1',status:'active'}]};
 
 let REAGENTS = [
-  {id:1,name:'Tris-HCl Buffer',description:'Molecular biology grade buffer',catalog_number:'T1503',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Molecular Biology Grade',project_name:'Genomics Study',pr_date:'2026-01-05',po_number:'PO-2026-014',gr_number:'GR-2026-014',date_received:'2026-01-12',po_copy_name:'tris_buffer_po.pdf',gr_copy_name:'tris_buffer_gr.pdf',category:'Buffer',quantity:500,unit:'mL',storage_temperature:'4°C',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2026-06-01',lot_number:'LOT-A1',minimum_stock:50,notes:''},
-  {id:2,name:'EDTA',description:'Chelating agent powder',catalog_number:'E6758',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Analytical Grade',project_name:'DNA Prep',pr_date:'2026-02-10',po_number:'PO-2026-019',gr_number:'GR-2026-019',date_received:'2026-02-17',po_copy_name:'edta_po.pdf',gr_copy_name:'edta_gr.pdf',category:'Chemical',quantity:100,unit:'g',storage_temperature:'Room temperature',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2027-01-01',lot_number:'LOT-B2',minimum_stock:20,notes:''},
-  {id:3,name:'PBS 10X',description:'Sterile phosphate-buffered saline',catalog_number:'P5493',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Cell Culture Grade',project_name:'Cell Culture',pr_date:'2025-11-25',po_number:'PO-2025-142',gr_number:'GR-2025-142',date_received:'2025-12-02',po_copy_name:'pbs_po.pdf',gr_copy_name:'pbs_gr.pdf',category:'Buffer',quantity:1000,unit:'mL',storage_temperature:'Room temperature',storage_location:'Shelf B2',location:'Shelf B2',expiry_date:'2025-04-20',lot_number:'LOT-C3',minimum_stock:100,notes:''},
-  {id:4,name:'Ethanol 100%',description:'Absolute ethanol',catalog_number:'E7023',manufacturer:'Merck',supplier:'Merck',grade:'ACS Grade',project_name:'Histology',pr_date:'2026-03-01',po_number:'PO-2026-031',gr_number:'GR-2026-031',date_received:'2026-03-06',po_copy_name:'ethanol_po.pdf',gr_copy_name:'ethanol_gr.pdf',category:'Solvent',quantity:2500,unit:'mL',storage_temperature:'Room temperature',storage_location:'Flammable Cabinet',location:'Flammable Cabinet',expiry_date:'2027-12-01',lot_number:'LOT-D4',minimum_stock:500,notes:'Flammable'},
-  {id:5,name:'Formaldehyde 4%',description:'Fixative solution',catalog_number:'F8775',manufacturer:'Merck',supplier:'Merck',grade:'Histology Grade',project_name:'Histology',pr_date:'2025-03-01',po_number:'PO-2025-033',gr_number:'GR-2025-033',date_received:'2025-03-08',po_copy_name:'formaldehyde_po.pdf',gr_copy_name:'formaldehyde_gr.pdf',category:'Fixative',quantity:30,unit:'mL',storage_temperature:'Room temperature',storage_location:'Fume Hood',location:'Fume Hood',expiry_date:'2025-03-28',lot_number:'LOT-E5',minimum_stock:50,notes:'Hazardous'},
-  {id:6,name:'GelRed',description:'Nucleic acid gel stain',catalog_number:'GR',manufacturer:'Biotium',supplier:'Biotium',grade:'Research Grade',project_name:'PCR Validation',pr_date:'2025-04-15',po_number:'PO-2025-061',gr_number:'GR-2025-061',date_received:'2025-04-19',po_copy_name:'gelred_po.pdf',gr_copy_name:'gelred_gr.pdf',category:'Dye',quantity:5,unit:'mL',storage_temperature:'4°C',storage_location:'Fridge 1',location:'Fridge 1',expiry_date:'2025-06-15',lot_number:'LOT-H8',minimum_stock:1,notes:'Light sensitive'},
-  {id:7,name:'DNA Ladder 1kb',description:'Size marker for agarose gels',catalog_number:'N3232',manufacturer:'NEB',supplier:'NEB',grade:'Molecular Biology Grade',project_name:'PCR Validation',pr_date:'2026-01-20',po_number:'PO-2026-021',gr_number:'GR-2026-021',date_received:'2026-01-25',po_copy_name:'ladder_po.pdf',gr_copy_name:'ladder_gr.pdf',category:'Marker',quantity:500,unit:'µL',storage_temperature:'-196°C',storage_location:'LN2 Freezer B',location:'LN2 Freezer B',expiry_date:'2026-11-01',lot_number:'LOT-J10',minimum_stock:50,notes:''},
+  {id:1,reagent_id:'CSCR-RG-26-001',name:'Tris-HCl Buffer',description:'Molecular biology grade buffer',catalog_number:'T1503',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Molecular Biology Grade',project_name:'Genomics Study',pr_date:'2026-01-05',po_number:'PO-2026-014',gr_number:'GR-2026-014',date_received:'2026-01-12',po_copy_name:'tris_buffer_po.pdf',gr_copy_name:'tris_buffer_gr.pdf',category:'Buffer',quantity:500,unit:'mL',storage_temperature:'4°C',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2026-06-01',lot_number:'LOT-A1',minimum_stock:50,notes:''},
+  {id:2,reagent_id:'CSCR-RG-26-002',name:'EDTA',description:'Chelating agent powder',catalog_number:'E6758',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Analytical Grade',project_name:'DNA Prep',pr_date:'2026-02-10',po_number:'PO-2026-019',gr_number:'GR-2026-019',date_received:'2026-02-17',po_copy_name:'edta_po.pdf',gr_copy_name:'edta_gr.pdf',category:'Chemical',quantity:100,unit:'g',storage_temperature:'Room temperature',storage_location:'Shelf B1',location:'Shelf B1',expiry_date:'2027-01-01',lot_number:'LOT-B2',minimum_stock:20,notes:''},
+  {id:3,reagent_id:'CSCR-RG-26-003',name:'PBS 10X',description:'Sterile phosphate-buffered saline',catalog_number:'P5493',manufacturer:'Sigma-Aldrich',supplier:'Sigma-Aldrich',grade:'Cell Culture Grade',project_name:'Cell Culture',pr_date:'2025-11-25',po_number:'PO-2025-142',gr_number:'GR-2025-142',date_received:'2025-12-02',po_copy_name:'pbs_po.pdf',gr_copy_name:'pbs_gr.pdf',category:'Buffer',quantity:1000,unit:'mL',storage_temperature:'Room temperature',storage_location:'Shelf B2',location:'Shelf B2',expiry_date:'2025-04-20',lot_number:'LOT-C3',minimum_stock:100,notes:''},
+  {id:4,reagent_id:'CSCR-RG-26-004',name:'Ethanol 100%',description:'Absolute ethanol',catalog_number:'E7023',manufacturer:'Merck',supplier:'Merck',grade:'ACS Grade',project_name:'Histology',pr_date:'2026-03-01',po_number:'PO-2026-031',gr_number:'GR-2026-031',date_received:'2026-03-06',po_copy_name:'ethanol_po.pdf',gr_copy_name:'ethanol_gr.pdf',category:'Solvent',quantity:2500,unit:'mL',storage_temperature:'Room temperature',storage_location:'Flammable Cabinet',location:'Flammable Cabinet',expiry_date:'2027-12-01',lot_number:'LOT-D4',minimum_stock:500,notes:'Flammable'},
+  {id:5,reagent_id:'CSCR-RG-26-005',name:'Formaldehyde 4%',description:'Fixative solution',catalog_number:'F8775',manufacturer:'Merck',supplier:'Merck',grade:'Histology Grade',project_name:'Histology',pr_date:'2025-03-01',po_number:'PO-2025-033',gr_number:'GR-2025-033',date_received:'2025-03-08',po_copy_name:'formaldehyde_po.pdf',gr_copy_name:'formaldehyde_gr.pdf',category:'Fixative',quantity:30,unit:'mL',storage_temperature:'Room temperature',storage_location:'Fume Hood',location:'Fume Hood',expiry_date:'2025-03-28',lot_number:'LOT-E5',minimum_stock:50,notes:'Hazardous'},
+  {id:6,reagent_id:'CSCR-RG-26-006',name:'GelRed',description:'Nucleic acid gel stain',catalog_number:'GR',manufacturer:'Biotium',supplier:'Biotium',grade:'Research Grade',project_name:'PCR Validation',pr_date:'2025-04-15',po_number:'PO-2025-061',gr_number:'GR-2025-061',date_received:'2025-04-19',po_copy_name:'gelred_po.pdf',gr_copy_name:'gelred_gr.pdf',category:'Dye',quantity:5,unit:'mL',storage_temperature:'4°C',storage_location:'Fridge 1',location:'Fridge 1',expiry_date:'2025-06-15',lot_number:'LOT-H8',minimum_stock:1,notes:'Light sensitive'},
+  {id:7,reagent_id:'CSCR-RG-26-007',name:'DNA Ladder 1kb',description:'Size marker for agarose gels',catalog_number:'N3232',manufacturer:'NEB',supplier:'NEB',grade:'Molecular Biology Grade',project_name:'PCR Validation',pr_date:'2026-01-20',po_number:'PO-2026-021',gr_number:'GR-2026-021',date_received:'2026-01-25',po_copy_name:'ladder_po.pdf',gr_copy_name:'ladder_gr.pdf',category:'Marker',quantity:500,unit:'µL',storage_temperature:'-196°C',storage_location:'LN2 Freezer B',location:'LN2 Freezer B',expiry_date:'2026-11-01',lot_number:'LOT-J10',minimum_stock:50,notes:''},
 ];
 let rNextId = 8;
 let reagentSort = { field: 'name', direction: 'asc' };
 
 let PLASTICWARE = [
-  {id:1,name:'1.5 mL Eppendorf Tubes',description:'Snap-cap microcentrifuge tubes',catalog_number:'EP1.5',manufacturer:'Eppendorf',supplier:'Eppendorf',grade:'Sterile',expiry_date:'',project_name:'RNA Extraction',pr_date:'2026-01-03',po_number:'PO-2026-010',gr_number:'GR-2026-010',date_received:'2026-01-09',po_copy_name:'eppendorf_tubes_po.pdf',gr_copy_name:'eppendorf_tubes_gr.pdf',quantity:500,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:100,notes:''},
-  {id:2,name:'15 mL Falcon Tubes',description:'Conical centrifuge tubes',catalog_number:'F15',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-017',gr_number:'GR-2026-017',date_received:'2026-02-08',po_copy_name:'falcon15_po.pdf',gr_copy_name:'falcon15_gr.pdf',quantity:200,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:50,notes:''},
-  {id:3,name:'50 mL Falcon Tubes',description:'Large conical centrifuge tubes',catalog_number:'F50',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-018',gr_number:'GR-2026-018',date_received:'2026-02-08',po_copy_name:'falcon50_po.pdf',gr_copy_name:'falcon50_gr.pdf',quantity:100,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:20,notes:''},
-  {id:4,name:'96-well Plate',description:'Flat-bottom assay plate',catalog_number:'P96',manufacturer:'Greiner',supplier:'Greiner',grade:'Tissue Culture Treated',expiry_date:'',project_name:'Drug Screen',pr_date:'2026-03-11',po_number:'PO-2026-036',gr_number:'GR-2026-036',date_received:'2026-03-16',po_copy_name:'plate96_po.pdf',gr_copy_name:'plate96_gr.pdf',quantity:50,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:10,notes:'Flat bottom'},
-  {id:5,name:'PCR Tubes 0.2 mL',description:'Thin-wall PCR reaction tubes',catalog_number:'PCR02',manufacturer:'BioRad',supplier:'BioRad',grade:'PCR Clean',expiry_date:'',project_name:'PCR Validation',pr_date:'2026-01-26',po_number:'PO-2026-022',gr_number:'GR-2026-022',date_received:'2026-01-31',po_copy_name:'pcr_tubes_po.pdf',gr_copy_name:'pcr_tubes_gr.pdf',quantity:1000,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:200,notes:''},
-  {id:6,name:'Pipette Tips 200µL',description:'Filtered universal pipette tips',catalog_number:'PT200',manufacturer:'Rainin',supplier:'Rainin',grade:'RNase/DNase Free',expiry_date:'',project_name:'General Lab Use',pr_date:'2026-03-05',po_number:'PO-2026-032',gr_number:'GR-2026-032',date_received:'2026-03-10',po_copy_name:'tips200_po.pdf',gr_copy_name:'tips200_gr.pdf',quantity:960,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D3',minimum_stock:200,notes:''},
+  {id:1,plasticware_id:'CSCR-PL-26-001',name:'1.5 mL Eppendorf Tubes',description:'Snap-cap microcentrifuge tubes',catalog_number:'EP1.5',manufacturer:'Eppendorf',supplier:'Eppendorf',grade:'Sterile',expiry_date:'',project_name:'RNA Extraction',pr_date:'2026-01-03',po_number:'PO-2026-010',gr_number:'GR-2026-010',date_received:'2026-01-09',po_copy_name:'eppendorf_tubes_po.pdf',gr_copy_name:'eppendorf_tubes_gr.pdf',quantity:500,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:100,notes:''},
+  {id:2,plasticware_id:'CSCR-PL-26-002',name:'15 mL Falcon Tubes',description:'Conical centrifuge tubes',catalog_number:'F15',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-017',gr_number:'GR-2026-017',date_received:'2026-02-08',po_copy_name:'falcon15_po.pdf',gr_copy_name:'falcon15_gr.pdf',quantity:200,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:50,notes:''},
+  {id:3,plasticware_id:'CSCR-PL-26-003',name:'50 mL Falcon Tubes',description:'Large conical centrifuge tubes',catalog_number:'F50',manufacturer:'Corning',supplier:'Corning',grade:'Sterile',expiry_date:'',project_name:'Cell Culture',pr_date:'2026-02-02',po_number:'PO-2026-018',gr_number:'GR-2026-018',date_received:'2026-02-08',po_copy_name:'falcon50_po.pdf',gr_copy_name:'falcon50_gr.pdf',quantity:100,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D1',minimum_stock:20,notes:''},
+  {id:4,plasticware_id:'CSCR-PL-26-004',name:'96-well Plate',description:'Flat-bottom assay plate',catalog_number:'P96',manufacturer:'Greiner',supplier:'Greiner',grade:'Tissue Culture Treated',expiry_date:'',project_name:'Drug Screen',pr_date:'2026-03-11',po_number:'PO-2026-036',gr_number:'GR-2026-036',date_received:'2026-03-16',po_copy_name:'plate96_po.pdf',gr_copy_name:'plate96_gr.pdf',quantity:50,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:10,notes:'Flat bottom'},
+  {id:5,plasticware_id:'CSCR-PL-26-005',name:'PCR Tubes 0.2 mL',description:'Thin-wall PCR reaction tubes',catalog_number:'PCR02',manufacturer:'BioRad',supplier:'BioRad',grade:'PCR Clean',expiry_date:'',project_name:'PCR Validation',pr_date:'2026-01-26',po_number:'PO-2026-022',gr_number:'GR-2026-022',date_received:'2026-01-31',po_copy_name:'pcr_tubes_po.pdf',gr_copy_name:'pcr_tubes_gr.pdf',quantity:1000,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D2',minimum_stock:200,notes:''},
+  {id:6,plasticware_id:'CSCR-PL-26-006',name:'Pipette Tips 200µL',description:'Filtered universal pipette tips',catalog_number:'PT200',manufacturer:'Rainin',supplier:'Rainin',grade:'RNase/DNase Free',expiry_date:'',project_name:'General Lab Use',pr_date:'2026-03-05',po_number:'PO-2026-032',gr_number:'GR-2026-032',date_received:'2026-03-10',po_copy_name:'tips200_po.pdf',gr_copy_name:'tips200_gr.pdf',quantity:960,unit:'pcs',storage_temperature:'Room temperature',storage_location:'Cabinet D3',minimum_stock:200,notes:''},
 ];
 let pwNextId = 7;
 let pwSort = { field: 'name', direction: 'asc' };
@@ -950,16 +970,17 @@ function editSample(id){const s=SAMPLES.find(x=>x.id===id);if(!s)return;document
 function viewSample(id){
   const s=SAMPLES.find(x=>x.id===id);if(!s)return;
   document.getElementById('mDetailTitle').textContent=`🧪 ${s.sample_id} — ${s.name}`;
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Sample ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',formatDisplayDate(s.collection_date))}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}`;
-  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editSample(${s.id})">✏️ Edit</button>`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Sample ID',s.sample_id,true)}${df('Name',s.name)}${df('Type',s.type)}${df('Source',s.source)}${df('Collection Date',formatDisplayDate(s.collection_date))}${df('Storage Location',s.storage_location)}${df('Quantity',s.quantity!=null?s.quantity+' '+(s.unit||''):'—')}${df('Status',`<span class="badge badge-${s.status}">${s.status}</span>`,false,true)}${df('Registered By',s.created_by_name)}</div>${blk('Notes',s.notes)}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
+  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-secondary" onclick="printBarcode()">🖨️ Print Label</button><button class="btn btn-primary" onclick="closeModal('mDetail');editSample(${s.id})">✏️ Edit</button>`;
   openModal('mDetail');
+  renderBarcode(s.sample_id);
 }
 function saveSample(){
   const eid=document.getElementById('sEditId').value;
   const data={name:document.getElementById('sName').value.trim(),type:document.getElementById('sType').value,source:document.getElementById('sSource').value.trim(),collection_date:parseDateInput(document.getElementById('sDate').value),quantity:parseFloat(document.getElementById('sQty').value)||null,unit:document.getElementById('sUnit').value,storage_location:document.getElementById('sLoc').value.trim(),status:document.getElementById('sStat').value,notes:document.getElementById('sNotes').value.trim()};
   if(!data.name){toast('Sample name is required','error');return;}
   if(eid){const i=SAMPLES.findIndex(s=>s.id==eid);SAMPLES[i]={...SAMPLES[i],...data};toast('Sample updated');}
-  else{const sid=`SMP-${2025000+sNextId}`;SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered sample: '+sid);}
+  else{const sid=generateCSCRId('sample', sNextId);SAMPLES.unshift({id:sNextId++,sample_id:sid,...data,created_by_name:SESSION?SESSION.full_name:'—'});toast('Registered sample: '+sid);}
   closeModal('mSample');renderSamples();
 }
 function deleteSample(id,name){if(!confirm(`Delete "${name}"?`))return;SAMPLES=SAMPLES.filter(s=>s.id!==id);toast('Sample deleted');renderSamples();}
@@ -1039,16 +1060,17 @@ function renderReagents(){
   const tb=document.getElementById('reagentTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🔬</div><h3>No reagents found</h3></div></td></tr>`;return;}
   tb.innerHTML=data.map(r=>{
-    return`<tr><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn" onclick="viewReagent(${r.id})">👁</button><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
+    return`<tr><td class="td-mono td-accent">${r.reagent_id||'—'}</td><td><strong>${r.name}</strong></td><td class="td-mono">${r.catalog_number||'—'}</td><td class="td-muted">${r.manufacturer||'—'}</td><td class="td-muted">${r.storage_location||'—'}</td><td class="td-mono">${r.quantity} ${r.unit||''}</td><td><div class="actions"><button class="action-btn" onclick="viewReagent(${r.id})">👁</button><button class="action-btn edit" onclick="editReagent(${r.id})">✏️</button><button class="action-btn del" onclick="deleteReagent(${r.id},'${r.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`;
   }).join('');
 }
 function viewReagent(id){
   const r=REAGENTS.find(x=>x.id===id);if(!r)return;
   document.getElementById('mDetailTitle').textContent=`🔬 Reagent Details`;
   let coaHtml = r.coa_copy_name ? `<a href="#" onclick="toast('Downloading ${r.coa_copy_name}...')">📄 ${r.coa_copy_name}</a>` : '—';
-  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}`;
-  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-primary" onclick="closeModal('mDetail');editReagent(${r.id})">✏️ Edit</button>`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('ID',r.reagent_id,true)}${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
+  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-secondary" onclick="printBarcode()">🖨️ Print Label</button><button class="btn btn-primary" onclick="closeModal('mDetail');editReagent(${r.id})">✏️ Edit</button>`;
   openModal('mDetail');
+  if(r.reagent_id) renderBarcode(r.reagent_id);
 }
 function openReagentModal(){
   document.getElementById('rEditId').value='';
@@ -1071,7 +1093,7 @@ function saveReagent(){
   const today = new Date().toISOString().slice(0, 10);
   if(data.expiry_date && data.expiry_date <= today){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=REAGENTS.findIndex(r=>r.id==eid);REAGENTS[i]={...REAGENTS[i],...data};toast('Reagent updated');}
-  else{REAGENTS.push({id:rNextId++,...data});toast('Reagent added');}
+  else{REAGENTS.push({id:rNextId++,reagent_id:generateCSCRId('reagent', rNextId),...data});toast('Reagent added');}
   closeModal('mReagent');renderReagents();
 }
 function deleteReagent(id,name){if(!confirm(`Delete "${name}"?`))return;REAGENTS=REAGENTS.filter(r=>r.id!==id);toast('Deleted');renderReagents();}
@@ -1088,7 +1110,15 @@ function renderPW(){
   updateSortButtons('pwSort', pwSort);
   const tb=document.getElementById('pwTable');
   if(!data.length){tb.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="eicon">🧴</div><h3>No plasticware found</h3></div></td></tr>`;return;}
-  tb.innerHTML=data.map(p=>`<tr><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.manufacturer||'—'}</td><td class="td-muted">${p.storage_location||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td><div class="actions"><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
+  tb.innerHTML=data.map(p=>`<tr><td class="td-mono td-accent">${p.plasticware_id||'—'}</td><td><strong>${p.name}</strong></td><td class="td-mono">${p.catalog_number||'—'}</td><td class="td-muted">${p.manufacturer||'—'}</td><td class="td-muted">${p.storage_location||'—'}</td><td class="td-mono">${p.quantity} ${p.unit||''}</td><td><div class="actions"><button class="action-btn" onclick="viewPW(${p.id})">👁</button><button class="action-btn edit" onclick="editPW(${p.id})">✏️</button><button class="action-btn del" onclick="deletePW(${p.id},'${p.name.replace(/'/g,'`')}')">🗑</button></div></td></tr>`).join('');
+}
+function viewPW(id){
+  const p=PLASTICWARE.find(x=>x.id===id);if(!p)return;
+  document.getElementById('mDetailTitle').textContent=`🧴 Plasticware Details`;
+  document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('ID',p.plasticware_id,true)}${df('Item Name',p.name)}${df('Catalogue',p.catalog_number,true)}${df('Manufacturer',p.manufacturer)}${df('Supplier',p.supplier)}${df('Grade',p.grade)}${df('Quantity',p.quantity+' '+(p.unit||''))}${df('Expiry',formatDisplayDate(p.expiry_date))}${df('Storage',p.storage_location)}</div>${blk('Description',p.description)}${blk('Notes',p.notes)}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
+  document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-secondary" onclick="printBarcode()">🖨️ Print Label</button><button class="btn btn-primary" onclick="closeModal('mDetail');editPW(${p.id})">✏️ Edit</button>`;
+  openModal('mDetail');
+  if(p.plasticware_id) renderBarcode(p.plasticware_id);
 }
 function updateFileMeta(inputId,metaId,fallback='No file selected'){
   const input=document.getElementById(inputId);
@@ -1128,7 +1158,7 @@ function savePW(){
   const todayPW = new Date().toISOString().slice(0, 10);
   if(data.expiry_date && data.expiry_date <= todayPW){toast('Expiry date must be in the future','error');return;}
   if(eid){const i=PLASTICWARE.findIndex(p=>p.id==eid);PLASTICWARE[i]={...PLASTICWARE[i],...data};toast('Updated');}
-  else{PLASTICWARE.push({id:pwNextId++,...data});toast('Added');}
+  else{PLASTICWARE.push({id:pwNextId++,plasticware_id:generateCSCRId('plasticware', pwNextId),...data});toast('Added');}
   closeModal('mPW');renderPW();
 }
 function deletePW(id,name){if(!confirm(`Delete "${name}"?`))return;PLASTICWARE=PLASTICWARE.filter(p=>p.id!==id);toast('Deleted');renderPW();}
