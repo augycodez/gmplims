@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -717,169 +718,17 @@ td { padding:18px 14px; vertical-align:middle; }
 
 /* ── USERS DB ────────────────────────────────────────────── */
 const USERS_DB = [
-  { id:1, username:'admin',     password:'', role:'admin',    full_name:'Lab Administrator', email:'admin@example.com',     created_at:'2025-01-01' },
-  { id:2, username:'operator1', password:'',    role:'operator', full_name:'Dr. Sarah Chen',   email:'operator1@example.com',     created_at:'2025-01-01' },
-  { id:3, username:'operator2', password:'',    role:'operator', full_name:'James Kowalski',   email:'operator2@example.com', created_at:'2025-01-01' },
+  { id: 1, username: 'admin', password: '', role: 'admin', full_name: 'Lab Administrator', email: 'admin@example.com', created_at: '2025-01-01' },
+  { id: 2, username: 'operator1', password: '', role: 'operator', full_name: 'Dr. Sarah Chen', email: 'operator1@example.com', created_at: '2025-01-01' },
+  { id: 3, username: 'operator2', password: '', role: 'operator', full_name: 'James Kowalski', email: 'operator2@example.com', created_at: '2025-01-01' },
 ];
 
-/* ── SESSION ─────────────────────────────────────────────── */
+let USER_LIST = JSON.parse(JSON.stringify(USERS_DB));
+let uNextId = 4;
 let SESSION = null;
+const DATE_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-function doLogin() {
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value;
-  const err = document.getElementById('loginError');
-  const found = USER_LIST.find(x => x.username === u && x.password === p);
-  if (!found) { err.textContent = 'Invalid username or password'; err.classList.add('visible'); return; }
-  err.classList.remove('visible');
-  SESSION = found;
-  // Update sidebar
-  const av = document.getElementById('sidebarAvatar');
-  av.textContent = found.full_name[0].toUpperCase();
-  av.className = 'user-avatar ' + found.role;
-  document.getElementById('sidebarName').textContent = found.full_name;
-  const roleEl = document.getElementById('sidebarRole');
-  roleEl.textContent = found.role; roleEl.className = 'user-role ' + found.role;
-  document.getElementById('adminNav').classList.toggle('is-hidden', found.role !== 'admin');
-  document.getElementById('loginPage').classList.remove('active');
-  document.getElementById('appShell').classList.add('active');
-  showPage('dashboard');
-}
-function fillCreds(u,p){ document.getElementById('loginUser').value=u; document.getElementById('loginPass').value=p; }
-document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-
-function doLogout() {
-  SESSION = null;
-  document.getElementById('appShell').classList.remove('active');
-  document.getElementById('loginPage').classList.add('active');
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginError').classList.remove('visible');
-}
-
-/* ── NAVIGATION ──────────────────────────────────────────── */
-const PAGE_TITLES = { dashboard:['Dashboard','Overview'], transactions:['Stock Log','History'], samples:['Sample Registration','Samples'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents','Reagents'], plasticware:['Plasticware','Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
-let currentPage = 'dashboard';
-
-function showPage(name) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.add('is-hidden'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.remove('is-hidden');
-  const nav = document.getElementById('nav-' + name);
-  if (nav) nav.classList.add('active');
-  const [title, crumb] = PAGE_TITLES[name] || [name, name];
-  document.getElementById('topbarTitle').textContent = title;
-  document.getElementById('topbarCrumb').textContent = 'Vaulta / ' + crumb;
-  currentPage = name;
-  if (name === 'dashboard') refreshDashboard();
-  if (name === 'transactions') renderTransactions();
-  if (name === 'samples') renderSamples();
-  if (name === 'freezer') renderFreezers();
-  if (name === 'reagents') renderReagents();
-  if (name === 'plasticware') renderPW();
-  if (name === 'experiments') renderExpList();
-  if (name === 'users') renderUsers();
-}
-
-/* ── CLOCK ───────────────────────────────────────────────── */
-function tick() {
-  const el = document.getElementById('clock');
-  if (el) el.textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + '  ' + formatDateForDisplay(new Date());
-}
-tick(); setInterval(tick, 1000);
-
-/* ── MODAL HELPERS ───────────────────────────────────────── */
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function clearSearch(id, fn) { const el = document.getElementById(id); if (el) { el.value = ''; fn(); el.focus(); } }
-
-/* ── TOAST ───────────────────────────────────────────────── */
-function toast(msg, type='success') {
-  const c = document.getElementById('toasts');
-  const t = document.createElement('div');
-  t.className = 'toast' + (type==='error'?' error':'');
-  t.innerHTML = (type==='error'?'❌':'✅') + ' ' + msg;
-  c.appendChild(t); setTimeout(() => t.remove(), 3500);
-}
-
-/* ── DETAIL HELPERS ──────────────────────────────────────── */
-function df(label, val, mono=false, raw=false) {
-  return `<div><div class="detail-label">${label}</div><div class="${mono?'detail-value-mono':'detail-value'}">${raw?val:(val||'—')}</div></div>`;
-}
-function blk(label, val) {
-  if (!val) return '';
-  return `<div class="detail-field"><div class="detail-label detail-label-block">${label}</div><div class="detail-panel">${val}</div></div>`;
-}
-function formatDateForDisplay(date) {
-  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '—';
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = date.toLocaleString('en-GB', { month: 'short' });
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-}
-function formatDisplayDate(value) {
-  if (!value) return '—';
-  const isoMatch = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!isoMatch) return value;
-  const [, year, month, day] = isoMatch;
-  const date = new Date(`${year}-${month}-${day}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return value;
-  return formatDateForDisplay(date);
-}
-function parseDateInput(str) {
-  if (!str || str === '—') return '';
-  const parts = str.split('-');
-  if (parts.length !== 3) return str;
-  const [day, mon, year] = parts;
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const mIdx = months.findIndex(m => m.toLowerCase() === mon.toLowerCase());
-  if (mIdx === -1) return str;
-  return `${year}-${String(mIdx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-}
-function generateCSCRId(type, count) {
-  const year = '26';
-  let prefix = 'SM';
-  if (type === 'reagent') prefix = 'RG';
-  if (type === 'plasticware') prefix = 'PL';
-  return `CSCR-${prefix}-${year}-${String(count).padStart(3, '0')}`;
-}
-function renderBarcode(id) {
-  setTimeout(() => { if(document.getElementById('barcode-svg')) JsBarcode("#barcode-svg", id, { format: "CODE128", width: 2, height: 50, displayValue: true }); }, 50);
-}
-function printBarcode() {
-  const svg = document.getElementById('barcode-svg');
-  if (!svg) return;
-  const printWindow = window.open('', '_blank', 'width=600,height=400');
-  printWindow.document.write('<html><head><title>Print Barcode</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;}svg{width:80%;height:auto;}</style></head><body>');
-  printWindow.document.write(svg.outerHTML);
-  printWindow.document.write('<script>window.onload=function(){window.print();window.close();};<\/script></body></html>');
-  printWindow.document.close();
-}
-
-/* ── THEME LOGIC ─────────────────────────────────────────── */
-if (localStorage.getItem('vaulta-theme') === 'light') document.body.classList.add('light-mode');
-
-function toggleTheme() {
-  const isLight = document.body.classList.toggle('light-mode');
-  const icon = document.getElementById('theme-icon');
-  if (icon) icon.textContent = isLight ? '🌙' : '☀️';
-  localStorage.setItem('vaulta-theme', isLight ? 'light' : 'dark');
-}
-
-/* ── DATE PICKER INIT ────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  flatpickr(".fp-date", { dateFormat: "d-M-Y" });
-
-  // Sync theme icon on load
-  if (document.body.classList.contains('light-mode')) {
-    const icon = document.getElementById('theme-icon');
-    if (icon) icon.textContent = '🌙';
-  }
-});
-
-/* ══════════════════════════════════════════════════════════
-   DATA STORES
-══════════════════════════════════════════════════════════ */
+/* ── DATA STORES ─────────────────────────────────────────── */
 let SAMPLES = [
   {id:1,sample_id:'CSCR-SM-26-001',name:'Sample 01',type:'Blood',  source:'Patient-001',collection_date:'2025-01-10',storage_location:'LN2 Freezer A / R1-B2',status:'active',  quantity:5.0, unit:'mL', created_by_name:'Dr. Sarah Chen',notes:''},
   {id:2,sample_id:'CSCR-SM-26-002',name:'Sample 02',type:'DNA',    source:'Patient-002',collection_date:'2025-01-15',storage_location:'LN2 Freezer B / R2-B1',status:'active',  quantity:50,  unit:'µg', created_by_name:'Dr. Sarah Chen',notes:'Extracted from blood'},
@@ -935,8 +784,189 @@ let eNextId = 6;
 let TRANSACTIONS = [];
 let tNextId = 1;
 
-let USER_LIST = JSON.parse(JSON.stringify(USERS_DB));
-let uNextId = 4;
+/* ── NAVIGATION ──────────────────────────────────────────── */
+const PAGE_TITLES = { dashboard:['Dashboard','Overview'], transactions:['Stock Log','History'], samples:['Sample Registration','Samples'], freezer:['Freezer Inventory','Freezer Inventory'], reagents:['Reagents','Reagents'], plasticware:['Plasticware','Plasticware'], experiments:['Experiment Records','Experiments'], users:['User Management','Admin / Users'] };
+let currentPage = 'dashboard';
+
+/* ── SESSION HELPERS ─────────────────────────────────────── */
+
+function setPageVisibility(showLogin) {
+  const loginPage = document.getElementById('loginPage');
+  const appShell = document.getElementById('appShell');
+  if (loginPage) {
+    loginPage.classList.toggle('active', showLogin);
+    loginPage.style.display = showLogin ? 'flex' : 'none';
+  }
+  if (appShell) {
+    appShell.classList.toggle('active', !showLogin);
+    appShell.style.display = showLogin ? 'none' : 'flex';
+  }
+}
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  const found = USER_LIST.find(x => x.username === u && x.password === p);
+  if (!found) { err.textContent = 'Invalid username or password'; err.classList.add('visible'); return; }
+  try {
+    err.classList.remove('visible');
+    SESSION = found;
+    // Update sidebar
+    const av = document.getElementById('sidebarAvatar');
+    av.textContent = (found.full_name || found.username || 'U')[0].toUpperCase();
+    av.className = 'user-avatar ' + found.role;
+    document.getElementById('sidebarName').textContent = found.full_name || found.username;
+    const roleEl = document.getElementById('sidebarRole');
+    roleEl.textContent = found.role;
+    roleEl.className = 'user-role ' + found.role;
+    document.getElementById('adminNav').classList.toggle('is-hidden', found.role !== 'admin');
+    setPageVisibility(false);
+    showPage('dashboard');
+  } catch (error) {
+    console.error('Login transition failed:', error);
+    setPageVisibility(true);
+    err.textContent = `Login succeeded, but the dashboard failed to load: ${error.message}`;
+    err.classList.add('visible');
+  }
+}
+function fillCreds(u,p){ document.getElementById('loginUser').value=u; document.getElementById('loginPass').value=p; }
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+// Set initial state
+setPageVisibility(true);
+
+function doLogout() {
+  SESSION = null;
+  setPageVisibility(true);
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').classList.remove('visible');
+}
+
+function showPage(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.add('is-hidden'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.remove('is-hidden');
+  const nav = document.getElementById('nav-' + name);
+  if (nav) nav.classList.add('active');
+  const [title, crumb] = PAGE_TITLES[name] || [name, name];
+  document.getElementById('topbarTitle').textContent = title;
+  document.getElementById('topbarCrumb').textContent = 'Vaulta / ' + crumb;
+  currentPage = name;
+  if (name === 'dashboard') refreshDashboard();
+  if (name === 'transactions') renderTransactions();
+  if (name === 'samples') renderSamples();
+  if (name === 'freezer') renderFreezers();
+  if (name === 'reagents') renderReagents();
+  if (name === 'plasticware') renderPW();
+  if (name === 'experiments') renderExpList();
+  if (name === 'users') renderUsers();
+}
+
+/* ── CLOCK ───────────────────────────────────────────────── */
+function tick() {
+  const el = document.getElementById('clock');
+  if (el) el.textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + '  ' + formatDateForDisplay(new Date());
+}
+tick(); setInterval(tick, 1000);
+
+/* ── MODAL HELPERS ───────────────────────────────────────── */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function clearSearch(id, fn) { const el = document.getElementById(id); if (el) { el.value = ''; fn(); el.focus(); } }
+
+/* ── TOAST ───────────────────────────────────────────────── */
+function toast(msg, type='success') {
+  const c = document.getElementById('toasts');
+  const t = document.createElement('div');
+  t.className = 'toast' + (type==='error'?' error':'');
+  t.innerHTML = (type==='error'?'❌':'✅') + ' ' + msg;
+  c.appendChild(t); setTimeout(() => t.remove(), 3500);
+}
+
+/* ── DETAIL HELPERS ──────────────────────────────────────── */
+function df(label, val, mono=false, raw=false) {
+  return `<div><div class="detail-label">${label}</div><div class="${mono?'detail-value-mono':'detail-value'}">${raw?val:(val||'—')}</div></div>`;
+}
+function blk(label, val) {
+  if (!val) return '';
+  return `<div class="detail-field"><div class="detail-label detail-label-block">${label}</div><div class="detail-panel">${val}</div></div>`;
+}
+function formatDateForDisplay(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '—';
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = DATE_MONTHS[date.getMonth()];
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+function formatDisplayDate(value) {
+  if (!value) return '—';
+  const isoMatch = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!isoMatch) return value;
+  const [, year, month, day] = isoMatch;
+  const date = new Date(`${year}-${month}-${day}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return formatDateForDisplay(date);
+}
+function parseDateInput(str) {
+  if (!str || str === '—') return '';
+  const trimmed = String(str).trim();
+  const isoMatch = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) return trimmed;
+  const displayMatch = trimmed.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/);
+  if (!displayMatch) return trimmed;
+  const [, day, mon, year] = displayMatch;
+  const mIdx = DATE_MONTHS.findIndex(m => m.toLowerCase() === mon.toLowerCase());
+  if (mIdx === -1) return trimmed;
+  return `${year}-${String(mIdx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+function generateCSCRId(type, count) {
+  const year = '26';
+  let prefix = 'SM';
+  if (type === 'reagent') prefix = 'RG';
+  if (type === 'plasticware') prefix = 'PL';
+  return `CSCR-${prefix}-${year}-${String(count).padStart(3, '0')}`;
+}
+function renderBarcode(id) {
+  setTimeout(() => { if(document.getElementById('barcode-svg')) JsBarcode("#barcode-svg", id, { format: "CODE128", width: 2, height: 50, displayValue: true }); }, 50);
+}
+function printBarcode() {
+  const svg = document.getElementById('barcode-svg');
+  if (!svg) return;
+  const printWindow = window.open('', '_blank', 'width=600,height=400');
+  printWindow.document.write('<html><head><title>Print Barcode</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;}svg{width:80%;height:auto;}</style></head><body>');
+  printWindow.document.write(svg.outerHTML);
+  printWindow.document.write('<script>window.onload=function(){window.print();window.close();};<\/script></body></html>');
+  printWindow.document.close();
+}
+
+/* ── THEME LOGIC ─────────────────────────────────────────── */
+if (localStorage.getItem('vaulta-theme') === 'light') document.body.classList.add('light-mode');
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  const icon = document.getElementById('theme-icon');
+  if (icon) icon.textContent = isLight ? '🌙' : '☀️';
+  localStorage.setItem('vaulta-theme', isLight ? 'light' : 'dark');
+}
+
+/* ── DATE PICKER INIT ────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.flatpickr) {
+    flatpickr('.fp-date', {
+      dateFormat: 'd-M-Y',
+      allowInput: true,
+      clickOpens: true
+    });
+  }
+
+  // Sync theme icon on load
+  if (document.body.classList.contains('light-mode')) {
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = '🌙';
+  }
+});
 
 /* ── TRANSACTIONS LOGIC ──────────────────────────────────── */
 function logStock(itemType, itemId, itemName, qty, action) {
@@ -1134,7 +1164,7 @@ function viewReagent(id){
   document.getElementById('mDetailTitle').textContent=`🔬 Reagent Details`;
   let coaHtml = r.coa_copy_name ? `<a href="#" onclick="toast('Downloading ${r.coa_copy_name}...')">📄 ${r.coa_copy_name}</a>` : '—';
   const history = TRANSACTIONS.filter(t => t.itemType === 'Reagent' && t.itemId === r.reagent_id);
-  const historyHtml = history.length ? `<div class="section-spaced"><div class="detail-label detail-label-block">Stock History</div><div class="table-wrap"><table><thead><tr><th>Date</th><th>User</th><th>Action</th><th>Change</th></tr></thead><tbody>${history.map(t=>`<tr><td class="td-mono td-compact">${t.timestamp.split('T')[0]}</td><td class="td-compact">${t.user}</td><td class="td-compact">${t.action}</td><td class="td-mono td-compact">${t.qty}</td></tr>`).join('')}</tbody></table></div></div>` : blk('Stock History', 'No transaction history found.');
+  const historyHtml = history.length ? `<div class="section-spaced"><div class="detail-label detail-label-block">Stock History</div><div class="table-wrap"><table><thead><tr><th>Date</th><th>User</th><th>Action</th><th>Change</th></tr></thead><tbody>${history.map(t=>`<tr><td class="td-mono td-compact">${formatDisplayDate(t.timestamp.split('T')[0])}</td><td class="td-compact">${t.user}</td><td class="td-compact">${t.action}</td><td class="td-mono td-compact">${t.qty}</td></tr>`).join('')}</tbody></table></div></div>` : blk('Stock History', 'No transaction history found.');
 
   document.getElementById('mDetailBody').innerHTML=`<div class="two-col detail-grid">${df('ID',r.reagent_id,true)}${df('Item Name',r.name)}${df('Catalogue',r.catalog_number,true)}${df('Manufacturer',r.manufacturer)}${df('Supplier',r.supplier)}${df('Category',r.category)}${df('Lot Number',r.lot_number,true)}${df('Quantity',r.quantity+' '+(r.unit||''))}${df('Expiry',formatDisplayDate(r.expiry_date))}${df('Storage',r.storage_location)}${df('CoA',coaHtml,false,true)}</div>${blk('Description',r.description)}${blk('Notes',r.notes)}${historyHtml}<div style="text-align:center;margin-top:20px;padding:10px;background:#fff;border-radius:8px;"><svg id="barcode-svg"></svg></div>`;
   document.getElementById('mDetailFoot').innerHTML=`<button class="btn btn-secondary" onclick="closeModal('mDetail')">Close</button><button class="btn btn-secondary" onclick="printBarcode()">🖨️ Print Label</button><button class="btn btn-primary" onclick="closeModal('mDetail');editReagent(${r.id})">✏️ Edit</button>`;
