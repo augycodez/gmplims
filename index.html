@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vaulta LIMS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -37,8 +37,8 @@
   --radius:   28px;
   --radius-sm: 16px;
   --sidebar:  260px;
-  --font:     'Inter', sans-serif;
-  --font-display: 'Calistoga', serif;
+  --font:     -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, sans-serif;
   --mono:     'IBM Plex Mono', monospace;
   --bg-alpha: rgba(17,17,17,0.85);
   --hover:    rgba(255,255,255,0.06);
@@ -489,6 +489,7 @@ body::before {
 .sidebar {
   background: linear-gradient(180deg, rgba(6, 13, 25, 0.96), rgba(8, 19, 35, 0.92));
   border-right: 1px solid rgba(124, 170, 255, 0.14);
+  overflow: hidden;
 }
 .sidebar-header,
 .card-header,
@@ -503,7 +504,8 @@ body::before {
 }
 .sidebar-title {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 .sidebar-sub,
@@ -520,18 +522,25 @@ th,
 .nav-item {
   border: 1px solid transparent;
   border-radius: 18px;
+  min-height: 48px;
 }
-.nav-item:hover,
+.nav-item:hover {
+  transform: none;
+  border-color: rgba(105, 171, 255, 0.16);
+}
 .nav-item.active {
-  transform: translateX(4px);
+  transform: none;
 }
 .nav-item.active {
   background: linear-gradient(135deg, rgba(18, 107, 255, 0.2), rgba(84, 179, 255, 0.1));
   border-color: rgba(105, 171, 255, 0.24);
+  color: var(--text);
+  box-shadow: none;
 }
 .sidebar-footer {
   padding: 16px;
   border-top: 1px solid rgba(124, 170, 255, 0.12);
+  background: rgba(5, 12, 23, 0.72);
 }
 .user-info {
   display: flex;
@@ -541,6 +550,7 @@ th,
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(124, 170, 255, 0.12);
+  min-width: 0;
 }
 .user-avatar {
   width: 42px;
@@ -559,12 +569,18 @@ th,
 }
 .user-name {
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .user-role {
   font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.14em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .btn-logout {
   width: 42px;
@@ -575,6 +591,12 @@ th,
   color: var(--text);
   cursor: pointer;
   transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1;
 }
 .btn-logout:hover {
   transform: translateY(-2px);
@@ -1028,7 +1050,7 @@ tbody tr:hover {
           <div class="user-name" id="sidebarName">—</div>
           <div class="user-role" id="sidebarRole">—</div>
         </div>
-        <button class="btn-logout" onclick="doLogout()" title="Sign out">⬡</button>
+        <button class="btn-logout" onclick="doLogout()" title="Sign out" aria-label="Sign out">↗</button>
       </div>
     </div>
   </aside>
