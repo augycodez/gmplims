@@ -816,6 +816,254 @@ body:not(.light-mode) .form-field textarea:focus {
 body:not(.light-mode) .modal-footer {
   background: rgba(255, 255, 255, 0.02);
 }
+.entry-modal,
+.entry-modal.modal-lg,
+.entry-modal.modal-xl {
+  max-width: 760px;
+  max-height: min(92vh, 980px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.entry-modal .modal-header {
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 24px 18px;
+  flex-shrink: 0;
+}
+.entry-modal .modal-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.entry-modal .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02) 22%, transparent 100%);
+}
+.entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.form-stepper {
+  display: grid;
+  gap: 10px;
+}
+.form-step {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(143, 122, 104, 0.16);
+  background: rgba(255, 255, 255, 0.46);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+body:not(.light-mode) .form-step {
+  background: rgba(255, 255, 255, 0.04);
+}
+.form-step:hover {
+  transform: translateY(-1px);
+  border-color: rgba(143, 122, 104, 0.28);
+}
+.form-step.is-active {
+  border-color: rgba(143, 122, 104, 0.44);
+  background: rgba(143, 122, 104, 0.12);
+}
+.form-step.is-complete {
+  border-color: rgba(143, 122, 104, 0.24);
+  background: rgba(143, 122, 104, 0.08);
+}
+.form-step-index {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(143, 122, 104, 0.12);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.form-step.is-active .form-step-index,
+.form-step.is-complete .form-step-index {
+  background: var(--accent-grad);
+  color: #fffdf9;
+}
+.form-step-copy {
+  min-width: 0;
+}
+.form-step-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.form-step-caption {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.form-step-panel {
+  display: none;
+  animation: formStepFade .18s ease;
+}
+.form-step-panel.is-active {
+  display: block;
+}
+.form-section {
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(143, 122, 104, 0.16);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+body:not(.light-mode) .form-section {
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.form-section + .form-section {
+  margin-top: 16px;
+}
+.form-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.form-section-copy {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.entry-form .form-field {
+  margin-bottom: 16px;
+}
+.entry-form .form-field:last-child {
+  margin-bottom: 0;
+}
+.entry-form .form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.entry-form .form-field input,
+.entry-form .form-field select,
+.entry-form .form-field textarea {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 14px;
+  border-color: rgba(143, 122, 104, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+body:not(.light-mode) .entry-form .form-field input,
+body:not(.light-mode) .entry-form .form-field select,
+body:not(.light-mode) .entry-form .form-field textarea {
+  background: rgba(255, 255, 255, 0.05);
+}
+.entry-form .form-field textarea {
+  min-height: 120px;
+}
+.entry-form .form-field input[type="file"] {
+  padding: 14px 16px;
+}
+.entry-form .form-field input:focus,
+.entry-form .form-field select:focus,
+.entry-form .form-field textarea:focus {
+  border-color: rgba(143, 122, 104, 0.42);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 0 0 4px rgba(143, 122, 104, 0.1);
+}
+body:not(.light-mode) .entry-form .form-field input:focus,
+body:not(.light-mode) .entry-form .form-field select:focus,
+body:not(.light-mode) .entry-form .form-field textarea:focus {
+  background: rgba(255, 255, 255, 0.08);
+}
+.field-hint {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.entry-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.entry-form-progress {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.entry-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.entry-form-actions .btn {
+  min-width: 104px;
+}
+.entry-form-actions .btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+@keyframes formStepFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 640px) {
+  .entry-modal .modal-header,
+  .entry-modal .modal-body,
+  .entry-modal .modal-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .form-section {
+    padding: 18px;
+    border-radius: 20px;
+  }
+  .entry-form-actions {
+    width: 100%;
+  }
+  .entry-form-actions .btn {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
 .stats-grid {
   gap: 18px;
 }
@@ -1202,7 +1450,7 @@ body:not(.light-mode) .detail-panel {
 
       <!-- ─── FREEZER ────────────────────────────────────── -->
       <div id="panel-freezer" class="panel is-hidden">
-        <div class="page-header"><div><h1>Freezer Inventory</h1><p>Monitor storage units and sample locations</p></div><button class="btn btn-primary" onclick="openModal('mFreezer')">＋ Add Freezer</button></div>
+        <div class="page-header"><div><h1>Freezer Inventory</h1><p>Monitor storage units and sample locations</p></div><button class="btn btn-primary" onclick="openNewFreezer()">＋ Add Freezer</button></div>
         <div class="toolbar">
           <div class="search-box"><span class="sicon">🔍</span><input type="text" id="fzSearch" placeholder="Search by name, location or notes..." aria-label="Search freezers" oninput="renderFreezers()"><button class="search-clear" onclick="clearSearch('fzSearch', renderFreezers)" title="Clear search">×</button></div>
         </div>
@@ -1259,7 +1507,7 @@ body:not(.light-mode) .detail-panel {
 
       <!-- ─── USERS ──────────────────────────────────────── -->
       <div id="panel-users" class="panel is-hidden">
-        <div class="page-header"><div><h1>User Management</h1><p>Manage laboratory staff accounts and permissions</p></div><button class="btn btn-primary" onclick="openModal('mUser')">＋ Add User</button></div>
+        <div class="page-header"><div><h1>User Management</h1><p>Manage laboratory staff accounts and permissions</p></div><button class="btn btn-primary" onclick="openUserModal()">＋ Add User</button></div>
         <div class="card card-spaced">
           <div class="card-header"><h3>👥 System Users</h3><span class="text-meta-sm" id="userCount"></span></div>
           <div class="table-wrap"><table><thead><tr><th>Username</th><th>Full Name</th><th>Email</th><th>Role</th><th>Created</th><th>Actions</th></tr></thead><tbody id="userTable"></tbody></table></div>
@@ -1280,74 +1528,240 @@ body:not(.light-mode) .detail-panel {
 
 <!-- Sample Modal -->
 <div class="modal-overlay" id="mSample">
-  <div class="modal"><div class="modal-header"><h3 id="mSampleTitle">🧪 Register New Sample</h3><button class="modal-close" onclick="closeModal('mSample')">×</button></div>
+  <div class="modal entry-modal"><div class="modal-header"><h3 id="mSampleTitle">🧪 Register New Sample</h3><button class="modal-close" onclick="closeModal('mSample')">×</button></div>
   <div class="modal-body"><input type="hidden" id="sEditId">
-    <div class="form-row"><div class="form-field"><label for="sName">Sample Name *</label><input type="text" id="sName" placeholder="e.g. Serum Sample A"></div><div class="form-field"><label for="sType">Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="sSource">Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div><div class="form-field"><label for="sDate">Collection Date</label><input type="text" id="sDate" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row"><div class="form-field"><label for="sQty">Quantity</label><input type="number" id="sQty" placeholder="0.00" step="0.01"></div><div class="form-field"><label for="sUnit">Unit</label><select id="sUnit"><option value="">Select…</option><option>mL</option><option>µL</option><option>µg</option><option>mg</option><option>g</option><option>vials</option><option>tubes</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="sLoc">Storage Location</label><input type="text" id="sLoc" placeholder="e.g. LN2 Freezer A / Rack 1 / Box 2"></div><div class="form-field"><label for="sStat">Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div></div>
-    <div class="form-field"><label for="sNotes">Notes</label><textarea id="sNotes" placeholder="Additional notes…"></textarea></div>
+    <div class="entry-form" data-form-id="sample">
+      <div class="form-stepper" role="tablist" aria-label="Sample form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Identity</span><span class="form-step-caption">Basic sample information</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Collection</span><span class="form-step-caption">Dates and measured quantity</span></span></button>
+        <button type="button" class="form-step" data-step-target="2"><span class="form-step-index">3</span><span class="form-step-copy"><span class="form-step-label">Storage</span><span class="form-step-caption">Location, status, and notes</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">Sample identity</div>
+          <p class="form-section-copy">Start with the core information used to identify and classify this sample.</p>
+          <div class="form-field"><label for="sName">Sample Name *</label><input type="text" id="sName" placeholder="e.g. Serum Sample A"></div>
+          <div class="form-field"><label for="sType">Type</label><select id="sType"><option value="">Select…</option><option>Blood</option><option>Tissue</option><option>DNA</option><option>RNA</option><option>Protein</option><option>Cell Line</option><option>Serum</option><option>Urine</option><option>Plasma</option><option>Other</option></select></div>
+          <div class="form-field"><label for="sSource">Source / Patient ID</label><input type="text" id="sSource" placeholder="e.g. Patient-001"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Collection details</div>
+          <p class="form-section-copy">Capture when the sample was collected and the amount initially registered.</p>
+          <div class="form-field"><label for="sDate">Collection Date</label><input type="text" id="sDate" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="sQty">Quantity</label><input type="number" id="sQty" placeholder="0.00" step="0.01"></div>
+          <div class="form-field"><label for="sUnit">Unit</label><select id="sUnit"><option value="">Select…</option><option>mL</option><option>µL</option><option>µg</option><option>mg</option><option>g</option><option>vials</option><option>tubes</option></select></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Storage and notes</div>
+          <p class="form-section-copy">Finish with where the sample is stored and anything the team should know.</p>
+          <div class="form-field"><label for="sLoc">Storage Location</label><input type="text" id="sLoc" placeholder="e.g. LN2 Freezer A / Rack 1 / Box 2"></div>
+          <div class="form-field"><label for="sStat">Status</label><select id="sStat"><option value="active">Active</option><option value="in_use">In Use</option><option value="depleted">Depleted</option></select></div>
+          <div class="form-field"><label for="sNotes">Notes</label><textarea id="sNotes" placeholder="Additional notes…"></textarea></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mSample')">Cancel</button><button class="btn btn-primary" onclick="saveSample()">Save Sample</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 3</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mSample')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save onclick="saveSample()">Save Sample</button></div></div></div>
 </div>
 
 <!-- Freezer Modal -->
 <div class="modal-overlay" id="mFreezer">
-  <div class="modal"><div class="modal-header"><h3>🧊 Add New Freezer</h3><button class="modal-close" onclick="closeModal('mFreezer')">×</button></div>
+  <div class="modal entry-modal"><div class="modal-header"><h3>🧊 Add New Freezer</h3><button class="modal-close" onclick="closeModal('mFreezer')">×</button></div>
   <div class="modal-body">
-    <div class="form-row"><div class="form-field"><label for="fzName">Freezer Name *</label><input type="text" id="fzName" placeholder="e.g. Freezer D"></div><div class="form-field"><label for="fzLoc">Location</label><input type="text" id="fzLoc" placeholder="e.g. Lab Room 103"></div></div>
-    <div class="form-row"><div class="form-field"><label for="fzTemp">Temperature</label><select id="fzTemp"><option value="-80°C">-80°C (Ultra-low)</option><option value="-20°C">-20°C (Standard)</option><option value="+4°C">+4°C (Refrigerator)</option><option value="RT">Room Temperature</option></select></div><div class="form-field"><label for="fzCap">Capacity</label><input type="number" id="fzCap" value="200"></div></div>
-    <div class="form-field"><label for="fzNotes">Notes</label><textarea id="fzNotes" class="textarea-md"></textarea></div>
+    <div class="entry-form" data-form-id="freezer">
+      <div class="form-stepper" role="tablist" aria-label="Freezer form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Details</span><span class="form-step-caption">Name, place, and temperature</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Capacity</span><span class="form-step-caption">Storage size and notes</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">Freezer details</div>
+          <p class="form-section-copy">Describe the freezer and where team members can find it.</p>
+          <div class="form-field"><label for="fzName">Freezer Name *</label><input type="text" id="fzName" placeholder="e.g. Freezer D"></div>
+          <div class="form-field"><label for="fzLoc">Location</label><input type="text" id="fzLoc" placeholder="e.g. Lab Room 103"></div>
+          <div class="form-field"><label for="fzTemp">Temperature</label><select id="fzTemp"><option value="-80°C">-80°C (Ultra-low)</option><option value="-20°C">-20°C (Standard)</option><option value="+4°C">+4°C (Refrigerator)</option><option value="RT">Room Temperature</option></select></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Capacity and notes</div>
+          <p class="form-section-copy">Set the expected storage capacity and add any operating context.</p>
+          <div class="form-field"><label for="fzCap">Capacity</label><input type="number" id="fzCap" value="200"></div>
+          <div class="form-field"><label for="fzNotes">Notes</label><textarea id="fzNotes" class="textarea-md" placeholder="Access rules, maintenance notes, or special handling"></textarea></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mFreezer')">Cancel</button><button class="btn btn-primary" onclick="saveFreezer()">Add Freezer</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 2</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mFreezer')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save onclick="saveFreezer()">Add Freezer</button></div></div></div>
 </div>
 
 <!-- Reagent Modal -->
 <div class="modal-overlay" id="mReagent">
-  <div class="modal modal-xl"><div class="modal-header"><h3 id="mReagentTitle">🔬 Add Reagent</h3><button class="modal-close" onclick="closeModal('mReagent')">×</button></div>
+  <div class="modal modal-xl entry-modal"><div class="modal-header"><h3 id="mReagentTitle">🔬 Add Reagent</h3><button class="modal-close" onclick="closeModal('mReagent')">×</button></div>
   <div class="modal-body"><input type="hidden" id="rEditId">
-    <div class="form-row form-row-4"><div class="form-field"><label for="rName">Item Name *</label><input type="text" id="rName" placeholder="e.g. Tris-HCl Buffer"></div><div class="form-field"><label for="rCat">Catalogue Number</label><input type="text" id="rCat" placeholder="e.g. T1503"></div><div class="form-field"><label for="rManufacturer">Manufacturer</label><input type="text" id="rManufacturer" placeholder="e.g. Sigma-Aldrich"></div><div class="form-field"><label for="rSupplier">Supplier</label><input type="text" id="rSupplier" placeholder="e.g. Fisher Scientific"></div></div>
-    <div class="form-field"><label for="rDesc">Item Description</label><textarea id="rDesc" class="textarea-sm" placeholder="Short description of the reagent"></textarea></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rGrade">Grade</label><input type="text" id="rGrade" placeholder="e.g. Molecular Biology Grade"></div><div class="form-field"><label for="rProject">Project Name</label><input type="text" id="rProject" placeholder="e.g. Genomics Study"></div><div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div><div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rPrDate">PR Date</label><input type="text" id="rPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div><div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div><div class="form-field"><label for="rDateReceived">GR Date / Date Received</label><input type="text" id="rDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div><div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div><div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div><div class="form-field"><label for="rExp">Expiry Date</label><input type="text" id="rExp" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div><div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div><div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div><div class="form-field"><label for="rCoaFile">Upload CoA Copy</label><input type="file" id="rCoaFile" onchange="updateFileMeta('rCoaFile','rCoaFileMeta')"><div class="file-meta" id="rCoaFileMeta">No file selected</div></div></div>
-    <div class="form-field"><label for="rNotes">Notes</label><textarea id="rNotes" class="textarea-md" placeholder="Storage conditions, hazards…"></textarea></div>
+    <div class="entry-form" data-form-id="reagent">
+      <div class="form-stepper" role="tablist" aria-label="Reagent form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Item</span><span class="form-step-caption">Identity and classification</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Procurement</span><span class="form-step-caption">PR, PO, GR, and documents</span></span></button>
+        <button type="button" class="form-step" data-step-target="2"><span class="form-step-index">3</span><span class="form-step-copy"><span class="form-step-label">Inventory</span><span class="form-step-caption">Stock, storage, and notes</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">Reagent identity</div>
+          <p class="form-section-copy">Record the catalog and descriptive information your team uses to recognize this item.</p>
+          <div class="form-field"><label for="rName">Item Name *</label><input type="text" id="rName" placeholder="e.g. Tris-HCl Buffer"></div>
+          <div class="form-field"><label for="rDesc">Item Description</label><textarea id="rDesc" class="textarea-sm" placeholder="Short description of the reagent"></textarea></div>
+          <div class="form-field"><label for="rCat">Catalogue Number</label><input type="text" id="rCat" placeholder="e.g. T1503"></div>
+          <div class="form-field"><label for="rManufacturer">Manufacturer</label><input type="text" id="rManufacturer" placeholder="e.g. Sigma-Aldrich"></div>
+          <div class="form-field"><label for="rSupplier">Supplier</label><input type="text" id="rSupplier" placeholder="e.g. Fisher Scientific"></div>
+          <div class="form-field"><label for="rCat2">Category</label><select id="rCat2"><option value="">Select…</option><option>Buffer</option><option>Chemical</option><option>Solvent</option><option>Fixative</option><option>Gel</option><option>Dye</option><option>Marker</option><option>Other</option></select></div>
+          <div class="form-field"><label for="rGrade">Grade</label><input type="text" id="rGrade" placeholder="e.g. Molecular Biology Grade"></div>
+          <div class="form-field"><label for="rProject">Project Name</label><input type="text" id="rProject" placeholder="e.g. Genomics Study"></div>
+          <div class="form-field"><label for="rLot">Lot Number</label><input type="text" id="rLot"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Procurement trail</div>
+          <p class="form-section-copy">Keep purchase and receiving details together so the record is easy to audit later.</p>
+          <div class="form-field"><label for="rPrDate">PR Date</label><input type="text" id="rPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="rPoNumber">PO Number</label><input type="text" id="rPoNumber" placeholder="e.g. PO-2026-014"></div>
+          <div class="form-field"><label for="rGrNumber">GR Number</label><input type="text" id="rGrNumber" placeholder="e.g. GR-2026-014"></div>
+          <div class="form-field"><label for="rDateReceived">GR Date / Date Received</label><input type="text" id="rDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Supporting documents</div>
+          <p class="form-section-copy">Attach the available procurement files. Existing filenames remain preserved when no new file is selected.</p>
+          <div class="form-field"><label for="rPoFile">Upload PO Copy</label><input type="file" id="rPoFile" onchange="updateFileMeta('rPoFile','rPoFileMeta')"><div class="file-meta" id="rPoFileMeta">No file selected</div></div>
+          <div class="form-field"><label for="rGrFile">Upload GR Copy</label><input type="file" id="rGrFile" onchange="updateFileMeta('rGrFile','rGrFileMeta')"><div class="file-meta" id="rGrFileMeta">No file selected</div></div>
+          <div class="form-field"><label for="rCoaFile">Upload CoA Copy</label><input type="file" id="rCoaFile" onchange="updateFileMeta('rCoaFile','rCoaFileMeta')"><div class="file-meta" id="rCoaFileMeta">No file selected</div><div class="field-hint">CoA files must be smaller than 5 MB.</div></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Inventory and storage</div>
+          <p class="form-section-copy">Complete the stock record with quantity, storage requirements, and reorder guidance.</p>
+          <div class="form-field"><label for="rQty">Quantity</label><input type="number" id="rQty" step="0.01"></div>
+          <div class="form-field"><label for="rUnit">Unit</label><select id="rUnit"><option value="">Select…</option><option>mL</option><option>L</option><option>µL</option><option>g</option><option>mg</option><option>µg</option><option>pcs</option></select></div>
+          <div class="form-field"><label for="rMin">Min Stock (reorder point)</label><input type="number" id="rMin" step="0.01"></div>
+          <div class="form-field"><label for="rExp">Expiry Date</label><input type="text" id="rExp" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="rStorageTemp">Storage Temperature</label><input type="text" id="rStorageTemp" placeholder="e.g. 4°C"></div>
+          <div class="form-field"><label for="rStorageLoc">Storage Location</label><input type="text" id="rStorageLoc" placeholder="e.g. Shelf B1"></div>
+          <div class="form-field"><label for="rNotes">Notes</label><textarea id="rNotes" class="textarea-md" placeholder="Storage conditions, hazards…"></textarea></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mReagent')">Cancel</button><button class="btn btn-primary" onclick="saveReagent()">Save Reagent</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 3</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mReagent')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save onclick="saveReagent()">Save Reagent</button></div></div></div>
 </div>
 
 <!-- Plasticware Modal -->
 <div class="modal-overlay" id="mPW">
-  <div class="modal modal-xl"><div class="modal-header"><h3 id="mPWTitle">🧴 Add Plasticware</h3><button class="modal-close" onclick="closeModal('mPW')">×</button></div>
+  <div class="modal modal-xl entry-modal"><div class="modal-header"><h3 id="mPWTitle">🧴 Add Plasticware</h3><button class="modal-close" onclick="closeModal('mPW')">×</button></div>
   <div class="modal-body"><input type="hidden" id="pwEditId">
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwName">Item Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div><div class="form-field"><label for="pwCat">Catalogue Number</label><input type="text" id="pwCat"></div><div class="form-field"><label for="pwManufacturer">Manufacturer</label><input type="text" id="pwManufacturer"></div><div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div></div>
-    <div class="form-field"><label for="pwDesc">Item Description</label><textarea id="pwDesc" class="textarea-sm" placeholder="Short description of the plasticware"></textarea></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div><div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div><div class="form-field"><label for="pwExp">Expiry Date</label><input type="text" id="pwExp" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div><div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div><div class="form-field"><label for="pwDateReceived">GR Date / Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div><div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div><div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div><div class="form-field"><label for="pwMin">Min Stock</label><input type="number" id="pwMin"></div></div>
-    <div class="form-row form-row-4"><div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div><div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div><div class="form-field"><label for="pwCoaFile">Upload CoA Copy</label><input type="file" id="pwCoaFile" onchange="updateFileMeta('pwCoaFile','pwCoaFileMeta')"><div class="file-meta" id="pwCoaFileMeta">No file selected</div></div></div>
-    <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm"></textarea></div>
+    <div class="entry-form" data-form-id="plasticware">
+      <div class="form-stepper" role="tablist" aria-label="Plasticware form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Item</span><span class="form-step-caption">Identity and description</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Procurement</span><span class="form-step-caption">Purchase and receiving data</span></span></button>
+        <button type="button" class="form-step" data-step-target="2"><span class="form-step-index">3</span><span class="form-step-copy"><span class="form-step-label">Inventory</span><span class="form-step-caption">Stock, storage, and notes</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">Plasticware identity</div>
+          <p class="form-section-copy">Document the item details that help the lab distinguish this plasticware from similar stock.</p>
+          <div class="form-field"><label for="pwName">Item Name *</label><input type="text" id="pwName" placeholder="e.g. 1.5 mL Eppendorf Tubes"></div>
+          <div class="form-field"><label for="pwDesc">Item Description</label><textarea id="pwDesc" class="textarea-sm" placeholder="Short description of the plasticware"></textarea></div>
+          <div class="form-field"><label for="pwCat">Catalogue Number</label><input type="text" id="pwCat"></div>
+          <div class="form-field"><label for="pwManufacturer">Manufacturer</label><input type="text" id="pwManufacturer"></div>
+          <div class="form-field"><label for="pwSupplier">Supplier</label><input type="text" id="pwSupplier"></div>
+          <div class="form-field"><label for="pwGrade">Grade</label><input type="text" id="pwGrade" placeholder="e.g. Sterile"></div>
+          <div class="form-field"><label for="pwProject">Project Name</label><input type="text" id="pwProject" placeholder="e.g. Cell Culture Run"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Procurement trail</div>
+          <p class="form-section-copy">Keep purchase dates, receipt dates, and the matching files together for traceability.</p>
+          <div class="form-field"><label for="pwPrDate">PR Date</label><input type="text" id="pwPrDate" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="pwPoNumber">PO Number</label><input type="text" id="pwPoNumber" placeholder="e.g. PO-2026-028"></div>
+          <div class="form-field"><label for="pwGrNumber">GR Number</label><input type="text" id="pwGrNumber" placeholder="e.g. GR-2026-028"></div>
+          <div class="form-field"><label for="pwDateReceived">GR Date / Date Received</label><input type="text" id="pwDateReceived" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Supporting documents</div>
+          <p class="form-section-copy">Upload reference files if they are available.</p>
+          <div class="form-field"><label for="pwPoFile">Upload PO Copy</label><input type="file" id="pwPoFile" onchange="updateFileMeta('pwPoFile','pwPoFileMeta')"><div class="file-meta" id="pwPoFileMeta">No file selected</div></div>
+          <div class="form-field"><label for="pwGrFile">Upload GR Copy</label><input type="file" id="pwGrFile" onchange="updateFileMeta('pwGrFile','pwGrFileMeta')"><div class="file-meta" id="pwGrFileMeta">No file selected</div></div>
+          <div class="form-field"><label for="pwCoaFile">Upload CoA Copy</label><input type="file" id="pwCoaFile" onchange="updateFileMeta('pwCoaFile','pwCoaFileMeta')"><div class="file-meta" id="pwCoaFileMeta">No file selected</div><div class="field-hint">CoA files must be smaller than 5 MB.</div></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Inventory and storage</div>
+          <p class="form-section-copy">Complete the stock record, including expiry, quantity, and where the item is stored.</p>
+          <div class="form-field"><label for="pwExp">Expiry Date</label><input type="text" id="pwExp" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="pwQty">Quantity</label><input type="number" id="pwQty"></div>
+          <div class="form-field"><label for="pwUnit">Unit</label><select id="pwUnit"><option>pcs</option><option>box</option><option>case</option><option>pack</option></select></div>
+          <div class="form-field"><label for="pwStorageTemp">Storage Temperature</label><input type="text" id="pwStorageTemp" placeholder="e.g. Room temperature"></div>
+          <div class="form-field"><label for="pwStorageLoc">Storage Location</label><input type="text" id="pwStorageLoc" placeholder="e.g. Cabinet D1"></div>
+          <div class="form-field"><label for="pwMin">Min Stock</label><input type="number" id="pwMin"></div>
+          <div class="form-field"><label for="pwNotes">Notes</label><textarea id="pwNotes" class="textarea-sm" placeholder="Handling notes or storage reminders"></textarea></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mPW')">Cancel</button><button class="btn btn-primary" onclick="savePW()">Save</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 3</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mPW')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save onclick="savePW()">Save</button></div></div></div>
 </div>
 
 <!-- Experiment Modal -->
 <div class="modal-overlay" id="mExp">
-  <div class="modal modal-lg"><div class="modal-header"><h3 id="mExpTitle">📋 New Experiment</h3><button class="modal-close" onclick="closeModal('mExp')">×</button></div>
+  <div class="modal modal-lg entry-modal"><div class="modal-header"><h3 id="mExpTitle">📋 New Experiment</h3><button class="modal-close" onclick="closeModal('mExp')">×</button></div>
   <div class="modal-body"><input type="hidden" id="eEditId">
-    <div class="form-row"><div class="form-field"><label for="eTitle">Title *</label><input type="text" id="eTitle" placeholder="Experiment title"></div><div class="form-field"><label for="eType">Type</label><select id="eType"><option value="">Select…</option><option>PCR</option><option>Western Blot</option><option>ELISA</option><option>Flow Cytometry</option><option>Extraction</option><option>Assay</option><option>Sequencing</option><option>Microscopy</option><option>Cell Culture</option><option>Other</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="ePrincipal">Principal Investigator</label><input type="text" id="ePrincipal"></div><div class="form-field"><label for="eStatus">Status</label><select id="eStatus"><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select></div></div>
-    <div class="form-row"><div class="form-field"><label for="eStart">Start Date</label><input type="text" id="eStart" class="fp-date" placeholder="DD-MMM-YYYY"></div><div class="form-field"><label for="eEnd">End Date</label><input type="text" id="eEnd" class="fp-date" placeholder="DD-MMM-YYYY"></div></div>
-    <div class="form-row"><div class="form-field"><label for="eSampleConsume">Consume Sample (Optional)</label><select id="eSampleConsume"><option value="">Select Sample...</option></select></div><div class="form-field"><label for="eSampleQty">Qty to Deduct</label><input type="number" id="eSampleQty" placeholder="0.00" step="0.01"></div></div>
-    <div class="form-row"><div class="form-field"><label for="eReagentConsume">Consume Reagent (Optional)</label><select id="eReagentConsume"><option value="">Select Reagent...</option></select></div><div class="form-field"><label for="eReagentQty">Qty to Deduct</label><input type="number" id="eReagentQty" placeholder="0.00" step="0.01"></div></div>
-    <div class="form-field"><label for="eObj">Objective</label><textarea id="eObj" placeholder="Describe the scientific objective…"></textarea></div>
-    <div class="form-field"><label for="eProto">Protocol</label><textarea id="eProto" placeholder="Step-by-step protocol or reference…"></textarea></div>
-    <div class="form-field"><label for="eResults">Results</label><textarea id="eResults" placeholder="Observations and results…"></textarea></div>
-    <div class="form-field"><label for="eNotes">Notes</label><textarea id="eNotes" class="textarea-sm"></textarea></div>
+    <div class="entry-form" data-form-id="experiment">
+      <div class="form-stepper" role="tablist" aria-label="Experiment form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Overview</span><span class="form-step-caption">Planning and ownership</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Materials</span><span class="form-step-caption">Optional stock consumption</span></span></button>
+        <button type="button" class="form-step" data-step-target="2"><span class="form-step-index">3</span><span class="form-step-copy"><span class="form-step-label">Documentation</span><span class="form-step-caption">Objective, protocol, and results</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">Experiment overview</div>
+          <p class="form-section-copy">Define the experiment, its owner, and the dates the team will track.</p>
+          <div class="form-field"><label for="eTitle">Title *</label><input type="text" id="eTitle" placeholder="Experiment title"></div>
+          <div class="form-field"><label for="eType">Type</label><select id="eType"><option value="">Select…</option><option>PCR</option><option>Western Blot</option><option>ELISA</option><option>Flow Cytometry</option><option>Extraction</option><option>Assay</option><option>Sequencing</option><option>Microscopy</option><option>Cell Culture</option><option>Other</option></select></div>
+          <div class="form-field"><label for="ePrincipal">Principal Investigator</label><input type="text" id="ePrincipal"></div>
+          <div class="form-field"><label for="eStatus">Status</label><select id="eStatus"><option value="planned">Planned</option><option value="in_progress">In Progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select></div>
+          <div class="form-field"><label for="eStart">Start Date</label><input type="text" id="eStart" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="eEnd">End Date</label><input type="text" id="eEnd" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Material consumption</div>
+          <p class="form-section-copy">Optional: deduct sample or reagent stock when this experiment is first created.</p>
+          <div class="form-field"><label for="eSampleConsume">Consume Sample (Optional)</label><select id="eSampleConsume"><option value="">Select Sample...</option></select></div>
+          <div class="form-field"><label for="eSampleQty">Qty to Deduct</label><input type="number" id="eSampleQty" placeholder="0.00" step="0.01"></div>
+          <div class="form-field"><label for="eReagentConsume">Consume Reagent (Optional)</label><select id="eReagentConsume"><option value="">Select Reagent...</option></select></div>
+          <div class="form-field"><label for="eReagentQty">Qty to Deduct</label><input type="number" id="eReagentQty" placeholder="0.00" step="0.01"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Scientific record</div>
+          <p class="form-section-copy">Capture the narrative parts of the experiment in a focused, readable flow.</p>
+          <div class="form-field"><label for="eObj">Objective</label><textarea id="eObj" placeholder="Describe the scientific objective…"></textarea></div>
+          <div class="form-field"><label for="eProto">Protocol</label><textarea id="eProto" placeholder="Step-by-step protocol or reference…"></textarea></div>
+          <div class="form-field"><label for="eResults">Results</label><textarea id="eResults" placeholder="Observations and results…"></textarea></div>
+          <div class="form-field"><label for="eNotes">Notes</label><textarea id="eNotes" class="textarea-sm" placeholder="Additional context or follow-up items"></textarea></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mExp')">Cancel</button><button class="btn btn-primary" onclick="saveExp()">Save Experiment</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 3</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mExp')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save onclick="saveExp()">Save Experiment</button></div></div></div>
 </div>
 
 <!-- Detail Modal (shared view) -->
@@ -1359,22 +1773,40 @@ body:not(.light-mode) .detail-panel {
 
 <!-- User Modal -->
 <div class="modal-overlay" id="mUser">
-  <div class="modal"><div class="modal-header"><h3>👤 Add New User</h3><button class="modal-close" onclick="closeModal('mUser')">×</button></div>
+  <div class="modal entry-modal"><div class="modal-header"><h3>👤 Add New User</h3><button class="modal-close" onclick="closeModal('mUser')">×</button></div>
   <div class="modal-body">
-    <div class="form-field"><label for="uName">Full Name</label><input type="text" id="uName" placeholder="Dr. Jane Smith"></div>
-    <div class="form-field"><label for="uUser">Username *</label><input type="text" id="uUser" placeholder="jsmith"></div>
-    <div class="form-field"><label for="uEmail">Email</label><input type="email" id="uEmail" placeholder="jsmith@lab.com"></div>
-    <div class="form-field"><label for="uRole">Role</label><select id="uRole"><option value="operator">Operator</option><option value="admin">Administrator</option></select></div>
-    <div class="form-field"><label for="uCreated">Date Created</label><input type="text" id="uCreated" class="fp-date" placeholder="DD-MMM-YYYY"></div>
-    <div class="form-field"><label for="uPass">Password *</label><input type="password" id="uPass" placeholder="Min 6 characters"></div>
+    <div class="entry-form" data-form-id="user">
+      <div class="form-stepper" role="tablist" aria-label="User form steps">
+        <button type="button" class="form-step" data-step-target="0"><span class="form-step-index">1</span><span class="form-step-copy"><span class="form-step-label">Profile</span><span class="form-step-caption">Identity and contact information</span></span></button>
+        <button type="button" class="form-step" data-step-target="1"><span class="form-step-index">2</span><span class="form-step-copy"><span class="form-step-label">Access</span><span class="form-step-caption">Role and account setup</span></span></button>
+      </div>
+      <section class="form-step-panel is-active">
+        <div class="form-section">
+          <div class="form-section-title">User profile</div>
+          <p class="form-section-copy">Start with the person’s identity and how the lab team should recognize them.</p>
+          <div class="form-field"><label for="uName">Full Name</label><input type="text" id="uName" placeholder="Dr. Jane Smith"></div>
+          <div class="form-field"><label for="uUser">Username *</label><input type="text" id="uUser" placeholder="jsmith"></div>
+          <div class="form-field"><label for="uEmail">Email</label><input type="email" id="uEmail" placeholder="jsmith@lab.com"></div>
+        </div>
+      </section>
+      <section class="form-step-panel">
+        <div class="form-section">
+          <div class="form-section-title">Access settings</div>
+          <p class="form-section-copy">Assign the user role and set the initial account credentials.</p>
+          <div class="form-field"><label for="uRole">Role</label><select id="uRole"><option value="operator">Operator</option><option value="admin">Administrator</option></select></div>
+          <div class="form-field"><label for="uCreated">Date Created</label><input type="text" id="uCreated" class="fp-date" placeholder="DD-MMM-YYYY"></div>
+          <div class="form-field"><label for="uPass">Password *</label><input type="password" id="uPass" placeholder="Min 6 characters"></div>
+        </div>
+      </section>
+    </div>
   </div>
-  <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mUser')">Cancel</button><button class="btn btn-primary" id="btnCreateUser" onclick="createUser()">Create User</button></div></div>
+  <div class="modal-footer entry-form-footer"><div class="entry-form-progress" data-form-progress>Step 1 of 2</div><div class="entry-form-actions"><button class="btn btn-secondary" onclick="closeModal('mUser')">Cancel</button><button class="btn btn-secondary" type="button" data-form-prev>Back</button><button class="btn btn-primary" type="button" data-form-next>Next</button><button class="btn btn-primary is-hidden" type="button" data-form-save id="btnCreateUser" onclick="createUser()">Create User</button></div></div></div>
 </div>
 
 <!-- Reset Password Modal -->
 <div class="modal-overlay" id="mReset">
-  <div class="modal"><div class="modal-header"><h3>🔐 Reset Password</h3><button class="modal-close" onclick="closeModal('mReset')">×</button></div>
-  <div class="modal-body"><input type="hidden" id="resetUid"><p class="text-muted-body" id="resetName"></p><div class="form-field"><label for="newPass">New Password *</label><input type="password" id="newPass" placeholder="Min 6 characters"></div></div>
+  <div class="modal entry-modal"><div class="modal-header"><h3>🔐 Reset Password</h3><button class="modal-close" onclick="closeModal('mReset')">×</button></div>
+  <div class="modal-body"><input type="hidden" id="resetUid"><div class="entry-form"><div class="form-section"><div class="form-section-title">Reset credentials</div><p class="form-section-copy text-muted-body" id="resetName"></p><div class="form-field"><label for="newPass">New Password *</label><input type="password" id="newPass" placeholder="Min 6 characters"></div></div></div></div>
   <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mReset')">Cancel</button><button class="btn btn-warn" onclick="doReset()">Reset Password</button></div></div>
 </div>
 
@@ -1543,7 +1975,63 @@ function tick() {
 tick(); setInterval(tick, 1000);
 
 /* ── MODAL HELPERS ───────────────────────────────────────── */
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function getSteppedFormConfig(modal) {
+  if (!modal) return null;
+  const form = modal.querySelector('.entry-form');
+  if (!form) return null;
+  return {
+    form,
+    steps: [...form.querySelectorAll('.form-step')],
+    panels: [...form.querySelectorAll('.form-step-panel')],
+    prevBtn: modal.querySelector('[data-form-prev]'),
+    nextBtn: modal.querySelector('[data-form-next]'),
+    saveBtn: modal.querySelector('[data-form-save]'),
+    progress: modal.querySelector('[data-form-progress]')
+  };
+}
+function setSteppedFormStep(modalOrId, stepIndex) {
+  const modal = typeof modalOrId === 'string' ? document.getElementById(modalOrId) : modalOrId;
+  const config = getSteppedFormConfig(modal);
+  if (!config || !config.panels.length) return;
+  const maxIndex = config.panels.length - 1;
+  const nextIndex = Math.max(0, Math.min(stepIndex, maxIndex));
+  config.form.dataset.currentStep = String(nextIndex);
+  config.steps.forEach((step, index) => {
+    const isActive = index === nextIndex;
+    step.classList.toggle('is-active', isActive);
+    step.classList.toggle('is-complete', index < nextIndex);
+    step.setAttribute('aria-current', isActive ? 'step' : 'false');
+  });
+  config.panels.forEach((panel, index) => panel.classList.toggle('is-active', index === nextIndex));
+  if (config.prevBtn) config.prevBtn.disabled = nextIndex === 0;
+  if (config.nextBtn) config.nextBtn.classList.toggle('is-hidden', nextIndex === maxIndex);
+  if (config.saveBtn) config.saveBtn.classList.toggle('is-hidden', nextIndex !== maxIndex);
+  if (config.progress) config.progress.textContent = `Step ${nextIndex + 1} of ${config.panels.length}`;
+}
+function changeSteppedFormStep(modalOrId, delta) {
+  const modal = typeof modalOrId === 'string' ? document.getElementById(modalOrId) : modalOrId;
+  const config = getSteppedFormConfig(modal);
+  if (!config) return;
+  const currentStep = Number(config.form.dataset.currentStep || 0);
+  setSteppedFormStep(modal, currentStep + delta);
+}
+function wireSteppedForms() {
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    const config = getSteppedFormConfig(modal);
+    if (!config) return;
+    config.steps.forEach((step, index) => {
+      step.addEventListener('click', () => setSteppedFormStep(modal, index));
+    });
+    if (config.prevBtn) config.prevBtn.addEventListener('click', () => changeSteppedFormStep(modal, -1));
+    if (config.nextBtn) config.nextBtn.addEventListener('click', () => changeSteppedFormStep(modal, 1));
+    setSteppedFormStep(modal, 0);
+  });
+}
+function openModal(id) {
+  const modal = document.getElementById(id);
+  modal.classList.add('open');
+  setSteppedFormStep(modal, 0);
+}
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function clearSearch(id, fn) { const el = document.getElementById(id); if (el) { el.value = ''; fn(); el.focus(); } }
 
@@ -1631,6 +2119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clickOpens: true
     });
   }
+  wireSteppedForms();
 
   // Sync theme icon on load
   if (document.body.classList.contains('light-mode')) {
@@ -1787,6 +2276,12 @@ function showFreezerSamples(id){
   panel.classList.add('open'); panel.scrollIntoView({behavior:'smooth'});
   const samples=FREEZER_SAMPLES[id]||[];
   document.getElementById('freezerSampleRows').innerHTML=samples.length?samples.map(s=>`<tr><td class="td-mono td-accent">${s.sample_id}</td><td>${s.name}</td><td>${s.type}</td><td class="td-mono">${s.rack}</td><td class="td-mono">${s.box}</td><td class="td-mono">${s.position}</td><td><span class="badge badge-${s.status}">${s.status}</span></td></tr>`).join(''):`<tr><td colspan="7"><div class="empty-state empty-state-compact"><div class="eicon">📦</div><h3>Empty freezer</h3></div></td></tr>`;
+}
+function openNewFreezer(){
+  ['fzName','fzLoc','fzNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fzTemp').value = '-80°C';
+  document.getElementById('fzCap').value = 200;
+  openModal('mFreezer');
 }
 function saveFreezer(){
   const name=document.getElementById('fzName').value.trim();
